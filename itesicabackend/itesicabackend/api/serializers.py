@@ -3,9 +3,6 @@ from .models import Note
 
 
 class NoteSerializer(serializers.ModelSerializer):
-    children = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
-
     class Meta:
         model = Note
-        fields = ['id', 'title', 'content', 'created_at',
-                  'updated_at', 'user', 'parent', 'children']
+        fields = '__all__'

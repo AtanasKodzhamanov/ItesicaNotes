@@ -14,6 +14,7 @@ class HelloView(APIView):
 
 class NoteList(generics.ListCreateAPIView):
     permission_classes = [IsAuthenticated]
+    serializer_class = NoteSerializer
 
     def get_queryset(self):
         return Note.objects.filter(user=self.request.user)
