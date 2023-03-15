@@ -1,45 +1,26 @@
-import React, { useState } from "react";
-import NodeForm from "./NodeForm";
+import React from 'react';
 
-const Node = ({ title, text, children = [], index, onSubmit }) => {
-  const [isExpanded, setIsExpanded] = useState(false);
-
-  const handleExpandClick = () => {
-    setIsExpanded(!isExpanded);
+const Node = ({ id, title, text, children }) => {
+  const renderChildren = (children) => {
+    return children.map((child) => (
+      <Node
+        key={child.id}
+        id={child.id}
+        title={child.title}
+        text={child.content}
+        children={child.children}
+      />
+    ));
   };
-
-  const handleFormSubmit = (title, text) => {
-    const parentIndex = index;
-    console.log("onSubmit: ", onSubmit);
-    onSubmit(title, text, parentIndex);
-  };
-
-  console.log("onSubmit in Node: ", onSubmit);
 
   return (
     <div>
-      <div onClick={handleExpandClick}>
-        <h2>{title}</h2>
-        <p>{text}</p>
-      </div>
-      <button onClick={handleExpandClick}>
-        {isExpanded ? "Collapse" : "Expand"}
-      </button>
-      {isExpanded && (
-        <div>
-          {children.map((child, childIndex) => (
-            <div key={childIndex}>
-              <Node
-                title={child.title}
-                text={child.text}
-                children={child.children}
-                index={childIndex}
-                onSubmit={onSubmit}
-              />
-            </div>
-          ))}
-          <NodeForm onSubmit={handleFormSubmit} parentIndex={index} />
-        </div>
+      <h2>{title}</h2>
+      <p>{text}</p>
+      {children && children.length > 0 && (
+        <ul>
+          {renderChildren(children)}
+        </ul>
       )}
     </div>
   );

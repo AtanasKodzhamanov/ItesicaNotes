@@ -1,92 +1,94 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Node from "./components/Node";
-import NodeForm from "./components/NodeForm";
-import { v4 as uuidv4 } from "uuid";
+import LoginForm from './components/LoginForm';
 
 const App = () => {
-  const [nodes, setNodes] = useState([
-    {
-      id: uuidv4(),
-      title: "Root Node",
-      text: "This is the root node",
-      children: [],
-    },
-  ]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const loginUser = async (username, password) => {
+    const response = await fetch("http://localhost:8000/api-token-auth/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username, password }),
+    });
+  
+    if (response.ok) {
+      const data = await response.json();
+      const authToken = data.token;
+      localStorage.setItem("authToken", authToken);
+      setIsLoggedIn(true);
+    } else {
+      // Handle login error
+    }
+  };
+
+  
 
   const [notes, setNotes] = useState([]);
+
   useEffect(() => {
-    fetch('http://localhost:8000/api/notes/')
-      .then(response => response.json())
-      .then(data => setNotes(data))
-      .catch(error => console.error(error));
-  }, []);
+    if (isLoggedIn) {
+      const authToken = localStorage.getItem("authToken");
+      fetch("http://localhost:8000/api/notes/", {
+        headers: {
+          Authorization: `Token ${authToken}`,
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => setNotes(data))
+        .catch((error) => console.error(error));
+    }
+  }, [isLoggedIn]);
+  
 
-
-
-  const handleFormSubmit = (title, text, parentId) => {
-    const newNodes = [...nodes];
-    const newNode = {
-      id: uuidv4(),
-      title,
-      text,
-      children: [],
-    };
-
-    if (parentId === "") {
-      newNodes.push(newNode);
-    } else {
-      const parent = newNodes.find((node) => node.id === parentId);
-      if (parent) {
-        parent.children.push(newNode);
-      }
+  const renderChildren = (children) => {
+    if (!children) {
+      return null;
     }
 
-    setNodes(newNodes);
+    return children.map((child) => (
+      <Node
+        key={child.id}
+        id={child.id}
+        title={child.title}
+        text={child.content}
+        children={child.children}
+      />
+    ));
   };
 
-  const handleDelete = (nodeId, parent) => {
-    const newNodes = [...nodes];
-    if (parent === "") {
-      newNodes.splice(nodeId, 1);
-    } else {
-      const parentIndex = newNodes.findIndex((node) => node.id === parent);
-      newNodes[parentIndex].children.splice(nodeId, 1);
-    }
-    setNodes(newNodes);
-  };
-
-  const handleChildFormSubmit = (title, text, parentId) => {
-    handleFormSubmit(title, text, parentId);
+  const logoutUser = () => {
+    localStorage.removeItem("authToken");
+    setIsLoggedIn(false);
+    setNotes([]);
   };
 
   return (
     <div>
-    <div>
-    <h1>My Notes</h1>
-    <ul>
-      {notes.map(note => (
-        <li key={note.id}>
-          <h2>{note.title}</h2>
-          <p>{note.content}</p>
-        </li>
-      ))}
-    </ul>
-  </div>
-    <div>
-      <NodeForm onSubmit={handleFormSubmit} />
-      {nodes.map((node) => (
-        <Node
-          key={node.id}
-          id={node.id}
-          title={node.title}
-          text={node.text}
-          children={node.children}
-          onSubmit={handleFormSubmit}
-          onDelete={handleDelete}
-          onChildFormSubmit={handleChildFormSubmit}
-        />
-      ))}
-    </div>
+      <LoginForm onLogin={loginUser} />
+      {isLoggedIn && <button onClick={logoutUser}>Logout</button>}
+    {isLoggedIn ? (
+        <>
+          <h1>My Notes</h1>
+          <ul>
+            {notes.map((note) => (
+              <li key={note.id}>
+                <Node
+                  id={note.id}
+                  title={note.title}
+                  text={note.content}
+                  children={note.children}
+                />
+                {renderChildren(note.children)}
+              </li>
+            ))}
+          </ul>
+        </>
+      ) : (
+        <p>Please log in to view your notes.</p>
+      )}
     </div>
   );
 };
