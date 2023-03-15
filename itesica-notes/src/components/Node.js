@@ -1,27 +1,17 @@
-import React from 'react';
+import React from "react";
 
-const Node = ({ id, title, text, children }) => {
-  const renderChildren = (children) => {
-    return children.map((child) => (
-      <Node
-        key={child.id}
-        id={child.id}
-        title={child.title}
-        text={child.content}
-        children={child.children}
-      />
-    ));
+const Node = ({ id, title, text, children, toggleChildrenVisibility }) => {
+  const handleClick = () => {
+    toggleChildrenVisibility(id);
+    console.log(`Node ${id} clicked!`);
+    console.log(`children ${children} clicked!`);
   };
 
   return (
-    <div>
-      <h2>{title}</h2>
+    <div onClick={handleClick} style={{ cursor: "pointer" }}>
+      
+      <h3>{title}</h3>
       <p>{text}</p>
-      {children && children.length > 0 && (
-        <ul>
-          {renderChildren(children)}
-        </ul>
-      )}
     </div>
   );
 };
