@@ -5,12 +5,17 @@ const useAuth = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [authToken, setAuthToken] = useState(null);
   const [error, setError] = useState(null);
+  const [userId, setUserId] = useState(null); // Add a new state variable for userId
 
   useEffect(() => {
     const storedToken = localStorage.getItem('authToken');
+    const storedUserId = localStorage.getItem('userId');
     if (storedToken) {
       setAuthToken(storedToken);
       setIsLoggedIn(true);
+    }
+    if (storedUserId) {
+      setUserId(storedUserId); // Set the userId state if it's in localStorage
     }
   }, []);
 
@@ -28,9 +33,14 @@ const useAuth = () => {
         const data = await response.json();
         const authToken = data.token;
         localStorage.setItem('authToken', authToken);
+        const userId = data.user_id; // Extract user_id from the response
+        console.log("userid", data.user_id)
         setAuthToken(authToken);
         setIsLoggedIn(true);
         setError(null);
+        localStorage.setItem("userId", userId); // Save user_id to localStorage
+        setUserId(userId); // Update the userId state
+
       } else {
         const errorData = await response.json();
         setError(errorData);
@@ -42,8 +52,10 @@ const useAuth = () => {
 
   const logoutUser = () => {
     localStorage.removeItem('authToken');
+    localStorage.removeItem('userId'); // Remove the userId from localStorage
     setAuthToken(null);
     setIsLoggedIn(false);
+    setUserId(null); // Reset the userId state
   };
 
   return {
@@ -52,6 +64,7 @@ const useAuth = () => {
     loginUser,
     logoutUser,
     error,
+    userId, // Include the userId here
   };
 };
 
