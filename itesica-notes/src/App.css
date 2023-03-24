@@ -126,3 +126,31 @@ form {
   padding: 20px;
   border-radius: 5px;
 }
+
+/* app.css */
+
+.node {
+  background-color: #f1f1f1;
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.node h2 {
+  margin-top: 0;
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+
+.node button {
+  margin-top: 10px;
+}
+
+.node-add-child {
+  background-color: #fff;
+  padding: 10px;
+  margin-top: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}

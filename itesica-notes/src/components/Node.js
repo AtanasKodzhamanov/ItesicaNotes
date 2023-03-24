@@ -20,14 +20,14 @@ const Node = ({
   };
 
   return (
-    <div>
+    <div className="node">
       <h2 onClick={() => toggleChildrenVisibility(id)}>{title}</h2>
       <p>{text}</p>
       <button onClick={() => setAddingChild(!addingChild)}>
         {addingChild ? 'Cancel' : 'Add Child'}
       </button>
       {addingChild && (
-        <div>
+        <div className="node-add-child">
           <label htmlFor={`childTitle${id}`}>Child Title:</label>
           <input
             type="text"
