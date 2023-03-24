@@ -20,6 +20,7 @@ const App = () => {
   const [notes, setNotes] = useState([]);
   const [showRegisterForm, setShowRegisterForm] = useState(false); // Add a state to toggle between LoginForm and RegisterForm
 
+
   useEffect(() => {
     if (isLoggedIn) {
       fetch('http://localhost:8000/api/notes/', {
@@ -134,6 +135,31 @@ const App = () => {
     }
   };
   
+  const updateNode = async (id, title, content) => {
+    const authToken = localStorage.getItem("authToken");
+    const userId = parseInt(localStorage.getItem("userId"), 10);
+
+    const response = await fetch(`http://localhost:8000/api/notes/${id}/`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Token ${authToken}`,
+      },
+      body: JSON.stringify({ title, content, user: userId }),
+    });
+  
+    if (response.ok) {
+      const updatedNode = await response.json();
+      setNotes(
+        notes.map((node) =>
+          node.id === updatedNode.id ? updatedNode : node
+        )
+      );
+    } else {
+      const errorData = await response.json(); // Get the error data
+      console.error("Failed to update node:", errorData); // Print the error data
+    }
+  };
   
   
 
@@ -168,6 +194,7 @@ const App = () => {
                     title={note.title}
                     text={note.content}
                     children={note.children}
+                    onUpdate={updateNode}
                     toggleChildrenVisibility={toggleChildrenVisibility}
                     onAddChild={(title, content) =>
                       createNode(title, content, note.id)

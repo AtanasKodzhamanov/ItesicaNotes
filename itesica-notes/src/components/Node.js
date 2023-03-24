@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 const Node = ({
   id,
@@ -7,24 +7,58 @@ const Node = ({
   children,
   toggleChildrenVisibility,
   onAddChild,
+  onUpdate, // Add onUpdate prop
 }) => {
   const [addingChild, setAddingChild] = useState(false);
-  const [childTitle, setChildTitle] = useState('');
-  const [childContent, setChildContent] = useState('');
+  const [childTitle, setChildTitle] = useState("");
+  const [childContent, setChildContent] = useState("");
+  const [editing, setEditing] = useState(false);
+  const [newTitle, setNewTitle] = useState(title);
+  const [newContent, setNewContent] = useState(text);
 
   const handleAddChild = () => {
     onAddChild(childTitle, childContent, id);
-    setChildTitle('');
-    setChildContent('');
+    setChildTitle("");
+    setChildContent("");
     setAddingChild(false);
+  };
+
+  const handleUpdate = () => {
+    onUpdate(id, newTitle, newContent);
+    setEditing(false);
   };
 
   return (
     <div className="node">
-      <h2 onClick={() => toggleChildrenVisibility(id)}>{title}</h2>
-      <p>{text}</p>
+      {!editing && (
+        <>
+          <h2 onClick={() => toggleChildrenVisibility(id)}>{title}</h2>
+          <p>{text}</p>
+        </>
+      )}
+      {editing && (
+        <>
+          <label htmlFor={`newTitle${id}`}>New Title:</label>
+          <input
+            type="text"
+            id={`newTitle${id}`}
+            value={newTitle}
+            onChange={(e) => setNewTitle(e.target.value)}
+          />
+          <label htmlFor={`newContent${id}`}>New Content:</label>
+          <textarea
+            id={`newContent${id}`}
+            value={newContent}
+            onChange={(e) => setNewContent(e.target.value)}
+          />
+          <button onClick={handleUpdate}>Save Changes</button>
+        </>
+      )}
+      <button onClick={() => setEditing(!editing)}>
+        {editing ? "Cancel" : "Edit"}
+      </button>
       <button onClick={() => setAddingChild(!addingChild)}>
-        {addingChild ? 'Cancel' : 'Add Child'}
+        {addingChild ? "Cancel" : "Add Child"}
       </button>
       {addingChild && (
         <div className="node-add-child">
