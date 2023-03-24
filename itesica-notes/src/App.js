@@ -19,6 +19,7 @@ const App = () => {
   const [visibleNotes, setVisibleNotes] = useState([]);
   const [notes, setNotes] = useState([]);
   const [showRegisterForm, setShowRegisterForm] = useState(false); // Add a state to toggle between LoginForm and RegisterForm
+  const username = localStorage.getItem("username");
 
 
   useEffect(() => {
@@ -220,7 +221,7 @@ const App = () => {
       {isLoggedIn && (
         <>
           <button onClick={logoutUser}>Logout</button>
-          <h1>My Notes</h1>
+          <h1>Hi, {username}! </h1>
           <NewNodeForm onCreate={(title, content) => createNode(title, content)} />
           <ul>
             {notes

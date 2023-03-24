@@ -4,18 +4,24 @@ import { useState, useEffect } from 'react';
 const useAuth = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [authToken, setAuthToken] = useState(null);
+  const [username, setUsername] = useState(null);
   const [error, setError] = useState(null);
   const [userId, setUserId] = useState(null); // Add a new state variable for userId
 
   useEffect(() => {
     const storedToken = localStorage.getItem('authToken');
     const storedUserId = localStorage.getItem('userId');
+    const storedUsername = localStorage.getItem("username");
+
     if (storedToken) {
       setAuthToken(storedToken);
       setIsLoggedIn(true);
     }
     if (storedUserId) {
       setUserId(storedUserId); // Set the userId state if it's in localStorage
+    }
+    if (storedUsername) {
+      setUsername(storedUsername);
     }
   }, []);
 
@@ -33,6 +39,7 @@ const useAuth = () => {
         const data = await response.json();
         const authToken = data.token;
         localStorage.setItem('authToken', authToken);
+        localStorage.setItem("username", username);
         const userId = data.user_id; // Extract user_id from the response
         console.log("userid", data.user_id)
         setAuthToken(authToken);
@@ -53,6 +60,7 @@ const useAuth = () => {
   const logoutUser = () => {
     localStorage.removeItem('authToken');
     localStorage.removeItem('userId'); // Remove the userId from localStorage
+    localStorage.removeItem("username");
     setAuthToken(null);
     setIsLoggedIn(false);
     setUserId(null); // Reset the userId state
@@ -64,6 +72,7 @@ const useAuth = () => {
     loginUser,
     logoutUser,
     error,
+    username,
     userId, // Include the userId here
   };
 };
