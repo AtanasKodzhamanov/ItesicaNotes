@@ -7,7 +7,8 @@ const Node = ({
   children,
   toggleChildrenVisibility,
   onAddChild,
-  onUpdate, // Add onUpdate prop
+  onDelete,
+  onUpdate,
 }) => {
   const [addingChild, setAddingChild] = useState(false);
   const [childTitle, setChildTitle] = useState("");
@@ -26,6 +27,10 @@ const Node = ({
   const handleUpdate = () => {
     onUpdate(id, newTitle, newContent);
     setEditing(false);
+  };
+
+  const handleDelete = () => {
+    onDelete(id);
   };
 
   return (
@@ -52,14 +57,17 @@ const Node = ({
             onChange={(e) => setNewContent(e.target.value)}
           />
           <button onClick={handleUpdate}>Save Changes</button>
+          <button onClick={handleDelete}>Delete</button>
         </>
       )}
       <button onClick={() => setEditing(!editing)}>
         {editing ? "Cancel" : "Edit"}
       </button>
-      <button onClick={() => setAddingChild(!addingChild)}>
-        {addingChild ? "Cancel" : "Add Child"}
-      </button>
+      {!editing && (
+        <button onClick={() => setAddingChild(!addingChild)}>
+          {addingChild ? "Cancel" : "Add Child"}
+        </button>
+      )}
       {addingChild && (
         <div className="node-add-child">
           <label htmlFor={`childTitle${id}`}>Child Title:</label>

@@ -58,6 +58,7 @@ const App = () => {
                     title={child.title}
                     text={child.content}
                     children={child.children}
+                    onDelete={deleteNode}
                     toggleChildrenVisibility={toggleChildrenVisibility}
                     onAddChild={createNode} // Pass createNode function as onAddChild prop
                   />
@@ -124,16 +125,21 @@ const App = () => {
   
     if (response.ok) {
       const newNode = await response.json();
-      setNotes([...notes, newNode]);
-  
       if (parentId) {
-        setVisibleNotes([...visibleNotes, parentId]);
+        const parentIndex = notes.findIndex((note) => note.id === parentId);
+        const newNotes = [...notes];
+        newNotes[parentIndex].children.push(newNode);
+        setNotes(newNotes);
+      } else {
+        setNotes([...notes, newNode]);
       }
     } else {
       const errorData = await response.json();
       console.error("Error creating node:", errorData);
     }
   };
+    
+  
   
   const updateNode = async (id, title, content) => {
     const authToken = localStorage.getItem("authToken");
@@ -160,6 +166,38 @@ const App = () => {
       console.error("Failed to update node:", errorData); // Print the error data
     }
   };
+  
+  const deleteNode = async (id) => {
+    const authToken = localStorage.getItem("authToken");
+    const userId = parseInt(localStorage.getItem("userId"), 10);
+  
+    const deleteNodeRecursive = async (nodeId) => {
+      const node = notes.find((note) => note.id === nodeId);
+  
+      if (node && node.children) {
+        for (const childId of node.children) {
+          await deleteNodeRecursive(childId);
+        }
+      }
+  
+      const response = await fetch(`http://localhost:8000/api/notes/${nodeId}/`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Token ${authToken}`,
+        },
+        body: JSON.stringify({ user: userId }),
+      });
+  
+      if (!response.ok) {
+        console.error("Failed to delete node");
+      }
+    };
+  
+    await deleteNodeRecursive(id);
+    setNotes(notes.filter((note) => note.id !== id));
+  };
+  
   
   
 
@@ -195,6 +233,7 @@ const App = () => {
                     text={note.content}
                     children={note.children}
                     onUpdate={updateNode}
+                    onDelete={deleteNode}
                     toggleChildrenVisibility={toggleChildrenVisibility}
                     onAddChild={(title, content) =>
                       createNode(title, content, note.id)
