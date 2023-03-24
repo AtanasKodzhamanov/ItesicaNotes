@@ -1,21 +1,24 @@
-// App.js
 import React, { useState, useEffect } from 'react';
 import Node from './components/Node';
 import LoginForm from './components/LoginForm';
+import RegisterForm from './components/RegisterForm'; // Import RegisterForm component
 import useAuth from './hooks/useAuth';
-import "./App.css"; // Import the CSS file
+import './App.css'; // Import the CSS file
+import useRegister from './hooks/useRegister'; // Import useRegister hook
 
 const App = () => {
   const {
     isLoggedIn,
     authToken,
     loginUser,
+    registerUser, // Add registerUser function from useAuth
     logoutUser,
     error,
     userId,
   } = useAuth();
   const [visibleNotes, setVisibleNotes] = useState([]);
   const [notes, setNotes] = useState([]);
+  const [showRegisterForm, setShowRegisterForm] = useState(false); // Add a state to toggle between LoginForm and RegisterForm
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -136,35 +139,48 @@ const App = () => {
 
   return (
     <div>
-    <LoginForm onLogin={loginUser} />
-    {error && <p>Error: {error.non_field_errors.join(', ')}</p>}
-    <NewNodeForm onCreate={(title, content) => createNode(title, content)} />
-    {isLoggedIn && (
-    <>
-      <button onClick={logoutUser}>Logout</button>
-      <h1>My Notes</h1>
-      <ul>
-        {notes
-          .filter((note) => note.parent === null)
-          .map((note) => (
-            <li key={note.id}>
-              <Node
-                id={note.id}
-                title={note.title}
-                text={note.content}
-                children={note.children}
-                toggleChildrenVisibility={toggleChildrenVisibility}
-                onAddChild={(title, content) => createNode(title, content, note.id)}
-              />
-              {renderChildren(note.children, note.id)}
-            </li>
-          ))}
-      </ul>
-    </>
-  )}
-</div>
-);
+      {!isLoggedIn && (
+        <>
+          {showRegisterForm ? (
+            <RegisterForm onRegister={registerUser} />
+          ) : (
+            <LoginForm onLogin={loginUser} />
+          )}
+          <button onClick={() => setShowRegisterForm(!showRegisterForm)}>
+            {showRegisterForm ? 'Login' : 'Register'}
+          </button>
+        </>
+      )}
+      {error && <p>Error: {error.non_field_errors.join(', ')}</p>}
+      
+      {isLoggedIn && (
+        <>
+          <button onClick={logoutUser}>Logout</button>
+          <h1>My Notes</h1>
+          <NewNodeForm onCreate={(title, content) => createNode(title, content)} />
+          <ul>
+            {notes
+              .filter((note) => note.parent === null)
+              .map((note) => (
+                <li key={note.id}>
+                  <Node
+                    id={note.id}
+                    title={note.title}
+                    text={note.content}
+                    children={note.children}
+                    toggleChildrenVisibility={toggleChildrenVisibility}
+                    onAddChild={(title, content) =>
+                      createNode(title, content, note.id)
+                    }
+                  />
+                  {renderChildren(note.children, note.id)}
+                </li>
+              ))}
+          </ul>
+        </>
+      )}
+    </div>
+  );
 };
 
 export default App;
-
