@@ -154,3 +154,7 @@ form {
   border: 1px solid #ccc;
   border-radius: 5px;
 }
+
+.child-wrapper {
+  margin-left: 25px;
+}
