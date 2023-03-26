@@ -135,12 +135,14 @@ form {
   margin: 10px 0;
   border-radius: 5px;
   border: 1px solid #ccc;
+
 }
 
 .node h2 {
   margin-top: 0;
   margin-bottom: 5px;
   cursor: pointer;
+
 }
 
 .node button {
@@ -157,4 +159,82 @@ form {
 
 .child-wrapper {
   margin-left: 25px;
+}
+
+/* app.css */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #282c34;
+  color: white;
+}
+
+.header-title {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  font-size: calc(10px + 1vmin);
+  font-weight: bold;
+}
+
+.header-links {
+  display: flex;
+  gap: 20px;
+  font-size: calc(10px + 1vmin);
+}
+
+.header-links a {
+  text-decoration: none;
+  color: white;
+  position: relative;
+  transition: all 0.3s;
+}
+
+.header-links a:before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #61dafb;
+  visibility: hidden;
+  transform: scaleX(0);
+  transition: all 0.3s;
+}
+
+.header-links a:hover {
+  color: #61dafb;
+}
+
+.header-links a:hover:before {
+  visibility: visible;
+  transform: scaleX(1);
+}
+
+.logout-button {
+  background-color: transparent;
+  border: 1px solid #61dafb;
+  color: #61dafb;
+  font-size: calc(10px + 1vmin);
+}
+
+.formContainer {
+  width: 200px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  overflow: hidden;
+  max-height: 30px;
+  transition: max-height 0.3s;
+}
+
+.formContainer.expanded {
+  max-height: 1000px;
+}
+
+.formContainerTitle {
+  cursor: pointer;
 }

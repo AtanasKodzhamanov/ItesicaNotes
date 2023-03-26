@@ -5,6 +5,10 @@ import RegisterForm from './components/RegisterForm'; // Import RegisterForm com
 import useAuth from './hooks/useAuth';
 import './App.css'; // Import the CSS file
 import useRegister from './hooks/useRegister'; // Import useRegister hook
+import Header from './components/Header'; // Import Header component
+import ExpandableNewNodeForm from './components/ExpandableNewNodeForm'; // Import ExpandableNewNodeForm component
+import NewNodeForm from './components/NewNodeForm';
+import LastEdited from './components/LastEdited';
 
 const App = () => {
   const {
@@ -20,6 +24,7 @@ const App = () => {
   const [notes, setNotes] = useState([]);
   const [showRegisterForm, setShowRegisterForm] = useState(false); // Add a state to toggle between LoginForm and RegisterForm
   const username = localStorage.getItem("username");
+  const [editedNodesHistory, setEditedNodesHistory] = useState([]);
 
 
   useEffect(() => {
@@ -70,39 +75,6 @@ const App = () => {
           })}
         </div>
       )
-    );
-  };
-
-  const NewNodeForm = ({ onCreate }) => {
-    const [title, setTitle] = useState("");
-    const [content, setContent] = useState("");
-  
-    const handleSubmit = (e) => {
-      e.preventDefault();
-      onCreate(title, content);
-      setTitle("");
-      setContent("");
-    };
-  
-    return (
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="title">Title:</label>
-        <input
-          type="text"
-          id="title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          required
-        />
-        <label htmlFor="content">Content:</label>
-        <textarea
-          id="content"
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-          required
-        />
-        <button type="submit">Add Node</button>
-      </form>
     );
   };
 
@@ -157,6 +129,8 @@ const App = () => {
   
     if (response.ok) {
       const updatedNode = await response.json();
+      const originalNode = notes.find((note) => note.id === id);
+      setEditedNodesHistory([...editedNodesHistory, originalNode]);
       setNotes(
         notes.map((node) =>
           node.id === updatedNode.id ? updatedNode : node
@@ -194,7 +168,9 @@ const App = () => {
         console.error("Failed to delete node");
       }
     };
-  
+    const nodeToDelete = notes.find((note) => note.id === id);
+    setEditedNodesHistory([...editedNodesHistory, nodeToDelete]);
+
     await deleteNodeRecursive(id);
     setNotes(notes.filter((note) => note.id !== id));
   };
@@ -220,9 +196,9 @@ const App = () => {
       
       {isLoggedIn && (
         <>
-          <button onClick={logoutUser}>Logout</button>
+         <Header onLogout={logoutUser} />
           <h1>Hi, {username}! </h1>
-          <NewNodeForm onCreate={(title, content) => createNode(title, content)} />
+          <ExpandableNewNodeForm onCreate={(title, content) => createNode(title, content)} />
           <ul>
             {notes
               .filter((note) => note.parent === null)
