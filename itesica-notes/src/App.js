@@ -9,6 +9,8 @@ import Header from './components/Header'; // Import Header component
 import ExpandableNewNodeForm from './components/ExpandableNewNodeForm'; // Import ExpandableNewNodeForm component
 import NewNodeForm from './components/NewNodeForm';
 import LastEdited from './components/LastEdited';
+import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
+import Home from './components/Home';
 
 const App = () => {
   const {
@@ -197,29 +199,14 @@ const App = () => {
       {isLoggedIn && (
         <>
          <Header onLogout={logoutUser} />
-          <h1>Hi, {username}! </h1>
-          <ExpandableNewNodeForm onCreate={(title, content) => createNode(title, content)} />
-          <ul>
-            {notes
-              .filter((note) => note.parent === null)
-              .map((note) => (
-                <li key={note.id}>
-                  <Node
-                    id={note.id}
-                    title={note.title}
-                    text={note.content}
-                    children={note.children}
-                    onUpdate={updateNode}
-                    onDelete={deleteNode}
-                    toggleChildrenVisibility={toggleChildrenVisibility}
-                    onAddChild={(title, content) =>
-                      createNode(title, content, note.id)
-                    }
-                  />
-                  {renderChildren(note.children, note.id)}
-                </li>
-              ))}
-          </ul>
+         <Home
+        createNode={createNode}
+        notes={notes}
+        renderChildren={renderChildren}
+        username={username}
+        deleteNode={deleteNode}
+        toggleChildrenVisibility={toggleChildrenVisibility}
+      />
         </>
       )}
     </div>
