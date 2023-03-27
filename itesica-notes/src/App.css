@@ -94,15 +94,15 @@ button:hover {
 }
 
 input[type="text"],
-input[type="email"],
 input[type="password"],
 textarea {
   display: block;
-  width: 100%;
   padding: 10px;
   margin-bottom: 20px;
   border: 1px solid #ccc;
   resize: vertical;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 label {
@@ -111,7 +111,6 @@ label {
 }
 
 form {
-  max-width: 500px;
   margin: 0 auto;
 }
 
