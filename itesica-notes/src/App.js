@@ -174,8 +174,6 @@ const App = () => {
     setNotes(notes.filter((note) => note.id !== id));
   };
   
-  
-  
 
   return (
     <div>
@@ -204,11 +202,15 @@ const App = () => {
                   username={username}
                   deleteNode={deleteNode}
                   toggleChildrenVisibility={toggleChildrenVisibility}
-                />} />
+                  onUpdate={updateNode}
+                />} />          
+
               <Route path="/last-edited" element={<LastEdited editedNodes={editedNodesHistory} />} />
             </Routes>
           </>
         )}
+        
+
     </div>
   );
 };

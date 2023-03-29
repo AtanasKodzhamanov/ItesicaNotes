@@ -3,7 +3,7 @@ import Node from './Node';
 import ExpandableNewNodeForm from './ExpandableNewNodeForm';
 
 
-const Home = ({ createNode, notes, renderChildren, username, deleteNode, toggleChildrenVisibility }) => {
+const Home = ({ createNode, notes, renderChildren, username, deleteNode, toggleChildrenVisibility, onUpdate }) => {
     return (
       <>
         <h1>Hi, {username}!</h1>
@@ -21,6 +21,8 @@ const Home = ({ createNode, notes, renderChildren, username, deleteNode, toggleC
                   onDelete={deleteNode}
                   toggleChildrenVisibility={toggleChildrenVisibility}
                   onAddChild={(title, content) => createNode(title, content, note.id)}
+                  onUpdate={onUpdate} // pass onUpdate as prop
+
                 />
                 {renderChildren(note.children, note.id)}
               </li>
