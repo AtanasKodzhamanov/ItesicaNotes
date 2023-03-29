@@ -4,12 +4,9 @@ import LoginForm from './components/LoginForm';
 import RegisterForm from './components/RegisterForm'; // Import RegisterForm component
 import useAuth from './hooks/useAuth';
 import './App.css'; // Import the CSS file
-import useRegister from './hooks/useRegister'; // Import useRegister hook
 import Header from './components/Header'; // Import Header component
-import ExpandableNewNodeForm from './components/ExpandableNewNodeForm'; // Import ExpandableNewNodeForm component
-import NewNodeForm from './components/NewNodeForm';
 import LastEdited from './components/LastEdited';
-import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import Home from './components/Home';
 
 const App = () => {
@@ -182,33 +179,36 @@ const App = () => {
 
   return (
     <div>
-      {!isLoggedIn && (
-        <>
-          {showRegisterForm ? (
-            <RegisterForm onRegister={registerUser} />
-          ) : (
-            <LoginForm onLogin={loginUser} />
-          )}
-          <button onClick={() => setShowRegisterForm(!showRegisterForm)}>
-            {showRegisterForm ? 'Login' : 'Register'}
-          </button>
-        </>
-      )}
-      {error && <p>Error: {error.non_field_errors.join(', ')}</p>}
-      
-      {isLoggedIn && (
-        <>
-         <Header onLogout={logoutUser} />
-         <Home
-        createNode={createNode}
-        notes={notes}
-        renderChildren={renderChildren}
-        username={username}
-        deleteNode={deleteNode}
-        toggleChildrenVisibility={toggleChildrenVisibility}
-      />
-        </>
-      )}
+        {!isLoggedIn && (
+          <>
+            {showRegisterForm ? (
+              <RegisterForm onRegister={registerUser} />
+            ) : (
+              <LoginForm onLogin={loginUser} />
+            )}
+            <button onClick={() => setShowRegisterForm(!showRegisterForm)}>
+              {showRegisterForm ? 'Login' : 'Register'}
+            </button>
+          </>
+        )}
+        {error && <p>Error: {error.non_field_errors.join(', ')}</p>}
+        
+        {isLoggedIn && (
+          <>
+            <Header onLogout={logoutUser} />
+            <Routes>
+              <Route path="/" element={<Home
+                  createNode={createNode}
+                  notes={notes}
+                  renderChildren={renderChildren}
+                  username={username}
+                  deleteNode={deleteNode}
+                  toggleChildrenVisibility={toggleChildrenVisibility}
+                />} />
+              <Route path="/last-edited" element={<LastEdited editedNodes={editedNodesHistory} />} />
+            </Routes>
+          </>
+        )}
     </div>
   );
 };
