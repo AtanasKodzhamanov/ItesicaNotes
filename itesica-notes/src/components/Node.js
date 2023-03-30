@@ -36,9 +36,21 @@ const Node = ({
   return (
     <div className="node">
       {!editing && (
-        <>
-          <h2 onClick={() => toggleChildrenVisibility(id)}>{title}</h2>
+        <>         
+         <div onClick={() => toggleChildrenVisibility(id)} className="node-header">
+        <div className="node-content">
+          <p><b>{title}</b></p>
           <p>{text}</p>
+        </div>
+        <div className="node-buttons">
+          <button onClick={() => setEditing(!editing)}>
+            {editing ? "Cancel" : "Edit"}
+          </button>
+          <button onClick={() => setAddingChild(!addingChild)}>
+            {addingChild ? "Cancel" : "Add Child"}
+          </button>
+        </div>
+      </div>
         </>
       )}
       {editing && (
@@ -60,14 +72,8 @@ const Node = ({
           <button onClick={handleDelete}>Delete</button>
         </>
       )}
-      <button onClick={() => setEditing(!editing)}>
-        {editing ? "Cancel" : "Edit"}
-      </button>
-      {!editing && (
-        <button onClick={() => setAddingChild(!addingChild)}>
-          {addingChild ? "Cancel" : "Add Child"}
-        </button>
-      )}
+
+
       {addingChild && (
         <div className="node-add-child">
           <label htmlFor={`childTitle${id}`}>Child Title:</label>

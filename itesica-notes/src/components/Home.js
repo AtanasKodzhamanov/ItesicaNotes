@@ -8,11 +8,11 @@ const Home = ({ createNode, notes, renderChildren, username, deleteNode, toggleC
       <>
         <h1>Hi, {username}!</h1>
         <ExpandableNewNodeForm onCreate={createNode} />
-        <ul>
+        <ul >
           {notes
             .filter((note) => note.parent === null)
             .map((note) => (
-              <li key={note.id}>
+              <li  key={note.id}>
                 <Node
                   id={note.id}
                   title={note.title}
