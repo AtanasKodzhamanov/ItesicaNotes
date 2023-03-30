@@ -47,6 +47,16 @@ const App = () => {
     }
   };
 
+
+  const updateParent = (parentId, childId, notes, setNotes) => {
+    const parentIndex = notes.findIndex((note) => note.id === parentId);
+    const childIndex = notes.findIndex((note) => note.id === childId);
+    const newNotes = [...notes];
+    newNotes[parentIndex].children.push(newNotes[childIndex]);
+    newNotes.splice(childIndex, 1);
+    setNotes(newNotes);
+  };
+
   const renderChildren = (children, parentId) => {
     return (
       children &&
@@ -66,8 +76,12 @@ const App = () => {
                     onDelete={deleteNode}
                     toggleChildrenVisibility={toggleChildrenVisibility}
                     onAddChild={createNode} // Pass createNode function as onAddChild prop
+                    updateParent={(childId) =>
+                      updateParent(parentId, childId, notes, setNotes)
+                    } // Pass the updateParent function as a prop
                   />
-                  {visibleNotes.includes(child.id) && renderChildren(child.children, child.id)}
+                  {visibleNotes.includes(child.id) &&
+                    renderChildren(child.children, child.id)}
                 </div>
               )
             );
@@ -173,8 +187,8 @@ const App = () => {
     await deleteNodeRecursive(id);
     setNotes(notes.filter((note) => note.id !== id));
   };
-  
 
+  
   return (
     <div>
         {!isLoggedIn && (
@@ -203,6 +217,7 @@ const App = () => {
                   deleteNode={deleteNode}
                   toggleChildrenVisibility={toggleChildrenVisibility}
                   onUpdate={updateNode}
+                  
                 />} />          
 
               <Route path="/last-edited" element={<LastEdited editedNodes={editedNodesHistory} />} />

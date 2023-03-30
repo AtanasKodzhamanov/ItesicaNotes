@@ -9,6 +9,8 @@ const Node = ({
   onAddChild,
   onDelete,
   onUpdate,
+  updateParent, // add updateParent as a prop
+
 }) => {
   const [addingChild, setAddingChild] = useState(false);
   const [childTitle, setChildTitle] = useState("");
@@ -16,6 +18,8 @@ const Node = ({
   const [editing, setEditing] = useState(false);
   const [newTitle, setNewTitle] = useState(title);
   const [newContent, setNewContent] = useState(text);
+
+
 
   const handleAddChild = () => {
     onAddChild(childTitle, childContent, id);
@@ -33,26 +37,67 @@ const Node = ({
     onDelete(id);
   };
 
+  function handleDragStart(e) {
+    e.dataTransfer.setData('text/plain', e.target.id);
+    e.dataTransfer.setData('application/node', e.target.outerHTML);
+  }
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+  };
+
+  function handleDrop(e) {
+    e.preventDefault();
+    const draggedItemId = e.dataTransfer.getData("text/plain");
+    const draggedItem = document.getElementById(draggedItemId);
+  
+    // Find the closest parent with the class 'container'
+    let currentContainer = e.target;
+    while (currentContainer && !currentContainer.classList.contains("container")) {
+      currentContainer = currentContainer.parentElement;
+    }
+  
+    if (currentContainer) {
+      const newParentId = parseInt(currentContainer.dataset.id, 10);
+      const draggedItemId = parseInt(draggedItem.dataset.id, 10);
+      updateParent(newParentId, draggedItemId); // call updateParent
+      currentContainer.appendChild(draggedItem);
+    }
+  }
+  
+  
+  
+  
+
   return (
-    <div className="node">
-      {!editing && (
-        <>         
-         <div onClick={() => toggleChildrenVisibility(id)} className="node-header">
-        <div className="node-content">
-          <p><b>{title}</b></p>
-          <p>{text}</p>
-        </div>
-        <div className="node-buttons">
-          <button onClick={() => setEditing(!editing)}>
-            {editing ? "Cancel" : "Edit"}
-          </button>
-          <button onClick={() => setAddingChild(!addingChild)}>
-            {addingChild ? "Cancel" : "Add Child"}
-          </button>
-        </div>
-      </div>
-        </>
-      )}
+    <div className="container">
+      <div
+        className="node item"
+        draggable="true"
+        onDragStart={handleDragStart}
+        onDragOver={handleDragOver}
+        onDrop={handleDrop}
+      >
+        {!editing && (
+          <>
+            <div onClick={() => toggleChildrenVisibility(id)} className="node-header">
+              <div className="node-content">
+                <p>
+                  <b>{title}</b>
+                </p>
+                <p>{text}</p>
+              </div>
+              <div className="node-buttons">
+                <button onClick={() => setEditing(!editing)}>
+                  {editing ? "Cancel" : "Edit"}
+                </button>
+                <button onClick={() => setAddingChild(!addingChild)}>
+                  {addingChild ? "Cancel" : "Add Child"}
+                </button>
+              </div>
+            </div>
+          </>
+        )}
       {editing && (
         <>
           <label htmlFor={`newTitle${id}`}>New Title:</label>
@@ -92,6 +137,7 @@ const Node = ({
           <button onClick={handleAddChild}>Create Child</button>
         </div>
       )}
+    </div>
     </div>
   );
 };
