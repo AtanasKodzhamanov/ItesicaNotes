@@ -211,6 +211,7 @@ const App = () => {
             onLogout={logoutUser}
             username={username}
              />
+            <div className="main-body">
             <Routes>
               <Route path="/" element={<Home
                   createNode={createNode}
@@ -225,6 +226,7 @@ const App = () => {
 
               <Route path="/last-edited" element={<LastEdited editedNodes={editedNodesHistory} />} />
             </Routes>
+            </div>
           </>
         )}
         

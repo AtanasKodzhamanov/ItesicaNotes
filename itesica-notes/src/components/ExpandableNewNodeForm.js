@@ -21,7 +21,7 @@ const ExpandableNewNodeForm = ({ onCreate }) => {
   return (
     <>
       <div className="circle-plus" onClick={handleClick}>
-        +
+        <h1>+</h1>
       </div>
       {isExpanded && (
         <div className="modal">

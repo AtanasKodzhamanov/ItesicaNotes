@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import NewNodeForm from "./NewNodeForm";
 
 const Node = ({
   id,
@@ -18,8 +19,16 @@ const Node = ({
   const [editing, setEditing] = useState(false);
   const [newTitle, setNewTitle] = useState(title);
   const [newContent, setNewContent] = useState(text);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const handleClick = () => {
+    setIsExpanded(!isExpanded);
+  };
 
-
+  const closeModal = () => {
+    setIsExpanded(false);
+    setAddingChild(false);
+    setEditing(false);
+  };
 
   const handleAddChild = () => {
     onAddChild(childTitle, childContent, id);
@@ -65,10 +74,6 @@ const Node = ({
     }
   }
   
-  
-  
-  
-
   return (
     <div className="container">
       <div
@@ -88,11 +93,13 @@ const Node = ({
                 <p>{text}</p>
               </div>
               <div className="node-buttons">
-                <button onClick={() => setEditing(!editing)}>
+                <button onClick={() => {
+                  setEditing(!editing) 
+                  setIsExpanded(!isExpanded);}}>
                   {editing ? "Cancel" : "Edit"}
                 </button>
                 <button onClick={() => setAddingChild(!addingChild)}>
-                  {addingChild ? "Cancel" : "Add"}
+                  {addingChild ? "Cancel" : "New"}
                 </button>
               </div>
             </div>
@@ -100,41 +107,56 @@ const Node = ({
         )}
       {editing && (
         <>
-          <label htmlFor={`newTitle${id}`}>New Title:</label>
-          <input
-            type="text"
-            id={`newTitle${id}`}
-            value={newTitle}
-            onChange={(e) => setNewTitle(e.target.value)}
-          />
-          <label htmlFor={`newContent${id}`}>New Content:</label>
-          <textarea
-            id={`newContent${id}`}
-            value={newContent}
-            onChange={(e) => setNewContent(e.target.value)}
-          />
-          <button onClick={handleUpdate}>Save Changes</button>
-          <button onClick={handleDelete}>Delete</button>
+        <div className="modal">
+          
+                <div className="modal-content">
+                  <span className="close" onClick={closeModal}>
+                    &times;
+                  </span>
+                  <br></br>
+              <label >New Title:</label>
+              <input
+                type="text"
+                id={`newTitle${id}`}
+                value={newTitle}
+                onChange={(e) => setNewTitle(e.target.value)}
+              />
+              <label>New Content:</label>
+              <textarea
+                id={`newContent${id}`}
+                value={newContent}
+                onChange={(e) => setNewContent(e.target.value)}
+              />
+              <button onClick={handleUpdate}>Save Changes</button>
+              <button onClick={handleDelete}>Delete</button>
+          </div>
+        </div>
         </>
+        
       )}
 
-
       {addingChild && (
-        <div className="node-add-child">
-          <label htmlFor={`childTitle${id}`}>Child Title:</label>
-          <input
-            type="text"
-            id={`childTitle${id}`}
-            value={childTitle}
-            onChange={(e) => setChildTitle(e.target.value)}
-          />
-          <label htmlFor={`childContent${id}`}>Child Content:</label>
-          <textarea
-            id={`childContent${id}`}
-            value={childContent}
-            onChange={(e) => setChildContent(e.target.value)}
-          />
-          <button onClick={handleAddChild}>Create Child</button>
+        <div className="modal">
+          <div className="modal-content">
+            <span className="close" onClick={closeModal}>
+              &times;
+            </span>
+            <br></br>
+              <label>Child Title:</label>
+              <input
+                type="text"
+                id={`childTitle${id}`}
+                value={childTitle}
+                onChange={(e) => setChildTitle(e.target.value)}
+              />
+              <label>Child Content:</label>
+              <textarea
+                id={`childContent${id}`}
+                value={childContent}
+                onChange={(e) => setChildContent(e.target.value)}
+              />
+              <button onClick={handleAddChild}>Create Child</button>
+          </div>
         </div>
       )}
     </div>

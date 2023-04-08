@@ -27,6 +27,12 @@ const Home = ({ createNode, notes, renderChildren, deleteNode, toggleChildrenVis
               </li>
             ))}
         </ul>
+        <br>
+        
+        
+        
+        
+        </br>
       </>
     );
   };

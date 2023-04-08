@@ -2,13 +2,16 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 40px;
-    height: 40px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
     background-color: #4caf50;
     color: white;
     font-weight: bold;
     cursor: pointer;
+    position: fixed; 
+    bottom: 30px;   
+    right: 30px;     
 }
 
 .modal {
@@ -29,13 +32,14 @@
     padding: 20px;
     border-radius: 4px;
     width: 80%;
-    max-width: 500px;
+    max-width: 1000px;
+    max-height: 1000px;
 }
 
 .close {
     color: #aaa;
     float: right;
-    font-size: 28px;
+    font-size: 38px;
     font-weight: bold;
     cursor: pointer;
 }
