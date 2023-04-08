@@ -1,11 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Header = ({ onLogout }) => {
+
+
+const Header = ({ onLogout, username }) => {
+
+  function appendPossessive(username) {
+    return username.endsWith('s') ? username + "'" : username + "'s";
+  }
+
   return (
     <header className="header">
       <div className="header-title">
-        <h1>Itesica Notes</h1>
+        <h1 className="capitalize">{appendPossessive(username)} notes</h1>
       </div>
       <div className="header-links">
       <Link to="/">Notes</Link>

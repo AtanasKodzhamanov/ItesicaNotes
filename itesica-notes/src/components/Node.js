@@ -92,7 +92,7 @@ const Node = ({
                   {editing ? "Cancel" : "Edit"}
                 </button>
                 <button onClick={() => setAddingChild(!addingChild)}>
-                  {addingChild ? "Cancel" : "Add Child"}
+                  {addingChild ? "Cancel" : "Add"}
                 </button>
               </div>
             </div>

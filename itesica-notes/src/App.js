@@ -207,7 +207,10 @@ const App = () => {
         
         {isLoggedIn && (
           <>
-            <Header onLogout={logoutUser} />
+            <Header 
+            onLogout={logoutUser}
+            username={username}
+             />
             <Routes>
               <Route path="/" element={<Home
                   createNode={createNode}

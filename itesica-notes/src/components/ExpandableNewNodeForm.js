@@ -1,4 +1,6 @@
-import NewNodeForm from './NewNodeForm';import React, { useState } from 'react';
+import NewNodeForm from './NewNodeForm';
+import React, { useState } from 'react';
+import './ExpandableNewNodeForm.css';
 
 const ExpandableNewNodeForm = ({ onCreate }) => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -8,26 +10,31 @@ const ExpandableNewNodeForm = ({ onCreate }) => {
     onCreate(title, content);
   };
 
-  const handleMouseEnter = () => {
-    if (isExpanded) {
-      setIsExpanded(false);
-    } else {
-      setIsExpanded(true);
-    }
+  const handleClick = () => {
+    setIsExpanded(!isExpanded);
+  };
+
+  const closeModal = () => {
+    setIsExpanded(false);
   };
 
   return (
-    <div className={`formContainer ${isExpanded ? 'expanded' : ''}`}>
-      <div
-        className="formContainerTitle"
-        onMouseEnter={handleMouseEnter}
-      >
-        Add new parent
+    <>
+      <div className="circle-plus" onClick={handleClick}>
+        +
       </div>
-      <NewNodeForm onCreate={handleFormCreate} />
-    </div>
+      {isExpanded && (
+        <div className="modal">
+          <div className="modal-content">
+            <span className="close" onClick={closeModal}>
+              &times;
+            </span>
+            <NewNodeForm onCreate={handleFormCreate} />
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 
-  
 export default ExpandableNewNodeForm;

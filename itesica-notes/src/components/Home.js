@@ -3,10 +3,9 @@ import Node from './Node';
 import ExpandableNewNodeForm from './ExpandableNewNodeForm';
 
 
-const Home = ({ createNode, notes, renderChildren, username, deleteNode, toggleChildrenVisibility, onUpdate }) => {
+const Home = ({ createNode, notes, renderChildren, deleteNode, toggleChildrenVisibility, onUpdate }) => {
     return (
       <>
-        <h1>Hi, {username}!</h1>
         <ExpandableNewNodeForm onCreate={createNode} />
         <ul >
           {notes
