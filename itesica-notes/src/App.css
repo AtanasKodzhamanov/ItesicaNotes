@@ -1,3 +1,11 @@
+:root {
+  --primary-color: #ce243c; /* blue */
+  --secondary-color: #555;
+  --button-color: #8f9190; /* gray */
+  --accent-color: #ffc107; /* yellow */
+}
+
+
 .App {
   text-align: center;
 }
@@ -73,7 +81,7 @@ body {
 button {
   display: inline-block;
   padding: 10px 20px;
-  background-color: #ce9a24;
+  background-color: var(--button-color);
   color: #fff;
   text-decoration: none;
   border: none;
@@ -82,7 +90,7 @@ button {
 }
 
 button:hover {
-  background-color: #555;
+  background-color:  var(--primary-color);
 }
 
 input[type="text"],
@@ -128,7 +136,7 @@ form {
   background-color: #f4f4f4;
   padding: 15px;
   margin: 10px 0;
-  border: 1px solid #efca08;
+  border: 1px solid var(--primary-color);
 
 }
 
@@ -161,7 +169,7 @@ form {
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
-  background-color: #ce9a24;
+  background-color: var(--primary-color);
   color: white;
 }
 
@@ -209,9 +217,8 @@ form {
 }
 
 .logout-button {
-  background-color: transparent;
-  border: 1px solid #000000;
-  color: #000000;
+  background-color: var(--button-color);
+  color: #ffffff;
   font-size: calc(10px + 1vmin);
 }
 

@@ -64,7 +64,7 @@ const App = () => {
         <div className="children-container">
           {children.map((childId) => {
             const child = notes.find((note) => note.id === childId);
-  
+
             return (
               child && (
                 <div key={child.id} className="child-wrapper">
@@ -94,12 +94,12 @@ const App = () => {
   const createNode = async (title, content, parentId = null) => {
     const authToken = localStorage.getItem("authToken");
     const userId = parseInt(localStorage.getItem("userId"), 10);
-  
+
     if (!userId) {
       console.error("User ID not found in localStorage");
       return;
     }
-  
+
     const response = await fetch("http://localhost:8000/api/notes/", {
       method: "POST",
       headers: {
@@ -108,7 +108,7 @@ const App = () => {
       },
       body: JSON.stringify({ title, content, user: userId, parent: parentId }),
     });
-  
+
     if (response.ok) {
       const newNode = await response.json();
       if (parentId) {
@@ -124,9 +124,9 @@ const App = () => {
       console.error("Error creating node:", errorData);
     }
   };
-    
-  
-  
+
+
+
   const updateNode = async (id, title, content) => {
     const authToken = localStorage.getItem("authToken");
     const userId = parseInt(localStorage.getItem("userId"), 10);
@@ -139,7 +139,7 @@ const App = () => {
       },
       body: JSON.stringify({ title, content, user: userId }),
     });
-  
+
     if (response.ok) {
       const updatedNode = await response.json();
       const originalNode = notes.find((note) => note.id === id);
@@ -154,20 +154,20 @@ const App = () => {
       console.error("Failed to update node:", errorData); // Print the error data
     }
   };
-  
+
   const deleteNode = async (id) => {
     const authToken = localStorage.getItem("authToken");
     const userId = parseInt(localStorage.getItem("userId"), 10);
-  
+
     const deleteNodeRecursive = async (nodeId) => {
       const node = notes.find((note) => note.id === nodeId);
-  
+
       if (node && node.children) {
         for (const childId of node.children) {
           await deleteNodeRecursive(childId);
         }
       }
-  
+
       const response = await fetch(`http://localhost:8000/api/notes/${nodeId}/`, {
         method: "DELETE",
         headers: {
@@ -176,7 +176,7 @@ const App = () => {
         },
         body: JSON.stringify({ user: userId }),
       });
-  
+
       if (!response.ok) {
         console.error("Failed to delete node");
       }
@@ -188,48 +188,48 @@ const App = () => {
     setNotes(notes.filter((note) => note.id !== id));
   };
 
-  
+
   return (
     <div>
-        {!isLoggedIn && (
-          <>
-            {showRegisterForm ? (
-              <RegisterForm onRegister={registerUser} />
-            ) : (
-              <LoginForm onLogin={loginUser} />
-            )}
-            <button onClick={() => setShowRegisterForm(!showRegisterForm)}>
-              {showRegisterForm ? 'Login' : 'Register'}
-            </button>
-          </>
-        )}
-        {error && <p>Error: {error.non_field_errors.join(', ')}</p>}
-        
-        {isLoggedIn && (
-          <>
-            <Header 
+      {!isLoggedIn && (
+        <>
+          {showRegisterForm ? (
+            <RegisterForm onRegister={registerUser} />
+          ) : (
+            <LoginForm onLogin={loginUser} />
+          )}
+          <button onClick={() => setShowRegisterForm(!showRegisterForm)}>
+            {showRegisterForm ? 'Login' : 'Register'}
+          </button>
+        </>
+      )}
+      {error && <p>Error: {error.non_field_errors.join(', ')}</p>}
+
+      {isLoggedIn && (
+        <>
+          <Header
             onLogout={logoutUser}
             username={username}
-             />
-            <div className="main-body">
+          />
+          <div className="main-body">
             <Routes>
               <Route path="/" element={<Home
-                  createNode={createNode}
-                  notes={notes}
-                  renderChildren={renderChildren}
-                  username={username}
-                  deleteNode={deleteNode}
-                  toggleChildrenVisibility={toggleChildrenVisibility}
-                  onUpdate={updateNode}
-                  
-                />} />          
+                createNode={createNode}
+                notes={notes}
+                renderChildren={renderChildren}
+                username={username}
+                deleteNode={deleteNode}
+                toggleChildrenVisibility={toggleChildrenVisibility}
+                onUpdate={updateNode}
+
+              />} />
 
               <Route path="/last-edited" element={<LastEdited editedNodes={editedNodesHistory} />} />
             </Routes>
-            </div>
-          </>
-        )}
-        
+          </div>
+        </>
+      )}
+
 
     </div>
   );
