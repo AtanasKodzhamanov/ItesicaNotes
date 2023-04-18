@@ -191,6 +191,11 @@ const App = () => {
 
   return (
     <div>
+      <Header
+        onLogout={logoutUser}
+        username={username}
+        isLoggedIn={isLoggedIn} />
+
       {!isLoggedIn && (
         <>
           {showRegisterForm ? (
@@ -207,10 +212,6 @@ const App = () => {
 
       {isLoggedIn && (
         <>
-          <Header
-            onLogout={logoutUser}
-            username={username}
-          />
           <div className="main-body">
             <Routes>
               <Route path="/" element={<Home

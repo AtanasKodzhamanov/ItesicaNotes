@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 
 
-const Header = ({ onLogout, username }) => {
+const Header = ({ onLogout, username, isLoggedIn }) => {
 
   function appendPossessive(username) {
     return username.endsWith('s') ? username + "'" : username + "'s";
@@ -11,19 +11,34 @@ const Header = ({ onLogout, username }) => {
 
   return (
     <header className="header">
-      <div className="header-title">
-        <h1 className="capitalize">{appendPossessive(username)} notes</h1>
-      </div>
-      <div className="header-links">
-      <Link to="/">Notes</Link>
-        <Link to="/last-edited">Last edited</Link>
-        <Link to="/workspace">Workspace</Link>
-      </div>
-      <div>
-        <button className="logout-button" onClick={onLogout}>
-          Logout
-        </button>
-      </div>
+
+      {!isLoggedIn && (
+
+        <div className="header-title">
+          <h1 className="capitalize"> Itesica notes</h1>
+        </div>
+
+      )}
+
+
+      {isLoggedIn && (
+        <>
+          <div className="header-title">
+            <h1 className="capitalize">{appendPossessive(username)} notes</h1>
+          </div>
+          <div className="header-links">
+            <Link to="/">Notes</Link>
+            <Link to="/last-edited">Last edited</Link>
+            <Link to="/workspace">Workspace</Link>
+          </div>
+          <div>
+            <button className="logout-button" onClick={onLogout}>
+              Logout
+            </button>
+          </div>
+        </>
+      )}
+
     </header>
   );
 };
