@@ -8,6 +8,7 @@ import Header from './components/Header'; // Import Header component
 import LastEdited from './components/LastEdited';
 import { Route, Routes } from 'react-router-dom';
 import Home from './components/Home';
+import WelcomePage from './components/WelcomePage';
 
 const App = () => {
   const {
@@ -197,18 +198,11 @@ const App = () => {
         isLoggedIn={isLoggedIn} />
 
       {!isLoggedIn && (
-        <>
-          {showRegisterForm ? (
-            <RegisterForm onRegister={registerUser} />
-          ) : (
-            <LoginForm onLogin={loginUser} />
-          )}
-          <button onClick={() => setShowRegisterForm(!showRegisterForm)}>
-            {showRegisterForm ? 'Login' : 'Register'}
-          </button>
-        </>
+        <WelcomePage
+          registerUser={registerUser}
+          loginUser={loginUser}
+        ></WelcomePage>
       )}
-      {error && <p>Error: {error.non_field_errors.join(', ')}</p>}
 
       {isLoggedIn && (
         <>

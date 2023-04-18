@@ -13,11 +13,11 @@ const Header = ({ onLogout, username, isLoggedIn }) => {
     <header className="header">
 
       {!isLoggedIn && (
-
-        <div className="header-title">
-          <h1 className="capitalize"> Itesica notes</h1>
-        </div>
-
+        <>
+          <div className="header-title">
+            <h1 className="capitalize"> Itesica notes</h1>
+          </div>
+        </>
       )}
 
 
