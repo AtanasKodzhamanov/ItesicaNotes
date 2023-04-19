@@ -7,6 +7,12 @@ const useNotes = (authToken, isLoggedIn) => {
     const [editedNodesHistory, setEditedNodesHistory] = useState([]);
 
     useEffect(() => {
+        const editedNodesHistoryString = localStorage.getItem('editedNodesHistory');
+        const editedNodesHistory = JSON.parse(editedNodesHistoryString) || [];
+        setEditedNodesHistory(editedNodesHistory);
+    }, []);
+
+    useEffect(() => {
         if (isLoggedIn) {
             fetch('http://localhost:8000/api/notes/', {
                 headers: {
@@ -91,7 +97,14 @@ const useNotes = (authToken, isLoggedIn) => {
         if (response.ok) {
             const updatedNode = await response.json();
             const originalNode = notes.find((note) => note.id === id);
-            setEditedNodesHistory([...editedNodesHistory, originalNode]);
+            const updatedEditedNodesHistory = [...editedNodesHistory, { ...updatedNode, oldTitle: originalNode.title, oldContent: originalNode.content }];
+
+            // Store the updated array in localStorage
+            localStorage.setItem('editedNodesHistory', JSON.stringify(updatedEditedNodesHistory));
+
+            // Update the state of the editedNodesHistory variable
+            setEditedNodesHistory(updatedEditedNodesHistory);
+
             setNotes(
                 notes.map((node) =>
                     node.id === updatedNode.id ? updatedNode : node
