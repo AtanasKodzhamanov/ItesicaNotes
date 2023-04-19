@@ -75,6 +75,7 @@ const Node = ({
     }
   }
 
+  const childCount = children.length;
   return (
     <div className="container">
       <div
@@ -84,29 +85,41 @@ const Node = ({
         onDragOver={handleDragOver}
         onDrop={handleDrop}
       >
+
+
         {!editing && (
           <>
-            <div onClick={() => toggleChildrenVisibility(id)} className="node-header">
-              <div className="node-content">
+            <div className="node-header" onClick={() => toggleChildrenVisibility(id)}>
+              <div className="node-content"  >
                 <p>
                   <b>{title}</b>
                 </p>
                 <p>{text}</p>
               </div>
+
               <div className="node-buttons">
-                <button onClick={() => {
+                <button onClick={(e) => {
+                  e.stopPropagation()
                   setEditing(!editing)
                   setIsExpanded(!isExpanded);
                 }}>
                   {editing ? "Cancel" : "Edit"}
                 </button>
-                <button onClick={() => toggleMarked(id, marked)}>
+                <button onClick={(e) => {
+                  e.stopPropagation()
+                  toggleMarked(id, marked)
+                }}>
                   {marked ? "Unmark" : "Mark"}
                 </button>
-                <button onClick={() => setAddingChild(!addingChild)}>
-                  {addingChild ? "Cancel" : "New"}
+                <button onClick={(e) => {
+                  e.stopPropagation()
+                  setAddingChild(!addingChild)
+                }}>
+                  {addingChild ? "Cancel" : "New Leaf"}
                 </button>
               </div>
+              <div className="child-count">
+                <p> Leaves: {childCount}</p></div>
             </div>
           </>
         )}
@@ -147,14 +160,14 @@ const Node = ({
                 &times;
               </span>
               <br></br>
-              <label>Child Title:</label>
+              <label>Title:</label>
               <input
                 type="text"
                 id={`childTitle${id}`}
                 value={childTitle}
                 onChange={(e) => setChildTitle(e.target.value)}
               />
-              <label>Child Content:</label>
+              <label>Content:</label>
               <textarea
                 id={`childContent${id}`}
                 value={childContent}

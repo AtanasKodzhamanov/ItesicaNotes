@@ -1,6 +1,6 @@
 :root {
   --primary-color: #ce243c; /* blue */
-  --secondary-color: #555;
+  --secondary-color: #f0f2f5;
   --button-color: #8f9190; /* gray */
   --accent-color: #ffc107; /* yellow */
 }
@@ -102,7 +102,7 @@ body {
 }
 button {
   display: inline-block;
-  padding: 10px 20px;
+  padding: 5px 10px;
   background-color: var(--button-color);
   color: #fff;
   text-decoration: none;
@@ -157,7 +157,7 @@ form {
   background-color: #f4f4f4;
   padding: 15px;
   margin: 10px 0;
-  border: 1px solid var(--primary-color);
+  border: 2px solid var(--secondary-color);
   transition: all 0.3s ease;
 }
 
@@ -187,23 +187,26 @@ form {
 /* app.css */
 .header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
   background-color: var(--primary-color);
   color: white;
 }
 
+
 .header-title {
   display: flex;
-  justify-content: flex-end;
+  flex:1;
+  justify-content: flex-start;
   align-items: center;
   font-size: calc(10px + 1vmin);
   font-weight: bold;
 }
 
 .header-links {
+  flex:2;
   display: flex;
+  align-self:left;
   gap: 20px;
   font-size: calc(10px + 1vmin);
 }
@@ -238,6 +241,7 @@ form {
 }
 
 .logout-button {
+  flex:1;
   background-color: var(--button-color);
   color: #ffffff;
   font-size: calc(10px + 1vmin);
@@ -317,4 +321,16 @@ form {
   margin:0px;
   color:gray;
   font-size: 10px;
+}
+
+.child-count{
+  display: flex;
+  align-self: end;
+  color: grey;
+  font-size: 13px;
+
+}
+
+.child-count p{
+  margin:0px;
 }

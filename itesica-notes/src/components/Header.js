@@ -23,6 +23,7 @@ const Header = ({ onLogout, username, isLoggedIn }) => {
 
       {isLoggedIn && (
         <>
+
           <div className="header-title">
             <h1 className="capitalize">{appendPossessive(username)} notes</h1>
           </div>

@@ -163,7 +163,6 @@ const useNotes = (authToken, isLoggedIn) => {
             }
         };
         const nodeToDelete = notes.find((note) => note.id === id);
-        setEditedNodesHistory([...editedNodesHistory, nodeToDelete]);
 
         await deleteNodeRecursive(id);
         setNotes(notes.filter((note) => note.id !== id));
