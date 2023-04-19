@@ -305,3 +305,15 @@ form {
 .capitalize {
   text-transform: capitalize;
 }
+
+.edit-time{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: right;
+}
+.edit-time p{
+  margin:0px;
+  color:gray;
+  font-size: 10px;
+}

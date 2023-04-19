@@ -5,15 +5,30 @@ const LastEdited = ({ editedNodes }) => {
     <div>
       <h2>Last Edited</h2>
       <ul>
-        {editedNodes.slice(-5).map((node) => (
-          <li key={node.id}>
-            <h3>{node.title}</h3>
-            <p>{node.content}</p>
-          </li>
-        ))}
+        {console.log(editedNodes)}
+        {editedNodes.slice(-5).reverse().map((node) => {
+          // Convert the edit_date string to a Date object
+          const editDate = new Date(node.edit_date);
+          // Format the date and time strings
+          const formattedDate = editDate.toLocaleDateString('en-GB');
+          const formattedTime = editDate.toLocaleTimeString('en-GB');
+          // Combine the date and time strings
+          const formattedDateTime = `${formattedDate} ${formattedTime}`;
+          return (
+            <li key={node.edit_date} className="node">
+              <h3>{node.title}</h3>
+              <p>{node.content}</p>
+              <div className="edit-time">
+                <p>Edited on:</p>
+                <p>{formattedDateTime}</p>
+              </div>
+            </li>
+          );
+        })}
       </ul>
     </div>
   );
 };
+
 
 export default LastEdited;
