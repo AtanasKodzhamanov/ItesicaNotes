@@ -19,7 +19,7 @@ const WelcomePage = ({ registerUser, loginUser }) => {
 
     return (
         <>
-            <div class="welcome-page-info">
+            <div className="welcome-page-info">
                 {showLoginForm || showRegisterForm ? null :
 
                     <div>
