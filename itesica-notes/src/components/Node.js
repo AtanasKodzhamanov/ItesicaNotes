@@ -59,13 +59,13 @@ const Node = ({
     e.preventDefault();
     const draggedItemId = e.dataTransfer.getData("text/plain");
     const draggedItem = document.getElementById(draggedItemId);
-  
+
     // Find the closest parent with the class 'container'
     let currentContainer = e.target;
     while (currentContainer && !currentContainer.classList.contains("container")) {
       currentContainer = currentContainer.parentElement;
     }
-  
+
     if (currentContainer) {
       const newParentId = parseInt(currentContainer.dataset.id, 10);
       const draggedItemId = parseInt(draggedItem.dataset.id, 10);
@@ -73,7 +73,7 @@ const Node = ({
       currentContainer.appendChild(draggedItem);
     }
   }
-  
+
   return (
     <div className="container">
       <div
@@ -94,8 +94,9 @@ const Node = ({
               </div>
               <div className="node-buttons">
                 <button onClick={() => {
-                  setEditing(!editing) 
-                  setIsExpanded(!isExpanded);}}>
+                  setEditing(!editing)
+                  setIsExpanded(!isExpanded);
+                }}>
                   {editing ? "Cancel" : "Edit"}
                 </button>
                 <button onClick={() => setAddingChild(!addingChild)}>
@@ -105,43 +106,43 @@ const Node = ({
             </div>
           </>
         )}
-      {editing && (
-        <>
-        <div className="modal">
-          
-                <div className="modal-content">
-                  <span className="close" onClick={closeModal}>
-                    &times;
-                  </span>
-                  <br></br>
-              <label >New Title:</label>
-              <input
-                type="text"
-                id={`newTitle${id}`}
-                value={newTitle}
-                onChange={(e) => setNewTitle(e.target.value)}
-              />
-              <label>New Content:</label>
-              <textarea
-                id={`newContent${id}`}
-                value={newContent}
-                onChange={(e) => setNewContent(e.target.value)}
-              />
-              <button onClick={handleUpdate}>Save Changes</button>
-              <button onClick={handleDelete}>Delete</button>
-          </div>
-        </div>
-        </>
-        
-      )}
+        {editing && (
+          <>
+            <div className="modal">
 
-      {addingChild && (
-        <div className="modal">
-          <div className="modal-content">
-            <span className="close" onClick={closeModal}>
-              &times;
-            </span>
-            <br></br>
+              <div className="modal-content">
+                <span className="close" onClick={closeModal}>
+                  &times;
+                </span>
+                <br></br>
+                <label >New Title:</label>
+                <input
+                  type="text"
+                  id={`newTitle${id}`}
+                  value={newTitle}
+                  onChange={(e) => setNewTitle(e.target.value)}
+                />
+                <label>New Content:</label>
+                <textarea
+                  id={`newContent${id}`}
+                  value={newContent}
+                  onChange={(e) => setNewContent(e.target.value)}
+                />
+                <button onClick={handleUpdate}>Save Changes</button>
+                <button onClick={handleDelete}>Delete</button>
+              </div>
+            </div>
+          </>
+
+        )}
+
+        {addingChild && (
+          <div className="modal">
+            <div className="modal-content">
+              <span className="close" onClick={closeModal}>
+                &times;
+              </span>
+              <br></br>
               <label>Child Title:</label>
               <input
                 type="text"
@@ -156,10 +157,10 @@ const Node = ({
                 onChange={(e) => setChildContent(e.target.value)}
               />
               <button onClick={handleAddChild}>Create Child</button>
+            </div>
           </div>
-        </div>
-      )}
-    </div>
+        )}
+      </div>
     </div>
   );
 };
