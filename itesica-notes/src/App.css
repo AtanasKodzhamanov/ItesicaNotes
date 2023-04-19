@@ -159,7 +159,6 @@ form {
   margin: 10px 0;
   border: 1px solid var(--primary-color);
   transition: all 0.3s ease;
-
 }
 
 .node h2 {
@@ -264,6 +263,7 @@ form {
 
 .node-header {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
   
@@ -271,7 +271,8 @@ form {
 
 .node-content {
   display: flex;
-
+  flex-direction: column;
+  padding: 10px;
 }
 
 .node-content p {

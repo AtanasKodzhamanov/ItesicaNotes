@@ -5,13 +5,14 @@ const Node = ({
   id,
   title,
   text,
+  marked,
   children,
   toggleChildrenVisibility,
+  toggleMarked,
   onAddChild,
   onDelete,
   onUpdate,
   updateParent, // add updateParent as a prop
-
 }) => {
   const [addingChild, setAddingChild] = useState(false);
   const [childTitle, setChildTitle] = useState("");
@@ -98,6 +99,9 @@ const Node = ({
                   setIsExpanded(!isExpanded);
                 }}>
                   {editing ? "Cancel" : "Edit"}
+                </button>
+                <button onClick={() => toggleMarked(id, marked)}>
+                  {marked ? "Unmark" : "Mark"}
                 </button>
                 <button onClick={() => setAddingChild(!addingChild)}>
                   {addingChild ? "Cancel" : "New"}

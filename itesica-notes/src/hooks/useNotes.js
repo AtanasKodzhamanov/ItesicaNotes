@@ -33,6 +33,11 @@ const useNotes = (authToken, isLoggedIn) => {
         }
     };
 
+    const toggleMarked = async (id, marked) => {
+        console.log('toggleMarked', id, marked);
+        const updatedMarked = !marked; // Toggle the value of marked
+        await updateNode(id, null, null, updatedMarked); // Update the marked field of the note on the backend
+    };
 
     const updateParent = (parentId, childId, notes, setNotes) => {
         const parentIndex = notes.findIndex((note) => note.id === parentId);
@@ -81,9 +86,22 @@ const useNotes = (authToken, isLoggedIn) => {
 
 
 
-    const updateNode = async (id, title, content) => {
+    const updateNode = async (id, title, content, marked) => {
         const authToken = localStorage.getItem("authToken");
         const userId = parseInt(localStorage.getItem("userId"), 10);
+        const updateObj = {};
+
+        if (title == null && content == null) {
+            const originalNode = notes.find((note) => note.id === id);
+            updateObj.titleUpdate = notes.find((note) => note.id === id).title;
+            updateObj.contentUpdate = notes.find((note) => note.id === id).content;
+            console.log("both null")
+        }
+        else {
+            updateObj.titleUpdate = title;
+            updateObj.contentUpdate = content;
+            console.log("not null")
+        }
 
         const response = await fetch(`http://localhost:8000/api/notes/${id}/`, {
             method: "PUT",
@@ -91,7 +109,7 @@ const useNotes = (authToken, isLoggedIn) => {
                 "Content-Type": "application/json",
                 Authorization: `Token ${authToken}`,
             },
-            body: JSON.stringify({ title, content, user: userId }),
+            body: JSON.stringify({ title: updateObj.titleUpdate, content: updateObj.contentUpdate, user: userId, marked }),
         });
 
         if (response.ok) {
@@ -103,7 +121,9 @@ const useNotes = (authToken, isLoggedIn) => {
             localStorage.setItem('editedNodesHistory', JSON.stringify(updatedEditedNodesHistory));
 
             // Update the state of the editedNodesHistory variable
-            setEditedNodesHistory(updatedEditedNodesHistory);
+            if (title != null && content != null) {
+                setEditedNodesHistory(updatedEditedNodesHistory);
+            }
 
             setNotes(
                 notes.map((node) =>
@@ -154,6 +174,7 @@ const useNotes = (authToken, isLoggedIn) => {
         visibleNotes,
         editedNodesHistory,
         toggleChildrenVisibility,
+        toggleMarked,
         updateParent,
         createNode,
         updateNode,

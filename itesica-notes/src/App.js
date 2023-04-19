@@ -10,7 +10,7 @@ import { Route, Routes } from 'react-router-dom';
 import Home from './components/Home';
 import WelcomePage from './components/WelcomePage';
 import useNotes from "./hooks/useNotes";
-
+import Workspace from './components/Workspace';
 
 const App = () => {
   const {
@@ -35,6 +35,7 @@ const App = () => {
     createNode,
     updateNode,
     deleteNode,
+    toggleMarked,
   } = useNotes(authToken, isLoggedIn);
 
   const renderChildren = (children, parentId) => {
@@ -58,6 +59,7 @@ const App = () => {
                     toggleChildrenVisibility={toggleChildrenVisibility}
                     onAddChild={createNode} // Pass createNode function as onAddChild prop
                     updateParent={() => updateParent(parentId, child.id)}
+                    toggleMarked={toggleMarked}
                   />
                   {visibleNotes.includes(child.id) &&
                     renderChildren(child.children, child.id)}
@@ -96,10 +98,19 @@ const App = () => {
                 deleteNode={deleteNode}
                 toggleChildrenVisibility={toggleChildrenVisibility}
                 onUpdate={updateNode}
-
+                toggleMarked={toggleMarked}
               />} />
 
               <Route path="/last-edited" element={<LastEdited editedNodes={editedNodesHistory} />} />
+              <Route path="/workspace" element={<Workspace createNode={createNode}
+                notes={notes}
+                renderChildren={renderChildren}
+                username={username}
+                deleteNode={deleteNode}
+                toggleChildrenVisibility={toggleChildrenVisibility}
+                onUpdate={updateNode}
+                toggleMarked={toggleMarked} />} />
+
             </Routes>
           </div>
         </>
