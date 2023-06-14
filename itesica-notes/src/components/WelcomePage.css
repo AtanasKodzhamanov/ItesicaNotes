@@ -1,0 +1,21 @@
+.welcome-page-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: left;
+  padding: 30px;
+  color: white;
+  margin: 50px;
+  background-color: var(--primary-color);
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+.buttons {
+  display: flex;
+  gap: 10px;
+  margin: auto;
+  padding: 10px;
+  padding-top: 0px;
+  justify-content: center;
+}

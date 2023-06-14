@@ -1,19 +1,18 @@
-import React, { useState } from 'react';
-import useRegister from '../hooks/useRegister';
+import React, { useState } from 'react'
+import useRegister from '../../hooks/useRegister'
 
 const RegisterForm = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const { loading, error, success, registerUser } = useRegister();
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const { loading, error, success, registerUser } = useRegister()
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    registerUser(username, password);
-  };
+    e.preventDefault()
+    registerUser(username, password)
+  }
 
   return (
     <div>
-
       <form onSubmit={handleSubmit}>
         <h2>Register</h2>
         <label htmlFor="username">Username:</label>
@@ -39,7 +38,7 @@ const RegisterForm = () => {
       {error && <p>Error: {JSON.stringify(error)}</p>}
       {success && <p>Registration successful! You can now log in.</p>}
     </div>
-  );
-};
+  )
+}
 
-export default RegisterForm;
+export default RegisterForm

@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import NewNodeForm from "./NewNodeForm";
+import React, { useState } from 'react'
+import './Node.css'
 
 const Node = ({
   id,
@@ -14,68 +14,71 @@ const Node = ({
   onUpdate,
   updateParent, // add updateParent as a prop
 }) => {
-  const [addingChild, setAddingChild] = useState(false);
-  const [childTitle, setChildTitle] = useState("");
-  const [childContent, setChildContent] = useState("");
-  const [editing, setEditing] = useState(false);
-  const [newTitle, setNewTitle] = useState(title);
-  const [newContent, setNewContent] = useState(text);
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [addingChild, setAddingChild] = useState(false)
+  const [childTitle, setChildTitle] = useState('')
+  const [childContent, setChildContent] = useState('')
+  const [editing, setEditing] = useState(false)
+  const [newTitle, setNewTitle] = useState(title)
+  const [newContent, setNewContent] = useState(text)
+  const [isExpanded, setIsExpanded] = useState(false)
   const handleClick = () => {
-    setIsExpanded(!isExpanded);
-  };
+    setIsExpanded(!isExpanded)
+  }
 
   const closeModal = () => {
-    setIsExpanded(false);
-    setAddingChild(false);
-    setEditing(false);
-  };
+    setIsExpanded(false)
+    setAddingChild(false)
+    setEditing(false)
+  }
 
   const handleAddChild = () => {
-    onAddChild(childTitle, childContent, id);
-    setChildTitle("");
-    setChildContent("");
-    setAddingChild(false);
-  };
+    onAddChild(childTitle, childContent, id)
+    setChildTitle('')
+    setChildContent('')
+    setAddingChild(false)
+  }
 
   const handleUpdate = () => {
-    onUpdate(id, newTitle, newContent);
-    setEditing(false);
-  };
+    onUpdate(id, newTitle, newContent)
+    setEditing(false)
+  }
 
   const handleDelete = () => {
-    onDelete(id);
-  };
+    onDelete(id)
+  }
 
   function handleDragStart(e) {
-    e.dataTransfer.setData('text/plain', e.target.id);
-    e.dataTransfer.setData('application/node', e.target.outerHTML);
+    e.dataTransfer.setData('text/plain', e.target.id)
+    e.dataTransfer.setData('application/node', e.target.outerHTML)
   }
 
   const handleDragOver = (e) => {
-    e.preventDefault();
-  };
+    e.preventDefault()
+  }
 
   function handleDrop(e) {
-    e.preventDefault();
-    const draggedItemId = e.dataTransfer.getData("text/plain");
-    const draggedItem = document.getElementById(draggedItemId);
+    e.preventDefault()
+    const draggedItemId = e.dataTransfer.getData('text/plain')
+    const draggedItem = document.getElementById(draggedItemId)
 
     // Find the closest parent with the class 'container'
-    let currentContainer = e.target;
-    while (currentContainer && !currentContainer.classList.contains("container")) {
-      currentContainer = currentContainer.parentElement;
+    let currentContainer = e.target
+    while (
+      currentContainer &&
+      !currentContainer.classList.contains('container')
+    ) {
+      currentContainer = currentContainer.parentElement
     }
 
     if (currentContainer) {
-      const newParentId = parseInt(currentContainer.dataset.id, 10);
-      const draggedItemId = parseInt(draggedItem.dataset.id, 10);
-      updateParent(newParentId, draggedItemId); // call updateParent
-      currentContainer.appendChild(draggedItem);
+      const newParentId = parseInt(currentContainer.dataset.id, 10)
+      const draggedItemId = parseInt(draggedItem.dataset.id, 10)
+      updateParent(newParentId, draggedItemId) // call updateParent
+      currentContainer.appendChild(draggedItem)
     }
   }
 
-  const childCount = children.length;
+  const childCount = children.length
   return (
     <div className="container">
       <div
@@ -85,12 +88,13 @@ const Node = ({
         onDragOver={handleDragOver}
         onDrop={handleDrop}
       >
-
-
         {!editing && (
           <>
-            <div className="node-header" onClick={() => toggleChildrenVisibility(id)}>
-              <div className="node-content"  >
+            <div
+              className="node-header"
+              onClick={() => toggleChildrenVisibility(id)}
+            >
+              <div className="node-content">
                 <p>
                   <b>{title}</b>
                 </p>
@@ -98,41 +102,47 @@ const Node = ({
               </div>
 
               <div className="node-buttons">
-                <button onClick={(e) => {
-                  e.stopPropagation()
-                  setEditing(!editing)
-                  setIsExpanded(!isExpanded);
-                }}>
-                  {editing ? "Cancel" : "Edit"}
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    setEditing(!editing)
+                    setIsExpanded(!isExpanded)
+                  }}
+                >
+                  {editing ? 'Cancel' : 'Edit'}
                 </button>
-                <button onClick={(e) => {
-                  e.stopPropagation()
-                  toggleMarked(id, marked)
-                }}>
-                  {marked ? "Unmark" : "Mark"}
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    toggleMarked(id, marked)
+                  }}
+                >
+                  {marked ? 'Unmark' : 'Mark'}
                 </button>
-                <button onClick={(e) => {
-                  e.stopPropagation()
-                  setAddingChild(!addingChild)
-                }}>
-                  {addingChild ? "Cancel" : "New Leaf"}
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    setAddingChild(!addingChild)
+                  }}
+                >
+                  {addingChild ? 'Cancel' : 'New Leaf'}
                 </button>
               </div>
               <div className="child-count">
-                <p> Leaves: {childCount}</p></div>
+                <p> Leaves: {childCount}</p>
+              </div>
             </div>
           </>
         )}
         {editing && (
           <>
             <div className="modal">
-
               <div className="modal-content">
                 <span className="close" onClick={closeModal}>
                   &times;
                 </span>
                 <br></br>
-                <label >New Title:</label>
+                <label>New Title:</label>
                 <input
                   type="text"
                   id={`newTitle${id}`}
@@ -150,7 +160,6 @@ const Node = ({
               </div>
             </div>
           </>
-
         )}
 
         {addingChild && (
@@ -179,7 +188,7 @@ const Node = ({
         )}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Node;
+export default Node

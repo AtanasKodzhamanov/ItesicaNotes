@@ -1,17 +1,14 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-
-
+import React from 'react'
+import { Link } from 'react-router-dom'
+import './Header.css'
 
 const Header = ({ onLogout, username, isLoggedIn }) => {
-
   function appendPossessive(username) {
-    return username.endsWith('s') ? username + "'" : username + "'s";
+    return username.endsWith('s') ? username + "'" : username + "'s"
   }
 
   return (
     <header className="header">
-
       {!isLoggedIn && (
         <>
           <div className="header-title">
@@ -20,10 +17,8 @@ const Header = ({ onLogout, username, isLoggedIn }) => {
         </>
       )}
 
-
       {isLoggedIn && (
         <>
-
           <div className="header-title">
             <h1 className="capitalize">{appendPossessive(username)} notes</h1>
           </div>
@@ -39,9 +34,8 @@ const Header = ({ onLogout, username, isLoggedIn }) => {
           </div>
         </>
       )}
-
     </header>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header

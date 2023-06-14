@@ -1,22 +1,22 @@
-import NewNodeForm from './NewNodeForm';
-import React, { useState } from 'react';
-import './ExpandableNewNodeForm.css';
+import NewNodeForm from './NewNodeForm'
+import React, { useState } from 'react'
+import './ExpandableNewNodeForm.css'
 
 const ExpandableNewNodeForm = ({ onCreate }) => {
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false)
 
   const handleFormCreate = (title, content, e) => {
-    e.stopPropagation();
-    onCreate(title, content);
-  };
+    e.stopPropagation()
+    onCreate(title, content)
+  }
 
   const handleClick = () => {
-    setIsExpanded(!isExpanded);
-  };
+    setIsExpanded(!isExpanded)
+  }
 
   const closeModal = () => {
-    setIsExpanded(false);
-  };
+    setIsExpanded(false)
+  }
 
   return (
     <>
@@ -34,7 +34,7 @@ const ExpandableNewNodeForm = ({ onCreate }) => {
         </div>
       )}
     </>
-  );
-};
+  )
+}
 
-export default ExpandableNewNodeForm;
+export default ExpandableNewNodeForm

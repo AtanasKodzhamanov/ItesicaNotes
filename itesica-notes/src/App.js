@@ -1,30 +1,24 @@
-import React, { useState, useEffect } from 'react';
-import Node from './components/Node';
-import LoginForm from './components/LoginForm';
-import RegisterForm from './components/RegisterForm'; // Import RegisterForm component
-import useAuth from './hooks/useAuth';
-import './App.css'; // Import the CSS file
-import Header from './components/Header'; // Import Header component
-import LastEdited from './components/LastEdited';
-import { Route, Routes } from 'react-router-dom';
-import Home from './components/Home';
-import WelcomePage from './components/WelcomePage';
-import useNotes from "./hooks/useNotes";
-import Workspace from './components/Workspace';
+import React from 'react'
+import Node from './components/Notes/Node'
+import useAuth from './hooks/useAuth'
+import './App.css'
+import Header from './components/UI/Header'
+import WelcomePage from './components/WelcomePage'
+import useNotes from './hooks/useNotes'
+import AppRoutes from './components/AppRoutes'
 
 const App = () => {
   const {
     isLoggedIn,
     authToken,
     loginUser,
-    registerUser, // Add registerUser function from useAuth
+    registerUser,
     logoutUser,
     error,
     userId,
-  } = useAuth();
+  } = useAuth()
 
-  const [showRegisterForm, setShowRegisterForm] = useState(false); // Add a state to toggle between LoginForm and RegisterForm
-  const username = localStorage.getItem("username");
+  const username = localStorage.getItem('username')
 
   const {
     notes,
@@ -36,7 +30,7 @@ const App = () => {
     updateNode,
     deleteNode,
     toggleMarked,
-  } = useNotes(authToken, isLoggedIn);
+  } = useNotes(authToken, isLoggedIn)
 
   const renderChildren = (children, parentId) => {
     return (
@@ -44,7 +38,7 @@ const App = () => {
       visibleNotes.includes(parentId) && (
         <div className="children-container">
           {children.map((childId) => {
-            const child = notes.find((note) => note.id === childId);
+            const child = notes.find((note) => note.id === childId)
 
             return (
               child && (
@@ -65,60 +59,44 @@ const App = () => {
                     renderChildren(child.children, child.id)}
                 </div>
               )
-            );
+            )
           })}
         </div>
       )
-    );
-  };
+    )
+  }
 
   return (
     <div>
       <Header
         onLogout={logoutUser}
         username={username}
-        isLoggedIn={isLoggedIn} />
+        isLoggedIn={isLoggedIn}
+      />
 
       {!isLoggedIn && (
-        <WelcomePage
-          registerUser={registerUser}
-          loginUser={loginUser}
-        ></WelcomePage>
+        <WelcomePage registerUser={registerUser} loginUser={loginUser} />
       )}
 
       {isLoggedIn && (
         <>
           <div className="main-body">
-            <Routes>
-              <Route path="/" element={<Home
-                createNode={createNode}
-                notes={notes}
-                renderChildren={renderChildren}
-                username={username}
-                deleteNode={deleteNode}
-                toggleChildrenVisibility={toggleChildrenVisibility}
-                onUpdate={updateNode}
-                toggleMarked={toggleMarked}
-              />} />
-
-              <Route path="/last-edited" element={<LastEdited editedNodes={editedNodesHistory} />} />
-              <Route path="/workspace" element={<Workspace createNode={createNode}
-                notes={notes}
-                renderChildren={renderChildren}
-                username={username}
-                deleteNode={deleteNode}
-                toggleChildrenVisibility={toggleChildrenVisibility}
-                onUpdate={updateNode}
-                toggleMarked={toggleMarked} />} />
-
-            </Routes>
+            <AppRoutes
+              createNode={createNode}
+              notes={notes}
+              renderChildren={renderChildren}
+              username={username}
+              deleteNode={deleteNode}
+              toggleChildrenVisibility={toggleChildrenVisibility}
+              onUpdate={updateNode}
+              toggleMarked={toggleMarked}
+              editedNodesHistory={editedNodesHistory}
+            />
           </div>
         </>
       )}
-
-
     </div>
-  );
-};
+  )
+}
 
-export default App;
+export default App
