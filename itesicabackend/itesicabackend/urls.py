@@ -19,9 +19,8 @@ from .api.views import CustomObtainAuthToken
 from .api.views import register
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('api/', include('itesicabackend.api.urls')),
-    path('api-token-auth/', CustomObtainAuthToken.as_view(), name='api_token_auth'),
-    path('api/register/', register, name='register'),
-
+    path("admin/", admin.site.urls),
+    path("api/", include("itesicabackend.api.urls")),
+    path("api-token-auth/", CustomObtainAuthToken.as_view(), name="api_token_auth"),
+    path("api/register/", register, name="register"),
 ]

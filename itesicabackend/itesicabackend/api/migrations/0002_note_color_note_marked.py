@@ -4,20 +4,35 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('api', '0001_initial'),
+        ("api", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='note',
-            name='color',
-            field=models.CharField(choices=[('', 'No color'), ('white', 'White'), ('red', 'Red'), ('blue', 'Blue'), ('green', 'Green'), ('yellow', 'Yellow'), ('orange', 'Orange'), ('purple', 'Purple'), ('pink', 'Pink'), ('grey', 'Grey'), ('black', 'Black')], default='', max_length=255),
+            model_name="note",
+            name="color",
+            field=models.CharField(
+                choices=[
+                    ("", "No color"),
+                    ("white", "White"),
+                    ("red", "Red"),
+                    ("blue", "Blue"),
+                    ("green", "Green"),
+                    ("yellow", "Yellow"),
+                    ("orange", "Orange"),
+                    ("purple", "Purple"),
+                    ("pink", "Pink"),
+                    ("grey", "Grey"),
+                    ("black", "Black"),
+                ],
+                default="",
+                max_length=255,
+            ),
         ),
         migrations.AddField(
-            model_name='note',
-            name='marked',
+            model_name="note",
+            name="marked",
             field=models.BooleanField(default=False),
         ),
     ]

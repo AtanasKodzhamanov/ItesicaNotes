@@ -16,48 +16,45 @@ from django.contrib.auth.models import User
 from rest_framework import status
 
 
-@api_view(['POST'])
+@api_view(["POST"])
 @permission_classes([AllowAny])
 def register(request):
-    username = request.data.get('username')
-    password = request.data.get('password')
+    username = request.data.get("username")
+    password = request.data.get("password")
 
     if not username or not password:
         return Response(
             {"error": "Username and password are required"},
-            status=status.HTTP_400_BAD_REQUEST
+            status=status.HTTP_400_BAD_REQUEST,
         )
 
     if User.objects.filter(username=username).exists():
         return Response(
-            {"error": "Username already exists"},
-            status=status.HTTP_400_BAD_REQUEST
+            {"error": "Username already exists"}, status=status.HTTP_400_BAD_REQUEST
         )
 
     user = User.objects.create_user(username=username, password=password)
     user.save()
 
     return Response(
-        {"success": "User registered successfully"},
-        status=status.HTTP_201_CREATED
+        {"success": "User registered successfully"}, status=status.HTTP_201_CREATED
     )
 
 
 class CustomObtainAuthToken(ObtainAuthToken):
     def post(self, request, *args, **kwargs):
         print("CustomObtainAuthToken post method called")
-        response = super(CustomObtainAuthToken, self).post(
-            request, *args, **kwargs)
-        token = Token.objects.get(key=response.data['token'])
+        response = super(CustomObtainAuthToken, self).post(request, *args, **kwargs)
+        token = Token.objects.get(key=response.data["token"])
         user_id = token.user_id
         print("user_id:", user_id)
-        response.data['user_id'] = user_id
+        response.data["user_id"] = user_id
         return response
 
 
 class HelloView(APIView):
     def get(self, request):
-        data = {'message': 'Hello, world!'}
+        data = {"message": "Hello, world!"}
         return Response(data)
 
 
