@@ -3,7 +3,7 @@ import LoginForm from './Auth/LoginForm'
 import RegisterForm from './Auth/RegisterForm'
 import './WelcomePage.css'
 
-const WelcomePage = ({ registerUser, loginUser }) => {
+const WelcomePage = ({ loginUser }) => {
   const [showLoginForm, setShowLoginForm] = useState(false)
   const [showRegisterForm, setShowRegisterForm] = useState(false)
 
@@ -38,7 +38,7 @@ const WelcomePage = ({ registerUser, loginUser }) => {
           </div>
         )}
         {showLoginForm && <LoginForm onLogin={loginUser} />}
-        {showRegisterForm && <RegisterForm onRegister={registerUser} />}
+        {showRegisterForm && <RegisterForm />}
       </div>
 
       <div className="buttons">

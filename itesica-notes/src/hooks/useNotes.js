@@ -11,6 +11,7 @@ const useNotes = (authToken, isLoggedIn) => {
     setEditedNodesHistory(editedNodesHistory)
   }, [])
 
+  // if user is loggedin get all notes data into notes state
   useEffect(() => {
     if (isLoggedIn) {
       fetch('http://localhost:8000/api/notes/', {
@@ -34,8 +35,8 @@ const useNotes = (authToken, isLoggedIn) => {
 
   const toggleMarked = async (id, marked) => {
     console.log('toggleMarked', id, marked)
-    const updatedMarked = !marked // Toggle the value of marked
-    await updateNode(id, null, null, updatedMarked) // Update the marked field of the note on the backend
+    const updatedMarked = !marked
+    await updateNode(id, null, null, updatedMarked)
   }
 
   const updateParent = (parentId, childId, notes, setNotes) => {
@@ -123,13 +124,11 @@ const useNotes = (authToken, isLoggedIn) => {
         },
       ]
 
-      // Store the updated array in localStorage
       localStorage.setItem(
         'editedNodesHistory',
         JSON.stringify(updatedEditedNodesHistory)
       )
 
-      // Update the state of the editedNodesHistory variable
       if (title != null && content != null) {
         setEditedNodesHistory(updatedEditedNodesHistory)
       }
@@ -138,8 +137,8 @@ const useNotes = (authToken, isLoggedIn) => {
         notes.map((node) => (node.id === updatedNode.id ? updatedNode : node))
       )
     } else {
-      const errorData = await response.json() // Get the error data
-      console.error('Failed to update node:', errorData) // Print the error data
+      const errorData = await response.json()
+      console.error('Failed to update node:', errorData)
     }
   }
 

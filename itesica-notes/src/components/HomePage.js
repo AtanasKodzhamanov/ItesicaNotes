@@ -2,7 +2,7 @@ import React from 'react'
 import Node from './Notes/Node'
 import ExpandableNewNodeForm from './Notes/ExpandableNewNodeForm'
 
-const Home = ({
+const HomePage = ({
   createNode,
   notes,
   renderChildren,
@@ -42,4 +42,4 @@ const Home = ({
   )
 }
 
-export default Home
+export default HomePage

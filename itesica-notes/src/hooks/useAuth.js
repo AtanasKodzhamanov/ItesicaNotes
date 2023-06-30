@@ -1,12 +1,17 @@
 import { useState, useEffect } from 'react'
 
+// useAuth hook deals with logging in and logging out
+// it uses local storage to store the authentication token, username and user id
+
 const useAuth = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [authToken, setAuthToken] = useState(null)
   const [username, setUsername] = useState(null)
   const [error, setError] = useState(null)
-  const [userId, setUserId] = useState(null) // Add a new state variable for userId
+  const [userId, setUserId] = useState(null)
 
+  // Check if there is an authentication token in local storage, also check for id and username
+  // If they exist set the state accordingly
   useEffect(() => {
     const storedToken = localStorage.getItem('authToken')
     const storedUserId = localStorage.getItem('userId')
@@ -17,7 +22,7 @@ const useAuth = () => {
       setIsLoggedIn(true)
     }
     if (storedUserId) {
-      setUserId(storedUserId) // Set the userId state if it's in localStorage
+      setUserId(storedUserId)
     }
     if (storedUsername) {
       setUsername(storedUsername)
@@ -37,15 +42,16 @@ const useAuth = () => {
       if (response.ok) {
         const data = await response.json()
         const authToken = data.token
+        const userId = data.user_id
+
         localStorage.setItem('authToken', authToken)
         localStorage.setItem('username', username)
-        const userId = data.user_id // Extract user_id from the response
-        console.log('userid', data.user_id)
+        localStorage.setItem('userId', userId)
+
         setAuthToken(authToken)
         setIsLoggedIn(true)
         setError(null)
-        localStorage.setItem('userId', userId) // Save user_id to localStorage
-        setUserId(userId) // Update the userId state
+        setUserId(userId)
       } else {
         const errorData = await response.json()
         setError(errorData)
@@ -57,21 +63,20 @@ const useAuth = () => {
 
   const logoutUser = () => {
     localStorage.removeItem('authToken')
-    localStorage.removeItem('userId') // Remove the userId from localStorage
+    localStorage.removeItem('userId')
     localStorage.removeItem('username')
     setAuthToken(null)
     setIsLoggedIn(false)
-    setUserId(null) // Reset the userId state
+    setUserId(null)
   }
 
   return {
     isLoggedIn,
     authToken,
+    username,
+    userId,
     loginUser,
     logoutUser,
-    error,
-    username,
-    userId, // Include the userId here
   }
 }
 

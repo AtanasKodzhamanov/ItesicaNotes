@@ -11,14 +11,10 @@ const App = () => {
   const {
     isLoggedIn,
     authToken,
+    username,
     loginUser,
-    registerUser,
     logoutUser,
-    error,
-    userId,
   } = useAuth()
-
-  const username = localStorage.getItem('username')
 
   const {
     notes,
@@ -75,7 +71,7 @@ const App = () => {
       />
 
       {!isLoggedIn && (
-        <WelcomePage registerUser={registerUser} loginUser={loginUser} />
+        <WelcomePage loginUser={loginUser} />
       )}
 
       {isLoggedIn && (

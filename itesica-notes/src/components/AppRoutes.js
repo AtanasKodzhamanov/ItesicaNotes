@@ -1,6 +1,6 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
-import Home from './HomePage'
+import HomePage from './HomePage'
 import LastEdited from './LastEditedPage'
 import Workspace from './WorkspacePage'
 
@@ -19,7 +19,7 @@ const AppRoutes = ({
     <Route
       path="/"
       element={
-        <Home
+        <HomePage
           createNode={createNode}
           notes={notes}
           renderChildren={renderChildren}
