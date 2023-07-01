@@ -1,0 +1,16 @@
+.note-body{
+    margin-left:10px;
+}
+
+.note-container {
+    background-color: #f4f4f4;
+    padding: 10px;
+    border: 2px solid var(--secondary-color);
+    
+  }
+
+.note-container:hover{
+    background-color: #dedede;
+    transition: all 0.3s ease;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2); 
+}

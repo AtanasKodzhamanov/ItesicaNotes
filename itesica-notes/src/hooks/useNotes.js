@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import Node from '../components/Notes/Node'
 
 const useNotes = (authToken, isLoggedIn) => {
   const [notes, setNotes] = useState([])
@@ -24,6 +25,9 @@ const useNotes = (authToken, isLoggedIn) => {
         .catch((error) => console.error(error))
     }
   }, [isLoggedIn, authToken])
+
+  // notes is an array of objects, each object has a children and parent properties which hold ids
+
 
   const toggleChildrenVisibility = (id) => {
     if (visibleNotes.includes(id)) {
@@ -177,6 +181,40 @@ const useNotes = (authToken, isLoggedIn) => {
     setNotes(notes.filter((note) => note.id !== id))
   }
 
+  const renderChildren = (children, parentId) => {
+    return (
+      children &&
+      visibleNotes.includes(parentId) && (
+        <div className="children-container">
+          {children.map((childId) => {
+            const child = notes.find((note) => note.id === childId)
+
+            return (
+              child && (
+                <div key={child.id} className="child-wrapper">
+                  <Node
+                    id={child.id}
+                    title={child.title}
+                    text={child.content}
+                    children={child.children}
+                    onDelete={deleteNode}
+                    onUpdate={updateNode}
+                    toggleChildrenVisibility={toggleChildrenVisibility}
+                    onAddChild={createNode}
+                    updateParent={() => updateParent(parentId, child.id)}
+                    toggleMarked={toggleMarked}
+                  />
+                  {visibleNotes.includes(child.id) &&
+                    renderChildren(child.children, child.id)}
+                </div>
+              )
+            )
+          })}
+        </div>
+      )
+    )
+  }
+
   return {
     notes,
     visibleNotes,
@@ -187,6 +225,7 @@ const useNotes = (authToken, isLoggedIn) => {
     createNode,
     updateNode,
     deleteNode,
+    renderChildren,
   }
 }
 

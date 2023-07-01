@@ -12,7 +12,8 @@ const Node = ({
   onAddChild,
   onDelete,
   onUpdate,
-  updateParent, // add updateParent as a prop
+  updateParent,
+  passNoteIdHandler,
 }) => {
   const [addingChild, setAddingChild] = useState(false)
   const [childTitle, setChildTitle] = useState('')
@@ -21,6 +22,7 @@ const Node = ({
   const [newTitle, setNewTitle] = useState(title)
   const [newContent, setNewContent] = useState(text)
   const [isExpanded, setIsExpanded] = useState(false)
+
   const handleClick = () => {
     setIsExpanded(!isExpanded)
   }
@@ -73,7 +75,7 @@ const Node = ({
     if (currentContainer) {
       const newParentId = parseInt(currentContainer.dataset.id, 10)
       const draggedItemId = parseInt(draggedItem.dataset.id, 10)
-      updateParent(newParentId, draggedItemId) // call updateParent
+      updateParent(newParentId, draggedItemId)
       currentContainer.appendChild(draggedItem)
     }
   }
@@ -93,6 +95,7 @@ const Node = ({
             <div
               className="node-header"
               onClick={() => toggleChildrenVisibility(id)}
+              onMouseEnter={() => passNoteIdHandler(id)}
             >
               <div className="node-content">
                 <p>

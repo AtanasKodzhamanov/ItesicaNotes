@@ -1,6 +1,8 @@
-import React from 'react'
+import { useState, useEffect } from 'react'
 import Node from './Notes/Node'
 import ExpandableNewNodeForm from './Notes/ExpandableNewNodeForm'
+import './HomePage.css'
+import IndividualNode from './Notes/IndividualNode'
 
 const HomePage = ({
   createNode,
@@ -11,33 +13,38 @@ const HomePage = ({
   toggleMarked,
   onUpdate,
 }) => {
+
+  const [noteId, setNoteId] = useState(null)
+  const [noteText, setNoteText] = useState(null)
+  const [noteTitle, setNoteTitle] = useState(null)
+
+  const passNoteInfoHandler = (note) => {
+    console.log(note)
+    setNoteId(note.id)
+    setNoteText(note.content)
+    setNoteTitle(note.title)
+  }
+
+
   return (
     <>
       <ExpandableNewNodeForm onCreate={createNode} />
-      <ul>
-        {notes
-          .filter((note) => note.parent === null)
-          .map((note) => (
-            <li key={note.id}>
-              {console.log('Mark' + note.marked)}
-              <Node
-                id={note.id}
-                title={note.title}
-                text={note.content}
-                children={note.children}
-                onDelete={deleteNode}
-                marked={note.marked}
-                toggleChildrenVisibility={toggleChildrenVisibility}
-                onAddChild={(title, content) =>
-                  createNode(title, content, note.id)
-                }
-                onUpdate={onUpdate}
-                toggleMarked={(id, marked) => toggleMarked(id, note.marked)}
-              />
-              {renderChildren(note.children, note.id)}
-            </li>
-          ))}
-      </ul>
+      <div className="notebook">
+        <div className="note-tree-section">
+          <IndividualNode
+            notes={notes}
+            passNoteInfoHandler={passNoteInfoHandler}
+          />
+        </div>
+        <div className="note-text-area">
+          <textarea
+            className="note-text"
+            value={noteTitle + '\n' + '\n' + noteText}
+          >
+          </textarea>
+        </div>
+      </div>
+
     </>
   )
 }
