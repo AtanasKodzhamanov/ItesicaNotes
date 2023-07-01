@@ -6,11 +6,18 @@
     background-color: #f4f4f4;
     padding: 10px;
     border: 2px solid var(--secondary-color);
-    
+    box-shadow: inset 1px 1px 1px #999;
+    box-sizing: border-box;
   }
 
 .note-container:hover{
     background-color: #dedede;
     transition: all 0.3s ease;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2); 
+    box-shadow: none; 
+}
+
+.note-container.active{
+    background-color: #dedede;
+    transition: all 0.3s ease;
+    box-shadow: none; 
 }

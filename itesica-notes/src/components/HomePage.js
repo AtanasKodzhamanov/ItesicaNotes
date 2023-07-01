@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react'
-import Node from './Notes/Node'
 import ExpandableNewNodeForm from './Notes/ExpandableNewNodeForm'
 import './HomePage.css'
-import IndividualNode from './Notes/IndividualNode'
+import RenderNotes from './Notes/RenderNotes'
 
 const HomePage = ({
   createNode,
@@ -19,7 +18,6 @@ const HomePage = ({
   const [noteTitle, setNoteTitle] = useState(null)
 
   const passNoteInfoHandler = (note) => {
-    console.log(note)
     setNoteId(note.id)
     setNoteText(note.content)
     setNoteTitle(note.title)
@@ -31,7 +29,7 @@ const HomePage = ({
       <ExpandableNewNodeForm onCreate={createNode} />
       <div className="notebook">
         <div className="note-tree-section">
-          <IndividualNode
+          <RenderNotes
             notes={notes}
             passNoteInfoHandler={passNoteInfoHandler}
           />

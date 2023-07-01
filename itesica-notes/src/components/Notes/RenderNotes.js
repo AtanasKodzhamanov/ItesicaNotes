@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import './IndividualNode.css';
+import './RenderNotes.css';
 
-const IndividualNode = ({ notes, passNoteInfoHandler }) => {
+const RenderNotes = ({ notes, passNoteInfoHandler }) => {
     const [selectedNodes, setSelectedNodes] = useState([]);
+    const [activeNote, setActiveNote] = useState(false);
 
     const showChildrenOnClickHandler = (note) => {
         setSelectedNodes([...selectedNodes, note]);
+        setActiveNote(true);
     };
 
     const passNoteInfoOnHoverHandler = (note) => {
@@ -18,8 +20,12 @@ const IndividualNode = ({ notes, passNoteInfoHandler }) => {
                 {notes
                     .filter((note) => note.parent === parentId)
                     .map((note) => (
-                        <div className="note-body" key={note.id} onMouseEnter={() => passNoteInfoOnHoverHandler(note)}>
-                            <h2 className="note-container" onClick={() => showChildrenOnClickHandler(note)}>{note.title}</h2>
+                        <div className="note-body" key={note.id} >
+                            <h2
+                                className={`note-container ${selectedNodes.some(selectedNote => selectedNote.id === note.id) ? 'active' : ''}`}
+                                onMouseEnter={() => passNoteInfoOnHoverHandler(note)}
+                                onClick={() => showChildrenOnClickHandler(note)}>{note.title}
+                            </h2>
                             {selectedNodes.includes(note) && renderNotes(note.id)}
                         </div>
                     ))
@@ -31,4 +37,4 @@ const IndividualNode = ({ notes, passNoteInfoHandler }) => {
     return renderNotes();
 };
 
-export default IndividualNode;
+export default RenderNotes;

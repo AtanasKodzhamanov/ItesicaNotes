@@ -2,9 +2,16 @@
   display: flex;
   align-items: center;
   padding: 10px 20px;
-  background-color: var(--primary-color);
   color: white;
+  background-image: url("background.jpg");
+  background-size: cover;
+  background-position: center;
+  background-color: rgba(0, 0, 0, 0.387);
+  background-blend-mode: multiply;
+
 }
+
+
 
 .header-title {
   display: flex;
