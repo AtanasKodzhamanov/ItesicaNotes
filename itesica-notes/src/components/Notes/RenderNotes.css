@@ -8,6 +8,7 @@
     border: 2px solid var(--secondary-color);
     box-shadow: inset 1px 1px 1px #999;
     box-sizing: border-box;
+    flex-grow:1;
   }
 
 .note-container:hover{
@@ -21,3 +22,55 @@
     transition: all 0.3s ease;
     box-shadow: none; 
 }
+
+.note-button-container{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.note-button{
+    position: relative;
+    background-color: var(--button-color);
+    color: var(--button-color);
+    font-size: calc(10px + 1vmin);
+    margin: 4px;
+    padding: 4px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.1s ease;
+}
+
+
+.button-group{
+    margin-left:10px;
+}
+.button-group button p{
+    margin: 0;
+    padding: 0;
+}
+
+.note-button:hover {
+    transform: scale(2);
+    z-index: 2;
+    color:white;
+}
+
+.note-button:hover p{
+    display:block;
+}
+
+@keyframes appear {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+}
+
+.button-group{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 columns per row */
+    grid-template-rows: repeat(2, 1fr); /* 2 rows */
+}
+
