@@ -2,14 +2,19 @@ import { useState, useEffect } from 'react'
 import ExpandableNewNodeForm from './NewParentNode/ExpandableNewNodeForm'
 import './HomePage.css'
 import RenderNotes from './RenderNotes/RenderNotes'
+import { NoteContext } from '../../NoteContext'
+import { useContext } from 'react'
 
-const HomePage = ({
-  createNode,
-  updateNode,
-  deleteNode,
-  notes,
-  toggleMarked
-}) => {
+
+const HomePage = () => {
+
+  const {
+    createNode,
+    updateNode,
+    deleteNode,
+    notes,
+    toggleMarked
+  } = useContext(NoteContext)
 
   const [noteId, setNoteId] = useState(null)
   const [noteText, setNoteText] = useState("")

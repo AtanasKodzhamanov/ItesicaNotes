@@ -17,11 +17,6 @@ const RenderNotes = ({ notes, passNoteInfoHandler, createChildNode, deleteNodeHa
         passNoteInfoHandler(note)
     };
 
-    const handleMouseEnter = () => {
-        setShowButtons(true);
-        setTimeout(() => setShowButtons(false), 3000); // change 3000 to the number of milliseconds you want the buttons to appear for
-    };
-
     const renderNotes = (parentId = null) => {
         return (
             <div>

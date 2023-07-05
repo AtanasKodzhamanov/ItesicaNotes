@@ -5,6 +5,8 @@ import Header from './components/UI/Header'
 import WelcomePage from './components/WelcomePage'
 import useNotes from './hooks/useNotes'
 import AppRoutes from './components/AppRoutes'
+import { NoteProvider } from './NoteContext'
+
 
 const App = () => {
   const {
@@ -14,17 +16,6 @@ const App = () => {
     loginUser,
     logoutUser,
   } = useAuth()
-
-  const {
-    notes,
-    editedNodesHistory,
-    toggleChildrenVisibility,
-    createNode,
-    updateNode,
-    deleteNode,
-    toggleMarked,
-    renderChildren,
-  } = useNotes(authToken, isLoggedIn)
 
   return (
     <div>
@@ -40,17 +31,11 @@ const App = () => {
 
       {isLoggedIn && (
         <>
-          <div className="main-body">
-            <AppRoutes
-              createNode={createNode}
-              notes={notes}
-              username={username}
-              deleteNode={deleteNode}
-              updateNode={updateNode}
-              toggleMarked={toggleMarked}
-              editedNodesHistory={editedNodesHistory}
-            />
-          </div>
+          <NoteProvider authToken={authToken} isLoggedIn={isLoggedIn}>
+            <div className="main-body">
+              <AppRoutes />
+            </div>
+          </NoteProvider>
         </>
       )}
     </div>

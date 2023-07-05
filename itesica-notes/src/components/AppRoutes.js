@@ -4,29 +4,16 @@ import HomePage from './HomePage/HomePage'
 import LastEdited from './LastEditedPage'
 
 const AppRoutes = ({
-  createNode,
-  notes,
-  deleteNode,
-  updateNode,
-  toggleMarked,
-  editedNodesHistory,
+
 }) => (
   <Routes>
     <Route
       path="/"
-      element={
-        <HomePage
-          createNode={createNode}
-          notes={notes}
-          deleteNode={deleteNode}
-          updateNode={updateNode}
-          toggleMarked={toggleMarked}
-        />
-      }
+      element={<HomePage />}
     />
     <Route
       path="/last-edited"
-      element={<LastEdited editedNodes={editedNodesHistory} />}
+      element={<LastEdited />}
     />
   </Routes>
 )

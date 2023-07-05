@@ -1,19 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import '../RenderNotes.css';
-import useNotes from '../../../../hooks/useNotes'
-import useAuth from '../../../../hooks/useAuth'
 
 const NoteButton = ({ note, passNoteInfoHandler, selectedNodes, showChildrenOnClickHandler, createChildNode, deleteNodeHandler }) => {
-    const [showButtons, setShowButtons] = useState(false);
-
-    const { isLoggedIn, authToken } = useAuth()
-    const {
-        createNode,
-        updateNode,
-        deleteNode,
-    } = useNotes(authToken, isLoggedIn)
-
-
 
     return (
         <div className="note-button-container">
