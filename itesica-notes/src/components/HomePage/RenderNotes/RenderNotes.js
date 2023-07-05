@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import './RenderNotes.css';
-import NoteButton from './NoteButton';
+import NoteButton from './NoteButton/NoteButton';
 
-const RenderNotes = ({ notes, passNoteInfoHandler }) => {
+const RenderNotes = ({ notes, passNoteInfoHandler, createChildNode, deleteNodeHandler }) => {
     const [selectedNodes, setSelectedNodes] = useState([]);
     const [activeNote, setActiveNote] = useState(false);
     const [showButtons, setShowButtons] = useState(false);
 
+
     const showChildrenOnClickHandler = (note) => {
-        setSelectedNodes([...selectedNodes, note]);
+        setSelectedNodes(prevNotes => [...prevNotes, note]);
         setActiveNote(true);
     };
 
@@ -32,7 +33,9 @@ const RenderNotes = ({ notes, passNoteInfoHandler }) => {
                                 note={note}
                                 passNoteInfoHandler={passNoteInfoOnHoverHandler}
                                 selectedNodes={selectedNodes}
-                                showChildrenOnClickHandler={showChildrenOnClickHandler} />
+                                showChildrenOnClickHandler={showChildrenOnClickHandler}
+                                createChildNode={createChildNode}
+                                deleteNodeHandler={deleteNodeHandler} />
                             {selectedNodes.includes(note) && renderNotes(note.id)}
                         </div>
                     ))

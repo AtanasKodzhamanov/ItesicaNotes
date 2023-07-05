@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import './RenderNotes.css';
-import useNotes from '../../hooks/useNotes'
-import useAuth from '../../hooks/useAuth'
+import '../RenderNotes.css';
+import useNotes from '../../../../hooks/useNotes'
+import useAuth from '../../../../hooks/useAuth'
 
-const NoteButton = ({ note, passNoteInfoHandler, selectedNodes, showChildrenOnClickHandler }) => {
+const NoteButton = ({ note, passNoteInfoHandler, selectedNodes, showChildrenOnClickHandler, createChildNode, deleteNodeHandler }) => {
     const [showButtons, setShowButtons] = useState(false);
 
     const { isLoggedIn, authToken } = useAuth()
@@ -23,12 +23,8 @@ const NoteButton = ({ note, passNoteInfoHandler, selectedNodes, showChildrenOnCl
                 onClick={() => showChildrenOnClickHandler(note)}>{note.title}
             </h2>
             <div className="button-group">
-                <button onClick={createNode} className="note-button" > <p>+</p></button>
-                <button className="note-button"><p>-</p></button>
-                <button className="note-button"><p>x</p></button>
-                <button className="note-button"><p>✎</p></button>
-                <button className="note-button"><p>&#128389;</p></button>
-                <button className="note-button"><p>=</p></button>
+                <button onClick={() => createChildNode(note)} className="note-button new" > <p>+</p></button>
+                <button onClick={() => deleteNodeHandler(note)} className="note-button delete"><p>x</p></button>
             </div>
         </div >
     );

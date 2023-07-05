@@ -63,14 +63,12 @@
     display:block;
 }
 
+.note-button.new:hover{
+    background-color: green !important;
+}
+
 @keyframes appear {
     0% {opacity: 0;}
     100% {opacity: 1;}
-}
-
-.button-group{
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 columns per row */
-    grid-template-rows: repeat(2, 1fr); /* 2 rows */
 }
 

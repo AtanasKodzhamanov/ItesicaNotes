@@ -44,11 +44,9 @@ const App = () => {
             <AppRoutes
               createNode={createNode}
               notes={notes}
-              renderChildren={renderChildren}
               username={username}
               deleteNode={deleteNode}
-              toggleChildrenVisibility={toggleChildrenVisibility}
-              onUpdate={updateNode}
+              updateNode={updateNode}
               toggleMarked={toggleMarked}
               editedNodesHistory={editedNodesHistory}
             />
