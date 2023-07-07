@@ -24,7 +24,7 @@ const ExpandableNewNodeForm = ({ onCreate }) => {
         <h1>+</h1>
       </div>
       {isExpanded && (
-        <div className="modal">
+        <div className="modal" onKeyDown={e => e.key === 'Escape' && closeModal()}>
           <div className="modal-content">
             <span className="close" onClick={closeModal}>
               &times;

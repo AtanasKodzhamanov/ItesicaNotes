@@ -4,8 +4,7 @@ import NoteButton from './NoteButton/NoteButton';
 
 const RenderNotes = ({ notes, passNoteInfoHandler, createChildNode, deleteNodeHandler }) => {
     const [selectedNodes, setSelectedNodes] = useState([]);
-    const [activeNote, setActiveNote] = useState(false);
-    const [showButtons, setShowButtons] = useState(false);
+
 
     const showChildrenOnClickHandler = (note) => {
         setSelectedNodes(prevNotes => {
@@ -16,7 +15,6 @@ const RenderNotes = ({ notes, passNoteInfoHandler, createChildNode, deleteNodeHa
                 return [...prevNotes, note];
             }
         });
-        setActiveNote(true);
     };
 
     const passNoteInfoOnHoverHandler = (note) => {

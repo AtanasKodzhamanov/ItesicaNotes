@@ -30,7 +30,15 @@
     justify-content: space-between;
     align-items: center;
 }
+.children-count{
+    color: var(--background-color);
+    font-size: calc(10px + 1vmin);
+    margin: 4px;
+    padding: 4px;
+    border-radius: 5px;
+    border: none;
 
+}
 .note-button{
     position: relative;
     background-color: var(--button-color);
