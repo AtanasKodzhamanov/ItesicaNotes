@@ -52,12 +52,12 @@ const useNotes = (authToken, isLoggedIn) => {
   }
 
   const createNode = async (title, content, parentId = null) => {
-    const authToken = localStorage.getItem('authToken')
-    const userId = parseInt(localStorage.getItem('userId'), 10)
+    const authToken = localStorage.getItem('authToken');
+    const userId = parseInt(localStorage.getItem('userId'), 10);
 
     if (!userId) {
-      console.error('User ID not found in localStorage')
-      return
+      console.error('User ID not found in localStorage');
+      return;
     }
 
     const response = await fetch('http://localhost:8000/api/notes/', {
@@ -67,23 +67,34 @@ const useNotes = (authToken, isLoggedIn) => {
         Authorization: `Token ${authToken}`,
       },
       body: JSON.stringify({ title, content, user: userId, parent: parentId }),
-    })
+    });
 
     if (response.ok) {
-      const newNode = await response.json()
+      const newNode = await response.json();
       if (parentId) {
-        const parentIndex = notes.findIndex((note) => note.id === parentId)
-        const newNotes = [...notes]
-        newNotes[parentIndex].children.push(newNode)
-        setNotes(newNotes)
+        setNotes(prevNotes => {
+          const newNotes = [...prevNotes];
+          const parentIndex = newNotes.findIndex(note => note.id === parentId);
+          const updatedParent = {
+            ...newNotes[parentIndex],
+            children: [...newNotes[parentIndex].children, newNode.id],
+          };
+          newNotes[parentIndex] = updatedParent;
+          newNotes.push(newNode);
+          return newNotes;
+        });
+        console.log('New child', notes);
       } else {
-        setNotes([...notes, newNode])
+        setNotes(prevNotes => [...prevNotes, newNode]);
+        console.log('No parent:', notes);
       }
     } else {
-      const errorData = await response.json()
-      console.error('Error creating node:', errorData)
+      const errorData = await response.json();
+      console.error('Error creating node:', errorData);
     }
-  }
+  };
+
+
 
   const updateNode = async (id, title, content, marked) => {
     const authToken = localStorage.getItem('authToken')
@@ -174,10 +185,8 @@ const useNotes = (authToken, isLoggedIn) => {
         console.error('Failed to delete node')
       }
     }
-    const nodeToDelete = notes.find((note) => note.id === id)
-
     await deleteNodeRecursive(id)
-    setNotes(notes.filter((note) => note.id !== id))
+    setNotes(prevNotes => prevNotes.filter((note) => note.id !== id))
   }
 
 

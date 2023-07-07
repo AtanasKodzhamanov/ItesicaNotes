@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './RenderNotes.css';
 import NoteButton from './NoteButton/NoteButton';
 
@@ -7,9 +7,15 @@ const RenderNotes = ({ notes, passNoteInfoHandler, createChildNode, deleteNodeHa
     const [activeNote, setActiveNote] = useState(false);
     const [showButtons, setShowButtons] = useState(false);
 
-
     const showChildrenOnClickHandler = (note) => {
-        setSelectedNodes(prevNotes => [...prevNotes, note]);
+        setSelectedNodes(prevNotes => {
+            const isNoteSelected = prevNotes.some(selectedNote => selectedNote.id === note.id);
+            if (isNoteSelected) {
+                return prevNotes.filter(selectedNote => selectedNote.id !== note.id);
+            } else {
+                return [...prevNotes, note];
+            }
+        });
         setActiveNote(true);
     };
 

@@ -16,10 +16,16 @@ const HomePage = () => {
     toggleMarked
   } = useContext(NoteContext)
 
+  useEffect(() => {
+    console.log("Notes changed: ", notes)
+  }, [notes])
+
   const [noteId, setNoteId] = useState(null)
   const [noteText, setNoteText] = useState("")
   const [noteTitle, setNoteTitle] = useState("")
   const [parentNode, setParentNode] = useState(null)
+
+  const [notesUpdated, setNotes] = useState([notes])
 
   // used to pass content between note text area and note tree
   const [newChildNodeForm, setNewChildNodeForm] = useState(false)
@@ -36,6 +42,7 @@ const HomePage = () => {
     setParentNode(parentId)
     setNewChildNodeForm(true)
     console.log(parentId)
+
   }
 
   const deteleteNodeHandler = () => {
@@ -44,11 +51,13 @@ const HomePage = () => {
   }
 
   // when a user clicks on the save button, the new child node is created
-  const saveChildNodeHandler = () => {
+  const saveChildNodeHandler = async (e) => {
     if (childTitle.trim() !== "" && childText.trim() !== "") {
+      e.preventDefault();
       setNewChildNodeForm(false)
-      createNode(childTitle, childText, parentNode.id)
-      console.log('Enter pressed in both textareas');
+      createNode(childTitle, childText, parentNode.id);
+      setChildText("")
+      setChildTitle("")
     }
   }
 
