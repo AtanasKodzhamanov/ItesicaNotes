@@ -44,18 +44,13 @@ def register(request):
 class CustomObtainAuthToken(ObtainAuthToken):
     def post(self, request, *args, **kwargs):
         print("CustomObtainAuthToken post method called")
-        response = super(CustomObtainAuthToken, self).post(request, *args, **kwargs)
+        response = super(CustomObtainAuthToken, self).post(
+            request, *args, **kwargs)
         token = Token.objects.get(key=response.data["token"])
         user_id = token.user_id
         print("user_id:", user_id)
         response.data["user_id"] = user_id
         return response
-
-
-class HelloView(APIView):
-    def get(self, request):
-        data = {"message": "Hello, world!"}
-        return Response(data)
 
 
 class NoteList(generics.ListCreateAPIView):
