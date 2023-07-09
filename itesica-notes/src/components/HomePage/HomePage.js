@@ -59,10 +59,12 @@ const HomePage = () => {
 
     console.log("passed note title: ", note.title);
     console.log("passed note", note);
+    console.log("old state:", notes)
 
     if (confirmation) {
       console.log(note.id);
       deleteNode(note.id);
+      console.log("New state:", notes)
     }
   };
 
@@ -113,6 +115,9 @@ const HomePage = () => {
 
   const [animationParent] = useAutoAnimate()
 
+  const updateNotebookID = () => {
+    setCurrentNotebookID(null)
+  }
   return (
     <>
       <div className="notebooks" >
@@ -121,6 +126,7 @@ const HomePage = () => {
             notes={notes}
             openNoteBookHandler={openNoteBookHandler}
             deleteNodeHandler={deleteNodeHandler}
+            updateNotebookID={updateNotebookID}
           />
         </div>
         <button
