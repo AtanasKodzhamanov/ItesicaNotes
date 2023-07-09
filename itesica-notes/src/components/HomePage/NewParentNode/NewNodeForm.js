@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 
-const NewNodeForm = ({ onCreate, currentNotebookID }) => {
+const NewNodeForm = ({ createNode, currentNotebookID }) => {
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    onCreate(title, content, e, currentNotebookID)
+    createNode(title, content, e, currentNotebookID)
     setTitle('')
     setContent('')
   }

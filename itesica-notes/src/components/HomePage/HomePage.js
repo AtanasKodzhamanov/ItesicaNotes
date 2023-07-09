@@ -6,6 +6,8 @@ import { NoteContext } from '../../NoteContext'
 import { useContext } from 'react'
 import RenderNotebooks from './RenderNotebooks/RenderNotebooks'
 import { useAutoAnimate } from '@formkit/auto-animate/react'
+import NoteBooksBar from './NotebooksBar/NoteBooksBar'
+import TreeScreen from './TreeScreen/TreeScreen'
 
 const HomePage = () => {
 
@@ -113,50 +115,31 @@ const HomePage = () => {
     console.log(title)
   }
 
-  const [animationParent] = useAutoAnimate()
-
   const updateNotebookID = () => {
     setCurrentNotebookID(null)
   }
   return (
     <>
-      <div className="notebooks" >
-        <div className="notebooks-only" ref={animationParent}>
-          <RenderNotebooks
-            notes={notes}
-            openNoteBookHandler={openNoteBookHandler}
-            deleteNodeHandler={deleteNodeHandler}
-            updateNotebookID={updateNotebookID}
-          />
-        </div>
-        <button
-          className="new-notebook-button"
-        >
-          <ExpandableNewNodeForm
-            onCreate={createNode}
-            currentNotebookID={currentNotebookID} />
-        </button>
-
-
-      </div >
+      <div className="notebooks">
+        <NoteBooksBar
+          notes={notes}
+          openNoteBookHandler={openNoteBookHandler}
+          updateNotebookID={updateNotebookID}
+          createNode={createNode}
+          deleteNodeHandler={deleteNodeHandler}
+          currentNotebookID={currentNotebookID}
+        />
+      </div>
       <div className="notebook-opened">
-
         <div className="note-tree-section">
-          {currentNotebookID != null ?
-            <>
-              <ExpandableNewNodeForm
-                onCreate={createNode}
-                currentNotebookID={currentNotebookID} />
-
-              <RenderNotes
-                notes={notes}
-                currentNotebookID={currentNotebookID}
-                passNoteInfoHandler={passNoteInfoHandler}
-                createChildNode={createChildNode}
-                deleteNodeHandler={deleteNodeHandler}
-              /></>
-            : "Open or create a notebook to get started!"}
-
+          <TreeScreen
+            notes={notes}
+            currentNotebookID={currentNotebookID}
+            passNoteInfoHandler={passNoteInfoHandler}
+            createChildNode={createChildNode}
+            deleteNodeHandler={deleteNodeHandler}
+            createNode={createNode}
+          />
         </div>
         <div className="note-text-area">
           {
