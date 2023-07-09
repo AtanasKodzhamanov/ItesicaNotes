@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './RenderNotes.css';
 import NoteButton from './NoteButton/NoteButton';
+import { useAutoAnimate } from '@formkit/auto-animate/react';
 
-const RenderNotes = ({ notes, passNoteInfoHandler, createChildNode, deleteNodeHandler }) => {
+const RenderNotes = ({ notes, passNoteInfoHandler, createChildNode, deleteNodeHandler, currentNotebookID }) => {
     const [selectedNodes, setSelectedNodes] = useState([]);
 
 
@@ -17,17 +18,21 @@ const RenderNotes = ({ notes, passNoteInfoHandler, createChildNode, deleteNodeHa
         });
     };
 
+    useEffect(() => { console.log(selectedNodes) }, [selectedNodes]);
+
     const passNoteInfoOnHoverHandler = (note) => {
         passNoteInfoHandler(note)
     };
 
+    const [animationParent] = useAutoAnimate()
+
     const renderNotes = (parentId = null) => {
         return (
-            <div>
+            <div ref={animationParent}>
                 {notes
                     .filter((note) => note.parent === parentId)
                     .map((note) => (
-                        <div className="note-body" key={note.id} >
+                        <div className="note-body" ref={animationParent} key={note.id} >
                             <NoteButton
                                 note={note}
                                 passNoteInfoHandler={passNoteInfoOnHoverHandler}
@@ -43,7 +48,7 @@ const RenderNotes = ({ notes, passNoteInfoHandler, createChildNode, deleteNodeHa
         );
     };
 
-    return renderNotes();
+    return renderNotes(currentNotebookID);
 };
 
 export default RenderNotes;

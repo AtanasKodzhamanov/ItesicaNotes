@@ -1,4 +1,4 @@
-.notebook{
+.notebook-opened{
     display: flex;
     flex-direction: row;
     height: 100vh;
@@ -95,3 +95,50 @@
     border-radius: 25%;
 }
 
+.notebooks{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+.new-notebook-button{
+    display: flex;
+    flex-direction: row;
+    height: 100px;
+    width: 100px;
+    box-sizing: border-box;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+    margin-top:20px;
+    border-radius: 25%;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+}
+
+.open-notebook-button{
+    display: flex;
+    flex-direction: row;
+    height: 100px;
+    padding: 20px;
+    box-sizing: border-box;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+    margin-top:20px;
+    border-radius: 5%;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+}
+
+.notebook{
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+}
+
+.new-notebook-button:hover .circle-plus{
+    color: aliceblue;
+}
+
+.notebooks-only{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+}

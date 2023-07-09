@@ -3,24 +3,13 @@ import '../RenderNotes.css';
 
 const NoteButton = ({ note, passNoteInfoHandler, selectedNodes, showChildrenOnClickHandler, createChildNode, deleteNodeHandler }) => {
 
-    const [isActive, setIsActive] = useState([]);
-    const [highlighted, setHighlighted] = useState(false);
-
     const handleClick = (note) => {
-        setIsActive(prevNotes => {
-            if (prevNotes.includes(note.id)) {
-                return prevNotes.filter(id => id !== note.id);
-            } else {
-                return [...prevNotes, note.id];
-            }
-        });
-
         showChildrenOnClickHandler(note);
     };
 
     useEffect(() => {
-        setHighlighted(isActive.includes(note.id) || note.children.length === 0);
-    }, [isActive, note.id, note.children]);
+        console.log("selectedNodes changed");
+    }, [selectedNodes]);
 
 
     return (
@@ -29,7 +18,7 @@ const NoteButton = ({ note, passNoteInfoHandler, selectedNodes, showChildrenOnCl
                 {note.children.length}
             </h3>
             <h2
-                className={`note-container ${highlighted ? 'active' : ''}`}
+                className={`note-container ${selectedNodes.some(node => node.id === note.id) || note.children.length == 0 ? 'active' : ''}`}
                 onMouseEnter={() => passNoteInfoHandler(note)}
                 onClick={() => handleClick(note)}
             >

@@ -2,12 +2,12 @@ import NewNodeForm from './NewNodeForm'
 import React, { useState } from 'react'
 import './ExpandableNewNodeForm.css'
 
-const ExpandableNewNodeForm = ({ onCreate }) => {
+const ExpandableNewNodeForm = ({ onCreate, currentNotebookID }) => {
   const [isExpanded, setIsExpanded] = useState(false)
 
-  const handleFormCreate = (title, content, e) => {
+  const handleFormCreate = (title, content, e, currentNotebookID) => {
     e.stopPropagation()
-    onCreate(title, content)
+    onCreate(title, content, currentNotebookID)
   }
 
   const handleClick = () => {
@@ -29,7 +29,7 @@ const ExpandableNewNodeForm = ({ onCreate }) => {
             <span className="close" onClick={closeModal}>
               &times;
             </span>
-            <NewNodeForm onCreate={handleFormCreate} />
+            <NewNodeForm onCreate={handleFormCreate} currentNotebookID={currentNotebookID} />
           </div>
         </div>
       )}

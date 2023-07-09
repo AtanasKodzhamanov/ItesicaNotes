@@ -4,7 +4,8 @@ import './HomePage.css'
 import RenderNotes from './RenderNotes/RenderNotes'
 import { NoteContext } from '../../NoteContext'
 import { useContext } from 'react'
-
+import RenderNotebooks from './RenderNotebooks/RenderNotebooks'
+import { useAutoAnimate } from '@formkit/auto-animate/react'
 
 const HomePage = () => {
 
@@ -29,13 +30,14 @@ const HomePage = () => {
   const [originalNoteText, setOriginalNoteText] = useState("")
   const [originalNoteTitle, setOriginalNoteTitle] = useState("")
 
-
-  const [notesUpdated, setNotes] = useState([notes])
-
   // used to pass content between note text area and note tree
   const [newChildNodeForm, setNewChildNodeForm] = useState(false)
   const [childText, setChildText] = useState("")
   const [childTitle, setChildTitle] = useState("")
+
+  const [currentNotebookID, setCurrentNotebookID] = useState(null)
+  const [notebookTitle, setNotebookTitle] = useState("")
+
 
   const passNoteInfoHandler = (note) => {
     setNoteId(note.id)
@@ -52,13 +54,15 @@ const HomePage = () => {
 
   }
 
-  const deleteNodeHandler = () => {
+  const deleteNodeHandler = (note) => {
     const confirmation = window.confirm(`WARNING: This will delete all nested children nodes as well. Are you sure you want to delete this note: ${noteTitle}`);
-    console.log(noteTitle);
+
+    console.log("passed note title: ", note.title);
+    console.log("passed note", note);
 
     if (confirmation) {
-      console.log(noteId);
-      deleteNode(noteId);
+      console.log(note.id);
+      deleteNode(note.id);
     }
   };
 
@@ -102,17 +106,51 @@ const HomePage = () => {
     }
   };
 
+  const openNoteBookHandler = (title) => {
+    setCurrentNotebookID(title)
+    console.log(title)
+  }
+
+  const [animationParent] = useAutoAnimate()
+
   return (
     <>
-      <ExpandableNewNodeForm onCreate={createNode} />
-      <div className="notebook">
-        <div className="note-tree-section">
-          <RenderNotes
+      <div className="notebooks" >
+        <div className="notebooks-only" ref={animationParent}>
+          <RenderNotebooks
             notes={notes}
-            passNoteInfoHandler={passNoteInfoHandler}
-            createChildNode={createChildNode}
+            openNoteBookHandler={openNoteBookHandler}
             deleteNodeHandler={deleteNodeHandler}
           />
+        </div>
+        <button
+          className="new-notebook-button"
+        >
+          <ExpandableNewNodeForm
+            onCreate={createNode}
+            currentNotebookID={currentNotebookID} />
+        </button>
+
+
+      </div >
+      <div className="notebook-opened">
+
+        <div className="note-tree-section">
+          {currentNotebookID != null ?
+            <>
+              <ExpandableNewNodeForm
+                onCreate={createNode}
+                currentNotebookID={currentNotebookID} />
+
+              <RenderNotes
+                notes={notes}
+                currentNotebookID={currentNotebookID}
+                passNoteInfoHandler={passNoteInfoHandler}
+                createChildNode={createChildNode}
+                deleteNodeHandler={deleteNodeHandler}
+              /></>
+            : "Open or create a notebook to get started!"}
+
         </div>
         <div className="note-text-area">
           {

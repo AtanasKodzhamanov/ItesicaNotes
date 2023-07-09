@@ -4,15 +4,27 @@
   align-items: center;
   width: 60px;
   height: 60px;
-  border-radius: 50%;
-  background-color: #4caf50;
-  color: white;
+  font-size: 35px;
+  line-height: 35px; /* Add this line */
+  color: rgba(0, 0, 0, 0.743);
   font-weight: bold;
   cursor: pointer;
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
 }
+
+.circle-plus h1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+.circle-plus:hover {
+  transform: scale(1.42);
+  z-index: 2;
+  color: rgb(179, 179, 179);
+}
+
 
 .modal {
   display: flex;
