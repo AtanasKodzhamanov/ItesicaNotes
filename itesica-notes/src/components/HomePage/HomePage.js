@@ -1,13 +1,10 @@
 import { useState, useEffect } from 'react'
-import ExpandableNewNodeForm from './NewParentNode/ExpandableNewNodeForm'
 import './HomePage.css'
-import RenderNotes from './RenderNotes/RenderNotes'
 import { NoteContext } from '../../NoteContext'
 import { useContext } from 'react'
-import RenderNotebooks from './RenderNotebooks/RenderNotebooks'
-import { useAutoAnimate } from '@formkit/auto-animate/react'
 import NoteBooksBar from './NotebooksBar/NoteBooksBar'
 import TreeScreen from './TreeScreen/TreeScreen'
+import NoteTextArea from './NoteTextArea/NoteTextArea'
 
 const HomePage = () => {
 
@@ -27,8 +24,6 @@ const HomePage = () => {
   const [noteText, setNoteText] = useState("")
   const [noteTitle, setNoteTitle] = useState("")
   const [parentNode, setParentNode] = useState(null)
-  const [borderEffectTitle, setBorderEffectTitle] = useState(false);
-  const [borderEffectText, setBorderEffectText] = useState(false);
   const [originalNoteText, setOriginalNoteText] = useState("")
   const [originalNoteTitle, setOriginalNoteTitle] = useState("")
 
@@ -38,8 +33,6 @@ const HomePage = () => {
   const [childTitle, setChildTitle] = useState("")
 
   const [currentNotebookID, setCurrentNotebookID] = useState(null)
-  const [notebookTitle, setNotebookTitle] = useState("")
-
 
   const passNoteInfoHandler = (note) => {
     setNoteId(note.id)
@@ -52,72 +45,24 @@ const HomePage = () => {
   const createChildNode = (parentId) => {
     setParentNode(parentId)
     setNewChildNodeForm(true)
-    console.log(parentId)
-
   }
 
   const deleteNodeHandler = (note) => {
     const confirmation = window.confirm(`WARNING: This will delete all nested children nodes as well. Are you sure you want to delete this note: ${noteTitle}`);
 
-    console.log("passed note title: ", note.title);
-    console.log("passed note", note);
-    console.log("old state:", notes)
-
     if (confirmation) {
-      console.log(note.id);
       deleteNode(note.id);
-      console.log("New state:", notes)
-    }
-  };
-
-
-  // when a user clicks on the save button, the new child node is created
-  const saveChildNodeHandler = async (e) => {
-    if (childTitle.trim() !== "" && childText.trim() !== "") {
-      e.preventDefault();
-      setNewChildNodeForm(false)
-      createNode(childTitle, childText, parentNode.id);
-      setChildText("")
-      setChildTitle("")
-    }
-  }
-
-  // when a user clicks on the cancle button, the new child node form is closed
-  const cancleChildNodeHandler = () => {
-    setNewChildNodeForm(false)
-  }
-
-  // when a user types in a note text area and then clicks outside of the text area, the note is automatically updated
-  const handleBlur = () => {
-    if (noteTitle === "" || noteText === "") {
-      alert('Note title or text can\'t be missing.');
-    } else {
-      if (noteText !== originalNoteText) {
-        setOriginalNoteText(noteText);
-        setBorderEffectText(true);
-        setTimeout(() => setBorderEffectText(false), 750);
-      }
-
-      if (noteTitle !== originalNoteTitle) {
-        setOriginalNoteTitle(noteTitle);
-        setBorderEffectTitle(true);
-        setTimeout(() => setBorderEffectTitle(false), 750);
-      }
-
-      if (noteTitle !== originalNoteText || noteText !== originalNoteText) {
-        updateNode(noteId, noteTitle, noteText);
-      }
     }
   };
 
   const openNoteBookHandler = (title) => {
     setCurrentNotebookID(title)
-    console.log(title)
   }
 
   const updateNotebookID = () => {
     setCurrentNotebookID(null)
   }
+
   return (
     <>
       <div className="notebooks">
@@ -142,53 +87,28 @@ const HomePage = () => {
           />
         </div>
         <div className="note-text-area">
-          {
-            newChildNodeForm ?
-              <>
-                <div className='note-text-area'>
-                  <textarea
-                    className="note-title-input"
-                    placeholder="Enter title..."
-                    value={childTitle}
-                    onChange={e => setChildTitle(e.target.value)}
-                  />
-                  <textarea
-                    className="note-text-input"
-                    placeholder="Enter note..."
-                    value={childText}
-                    onChange={e => setChildText(e.target.value)}
-                  />
-                  <div className="utility-buttons">
-                    <button className="save-button" onClick={saveChildNodeHandler}>Save</button>
-                    <button className="cancle-button" onClick={cancleChildNodeHandler}>X</button>
-                  </div>
-                </div>
-              </>
-              :
-              <>
-                <div className={`note-text-area`}>
-
-                  <textarea
-                    className={`note-title-input ${borderEffectTitle ? 'edit-border' : ''}`}
-                    placeholder="Enter title..."
-                    value={noteTitle}
-                    onChange={e => setNoteTitle(e.target.value)}
-                    onBlur={handleBlur}
-                  />
-                  <textarea
-                    className={`note-text-input ${borderEffectText ? 'edit-border' : ''}`}
-                    placeholder="Enter note..."
-                    value={noteText}
-                    onChange={e => setNoteText(e.target.value)}
-                    onBlur={handleBlur}
-                  />
-                </div>
-              </>
-          }
+          <NoteTextArea
+            noteTitle={noteTitle}
+            noteText={noteText}
+            setNoteTitle={setNoteTitle}
+            setNoteText={setNoteText}
+            childText={childText}
+            childTitle={childTitle}
+            setChildTitle={setChildTitle}
+            setChildText={setChildText}
+            originalNoteText={originalNoteText}
+            originalNoteTitle={originalNoteTitle}
+            setOriginalNoteText={setOriginalNoteText}
+            setOriginalNoteTitle={setOriginalNoteTitle}
+            setNewChildNodeForm={setNewChildNodeForm}
+            newChildNodeForm={newChildNodeForm}
+            updateNode={updateNode}
+            noteId={noteId}
+            parentNode={parentNode}
+            createNode={createNode}
+          />
         </div>
-
       </div>
-
     </>
   )
 }
