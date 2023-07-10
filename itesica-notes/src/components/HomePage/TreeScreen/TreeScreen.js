@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import ExpandableNewNodeForm from '../NewParentNode/ExpandableNewNodeForm';
-import RenderNotes from '../RenderNotes/RenderNotes';
+import RenderNotes from './RenderNotes/RenderNotes';
 
 const TreeScreen = ({ notes, passNoteInfoHandler, createChildNode, deleteNodeHandler, currentNotebookID, createNode }) => {
 

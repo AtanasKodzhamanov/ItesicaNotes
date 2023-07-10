@@ -1,9 +1,17 @@
 import react from 'react'
-import RenderNotebooks from '../RenderNotebooks/RenderNotebooks'
+import RenderNotebooks from './RenderNotebooks/RenderNotebooks'
 import ExpandableNewNodeForm from '../NewParentNode/ExpandableNewNodeForm'
 import { useAutoAnimate } from '@formkit/auto-animate/react'
+import { useContext } from 'react'
+import { NoteContext } from '../../../NoteContext'
 
-const NoteBooksBar = ({ notes, openNoteBookHandler, deleteNodeHandler, updateNotebookID, createNode, currentNotebookID }) => {
+const NoteBooksBar = ({ openNoteBookHandler, deleteNodeHandler, updateNotebookID, currentNotebookID }) => {
+
+
+    const {
+        createNode,
+        notes,
+    } = useContext(NoteContext)
 
     const [animationParent] = useAutoAnimate()
 
@@ -12,7 +20,6 @@ const NoteBooksBar = ({ notes, openNoteBookHandler, deleteNodeHandler, updateNot
         <>
             <div className="notebooks-only" ref={animationParent}>
                 <RenderNotebooks
-                    notes={notes}
                     openNoteBookHandler={openNoteBookHandler}
                     deleteNodeHandler={deleteNodeHandler}
                     updateNotebookID={updateNotebookID}

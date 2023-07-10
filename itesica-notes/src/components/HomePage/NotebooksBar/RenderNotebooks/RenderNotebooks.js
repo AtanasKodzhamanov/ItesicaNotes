@@ -2,9 +2,12 @@ import React from 'react';
 import { useDrag, useDrop, DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import './RenderNotebooks.css';
+import { useContext } from 'react';
+import { NoteContext } from '../../../../NoteContext';
 
 // Component for note
 const Note = ({ note, onNoteDropped, openNoteBookHandler }) => {
+
     const [{ isDragging }, dragRef] = useDrag(() => ({
         type: 'note',
         item: { id: note.id },
@@ -18,6 +21,8 @@ const Note = ({ note, onNoteDropped, openNoteBookHandler }) => {
             isDragging: monitor.isDragging(),
         }),
     }));
+
+
 
     return (
         <button
@@ -52,7 +57,13 @@ const Bin = () => {
     );
 };
 
-const RenderNotebooks = ({ notes, openNoteBookHandler, deleteNodeHandler, updateNotebookID }) => {
+const RenderNotebooks = ({ openNoteBookHandler, deleteNodeHandler, updateNotebookID }) => {
+
+    const {
+        notes,
+    } = useContext(NoteContext)
+
+
     const onNoteDropped = (note) => {
         // Add logic here to delete note when dropped into the bin
         // Make sure to update your state to reflect this deletion
