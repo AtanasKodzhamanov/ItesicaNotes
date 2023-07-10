@@ -1,10 +1,16 @@
 import { useState, useEffect } from 'react'
+import { useContext } from 'react'
+import { NoteContext } from '../../../NoteContext'
 
-
-const NoteTextArea = ({ childText, setNoteTitle, newChildNodeForm, childTitle, setChildTitle, setChildText, setNoteText, noteTitle, noteText, originalNoteText, originalNoteTitle, setOriginalNoteText, setOriginalNoteTitle, noteId, updateNode, createNode, parentNode, setNewChildNodeForm }) => {
+const NoteTextArea = ({ childText, setNoteTitle, newChildNodeForm, childTitle, setChildTitle, setChildText, setNoteText, noteTitle, noteText, originalNoteText, originalNoteTitle, setOriginalNoteText, setOriginalNoteTitle, noteId, parentNode, setNewChildNodeForm }) => {
 
     const [borderEffectTitle, setBorderEffectTitle] = useState(false);
     const [borderEffectText, setBorderEffectText] = useState(false);
+
+    const {
+        createNode,
+        updateNode,
+    } = useContext(NoteContext)
 
     // when a user types in a note text area and then clicks outside of the text area, the note is automatically updated
     const handleBlur = () => {

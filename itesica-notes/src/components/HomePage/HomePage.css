@@ -102,16 +102,12 @@
 }
 .new-notebook-button{
     display: flex;
-    flex-direction: row;
     height: 100px;
     width: 100px;
     box-sizing: border-box;
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
     margin-top:20px;
-    border-radius: 25%;
     justify-content: center;
     align-items: center;
-    font-size: 25px;
 }
 
 .open-notebook-button{
@@ -133,7 +129,7 @@
 }
 
 .new-notebook-button:hover .circle-plus{
-    color: aliceblue;
+    color: grey;
 }
 
 .notebooks-only{

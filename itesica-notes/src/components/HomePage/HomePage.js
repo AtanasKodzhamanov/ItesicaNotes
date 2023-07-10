@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import './HomePage.css'
 import { NoteContext } from '../../NoteContext'
 import { useContext } from 'react'
@@ -9,16 +9,9 @@ import NoteTextArea from './NoteTextArea/NoteTextArea'
 const HomePage = () => {
 
   const {
-    createNode,
-    updateNode,
     deleteNode,
-    notes,
     toggleMarked
   } = useContext(NoteContext)
-
-  useEffect(() => {
-    console.log("Notes changed: ", notes)
-  }, [notes])
 
   const [noteId, setNoteId] = useState(null)
   const [noteText, setNoteText] = useState("")
@@ -67,10 +60,8 @@ const HomePage = () => {
     <>
       <div className="notebooks">
         <NoteBooksBar
-          notes={notes}
           openNoteBookHandler={openNoteBookHandler}
           updateNotebookID={updateNotebookID}
-          createNode={createNode}
           deleteNodeHandler={deleteNodeHandler}
           currentNotebookID={currentNotebookID}
         />
@@ -78,12 +69,10 @@ const HomePage = () => {
       <div className="notebook-opened">
         <div className="note-tree-section">
           <TreeScreen
-            notes={notes}
             currentNotebookID={currentNotebookID}
             passNoteInfoHandler={passNoteInfoHandler}
             createChildNode={createChildNode}
             deleteNodeHandler={deleteNodeHandler}
-            createNode={createNode}
           />
         </div>
         <div className="note-text-area">
@@ -102,10 +91,8 @@ const HomePage = () => {
             setOriginalNoteTitle={setOriginalNoteTitle}
             setNewChildNodeForm={setNewChildNodeForm}
             newChildNodeForm={newChildNodeForm}
-            updateNode={updateNode}
             noteId={noteId}
             parentNode={parentNode}
-            createNode={createNode}
           />
         </div>
       </div>

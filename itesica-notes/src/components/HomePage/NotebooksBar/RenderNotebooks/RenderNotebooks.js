@@ -69,7 +69,7 @@ const RenderNotebooks = ({ openNoteBookHandler, deleteNodeHandler, updateNoteboo
         // Make sure to update your state to reflect this deletion
         console.log('Note dropped into bin', note);
         deleteNodeHandler(note);
-        updateNotebookID();
+        { note.parent = null ? updateNotebookID() : null }
     };
 
     return (

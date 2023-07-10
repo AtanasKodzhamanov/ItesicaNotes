@@ -1,8 +1,16 @@
 import NewNodeForm from './NewNodeForm'
 import React, { useState } from 'react'
 import './ExpandableNewNodeForm.css'
+import { useContext } from 'react'
+import { NoteContext } from '../../../NoteContext'
 
-const ExpandableNewNodeForm = ({ createNode, currentNotebookID }) => {
+const ExpandableNewNodeForm = ({ currentNotebookID }) => {
+
+  const {
+    createNode,
+  } = useContext(NoteContext)
+
+
   const [isExpanded, setIsExpanded] = useState(false)
 
   const handleFormCreate = (title, content, e, currentNotebookID) => {

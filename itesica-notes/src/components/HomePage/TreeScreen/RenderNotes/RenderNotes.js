@@ -2,10 +2,14 @@ import React, { useState, useEffect, useRef } from 'react';
 import './RenderNotes.css';
 import NoteButton from './NoteButton/NoteButton';
 import { useAutoAnimate } from '@formkit/auto-animate/react';
+import { useContext } from 'react';
+import { NoteContext } from '../../../../NoteContext';
 
-const RenderNotes = ({ notes, passNoteInfoHandler, createChildNode, deleteNodeHandler, currentNotebookID }) => {
+const RenderNotes = ({ passNoteInfoHandler, createChildNode, deleteNodeHandler, currentNotebookID }) => {
     const [selectedNodes, setSelectedNodes] = useState([]);
-
+    const {
+        notes,
+    } = useContext(NoteContext)
 
     const showChildrenOnClickHandler = (note) => {
         setSelectedNodes(prevNotes => {
