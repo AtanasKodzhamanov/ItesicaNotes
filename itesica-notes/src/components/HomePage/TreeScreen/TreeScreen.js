@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import ExpandableNewNodeForm from '../NewParentNode/ExpandableNewNodeForm';
 import RenderNotes from './RenderNotes/RenderNotes';
 
@@ -18,7 +18,8 @@ const TreeScreen = ({ passNoteInfoHandler, createChildNode, deleteNodeHandler, c
                         passNoteInfoHandler={passNoteInfoHandler}
                         createChildNode={createChildNode}
                         deleteNodeHandler={deleteNodeHandler}
-                    /></>
+                    />
+                </>
                 : "Open or create a notebook to get started!"}
         </>
     )

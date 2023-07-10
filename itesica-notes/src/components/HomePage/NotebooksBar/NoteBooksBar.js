@@ -6,7 +6,6 @@ const NoteBooksBar = ({ openNoteBookHandler, deleteNodeHandler, updateNotebookID
 
     const [animationParent] = useAutoAnimate()
 
-
     return (
         <>
             <div className="notebooks-only" ref={animationParent}>

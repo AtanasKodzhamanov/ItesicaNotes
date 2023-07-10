@@ -53,7 +53,9 @@ const HomePage = () => {
   }
 
   const updateNotebookID = () => {
+    console.log(currentNotebookID)
     setCurrentNotebookID(null)
+    console.log(currentNotebookID)
   }
 
   return (
