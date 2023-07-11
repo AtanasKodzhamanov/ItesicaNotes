@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Note
+from .models import Note, NoteHistory
 
 
 class NoteSerializer(serializers.ModelSerializer):
@@ -19,3 +19,9 @@ class NoteSerializer(serializers.ModelSerializer):
             "marked",
             "color",
         ]
+
+
+class NoteHistorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = NoteHistory
+        fields = ['old_content', 'edited_at']

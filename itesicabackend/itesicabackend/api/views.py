@@ -1,9 +1,11 @@
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import generics
+from rest_framework import viewsets
+
 from rest_framework.permissions import IsAuthenticated
-from .models import Note
-from .serializers import NoteSerializer
+from .models import Note, NoteHistory
+from .serializers import NoteSerializer, NoteHistorySerializer
 
 
 from rest_framework.authtoken.views import ObtainAuthToken
@@ -69,3 +71,16 @@ class NoteDetail(generics.RetrieveUpdateDestroyAPIView):
 
     queryset = Note.objects.all()
     serializer_class = NoteSerializer
+
+
+# Inherits from ReadOnlyModelViewSet to only allow read operations
+class NoteHistoryViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = NoteHistory.objects.all()
+    serializer_class = NoteHistorySerializer
+
+    def retrieve(self, request, *args, **kwargs):
+        note_id = kwargs.get('pk')  # Retrieve the note ID from the URL
+        note_history = NoteHistory.objects.filter(note_id=note_id).order_by(
+            '-edited_at')[:5]  # Retrieve last 5 edits
+        serializer = self.get_serializer(note_history, many=True)
+        return Response(serializer.data)

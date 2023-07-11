@@ -13,6 +13,7 @@ export const NoteProvider = ({ children, authToken, isLoggedIn }) => {
         deleteNode,
         toggleMarked,
         renderChildren,
+        getHistory
     } = useNotes(authToken, isLoggedIn)
 
 
@@ -28,6 +29,7 @@ export const NoteProvider = ({ children, authToken, isLoggedIn }) => {
                 deleteNode,
                 toggleMarked,
                 renderChildren,
+                getHistory,
             }}
         >
             {children}

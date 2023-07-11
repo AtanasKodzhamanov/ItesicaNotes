@@ -9,6 +9,7 @@ const RenderNotes = ({ passNoteInfoHandler, createChildNode, deleteNodeHandler, 
     const [selectedNodes, setSelectedNodes] = useState([]);
     const {
         notes,
+        getHistory,
     } = useContext(NoteContext)
 
     const showChildrenOnClickHandler = (note) => {
@@ -26,6 +27,7 @@ const RenderNotes = ({ passNoteInfoHandler, createChildNode, deleteNodeHandler, 
 
     const passNoteInfoOnHoverHandler = (note) => {
         passNoteInfoHandler(note)
+        getHistory(note.id)
     };
 
     const [animationParent] = useAutoAnimate()

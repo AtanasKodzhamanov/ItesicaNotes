@@ -178,7 +178,25 @@ const useNotes = (authToken, isLoggedIn) => {
     }
   };
 
+  const getHistory = async (id) => {
+    const authToken = localStorage.getItem('authToken');
+    const userId = parseInt(localStorage.getItem('userId'), 10);
 
+    const response = await fetch(`http://localhost:8000/api/notehistories/${id}/`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Token ${authToken}`,
+      },
+    });
+
+    if (response.ok) {
+      const history = await response.json();
+      console.log('History:', history);
+    } else {
+      const errorData = await response.json();
+      console.error('Error fetching history:', errorData);
+    }
+  };
 
 
   return {
@@ -190,6 +208,7 @@ const useNotes = (authToken, isLoggedIn) => {
     createNode,
     updateNode,
     deleteNode,
+    getHistory,
   }
 }
 
