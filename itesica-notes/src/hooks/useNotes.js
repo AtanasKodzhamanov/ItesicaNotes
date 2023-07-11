@@ -198,6 +198,24 @@ const useNotes = (authToken, isLoggedIn) => {
     }
   };
 
+  const getAllHistory = async () => {
+    const authToken = localStorage.getItem('authToken');
+    const response = await fetch('http://localhost:8000/api/notehistories/', {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Token ${authToken}`,
+      },
+    });
+
+    if (response.ok) {
+      const history = await response.json();
+      console.log('All History:', history);
+    } else {
+      const errorData = await response.json();
+      console.error('Error fetching all history:', errorData);
+    }
+  };
+
 
   return {
     notes,
@@ -209,6 +227,7 @@ const useNotes = (authToken, isLoggedIn) => {
     updateNode,
     deleteNode,
     getHistory,
+    getAllHistory,
   }
 }
 

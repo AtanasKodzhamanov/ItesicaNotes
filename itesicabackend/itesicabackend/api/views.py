@@ -84,3 +84,9 @@ class NoteHistoryViewSet(viewsets.ReadOnlyModelViewSet):
             '-edited_at')[:5]  # Retrieve last 5 edits
         serializer = self.get_serializer(note_history, many=True)
         return Response(serializer.data)
+
+    def list(self, request, *args, **kwargs):
+        note_histories = NoteHistory.objects.select_related('note').order_by(
+            '-edited_at')[:20]  # Retrieve last 5 edits
+        serializer = self.get_serializer(note_histories, many=True)
+        return Response(serializer.data)

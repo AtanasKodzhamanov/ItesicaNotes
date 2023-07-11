@@ -22,6 +22,8 @@ class NoteSerializer(serializers.ModelSerializer):
 
 
 class NoteHistorySerializer(serializers.ModelSerializer):
+    note_title = serializers.ReadOnlyField(source='note.title')
+
     class Meta:
         model = NoteHistory
-        fields = ['old_content', 'edited_at']
+        fields = ['id', 'note', 'note_title', 'old_content', 'edited_at']

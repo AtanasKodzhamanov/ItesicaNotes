@@ -10,7 +10,12 @@ const RenderNotes = ({ passNoteInfoHandler, createChildNode, deleteNodeHandler, 
     const {
         notes,
         getHistory,
+        getAllHistory,
     } = useContext(NoteContext)
+
+    useEffect(() => {
+        console.log(getAllHistory())
+    }, [notes])
 
     const showChildrenOnClickHandler = (note) => {
         setSelectedNodes(prevNotes => {
