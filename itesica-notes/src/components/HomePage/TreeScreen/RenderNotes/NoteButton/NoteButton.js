@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../RenderNotes.css';
 
+
 const NoteButton = ({ note, passNoteInfoHandler, selectedNodes, showChildrenOnClickHandler, createChildNode, deleteNodeHandler }) => {
 
     const handleClick = (note) => {

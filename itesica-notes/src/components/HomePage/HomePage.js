@@ -15,11 +15,8 @@ const HomePage = () => {
 
   // used to pass content between note text area and note tree
   const [newChildNodeForm, setNewChildNodeForm] = useState(false)
-  const [childText, setChildText] = useState("")
-  const [childTitle, setChildTitle] = useState("")
   const [parentNode, setParentNode] = useState(null)
   const [currentNotebookID, setCurrentNotebookID] = useState(null)
-
   const [selectedNote, setSelectedNote] = useState({})
 
   // when a user hovers on a note inside the note tree, the note is selected and passed up to HomePage.js which then passes it down to NoteTextArea.js
@@ -78,10 +75,6 @@ const HomePage = () => {
           <NoteTextArea
             parentNode={parentNode}
             selectedNote={selectedNote}
-            childText={childText}
-            childTitle={childTitle}
-            setChildTitle={setChildTitle}
-            setChildText={setChildText}
             setNewChildNodeForm={setNewChildNodeForm}
             newChildNodeForm={newChildNodeForm}
           />

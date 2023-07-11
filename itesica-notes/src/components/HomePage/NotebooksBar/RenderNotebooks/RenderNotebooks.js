@@ -5,6 +5,20 @@ import './RenderNotebooks.css';
 import { useContext } from 'react';
 import { NoteContext } from '../../../../NoteContext';
 
+// Drag and Drop functionality 
+// 1. First we need to define the draggable component. Here this is Note.
+// 1.1 Inside the Note component we need to define the dragRef. This is a reference to the DOM node that we want to make draggable. The node is defined in the return statement of the Note component. 
+// 1.2 item: Using the useDrag hook we define the information that the draggable component will carry with it.
+// 1.3 type: The type of the draggable component. Here it is note. This is used to identify the type of the component when it is dropped.
+// 1.4 end: Holds the logic that is executed when the draggable component is dropped
+// 1.5 collect: This is a function that is used to extract data from the monitor (an object that keeps track of the drag and drop state). It's used to define what information should be collected about the drag state. In this case, it's checking if the note is currently being dragged.
+// 1.6 Other: begin will be executed when the drag begins. canDrag is used to define if the component can be dragged.
+// 2. Then we need to define the drop in component. Here this is Bin.
+// 2.1 accept: The type of the draggable component that can be dropped into this component. Here it is note.
+// 2.2 drop: Holds the logic that is executed when the draggable component is dropped
+// 2.3 collect: This is a function that is used to extract data from the monitor (an object that keeps track of the drag and drop state). It's used to define what information should be collected about the drop state. In this case, it's checking if the note is currently being dragged and if it can be dropped.
+// 2.4 Other: hover will be executed when the draggable component is hovered over the drop in component. canDrop is used to define if the component can be dropped.
+
 // Component for note
 const Note = ({ note, onNoteDropped, openNoteBookHandler }) => {
 
@@ -21,8 +35,6 @@ const Note = ({ note, onNoteDropped, openNoteBookHandler }) => {
             isDragging: monitor.isDragging(),
         }),
     }));
-
-
 
     return (
         <button
