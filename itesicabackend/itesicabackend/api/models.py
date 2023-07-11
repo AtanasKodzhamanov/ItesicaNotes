@@ -24,9 +24,10 @@ class Note(models.Model):
     content = models.TextField(max_length=2500)
     marked = models.BooleanField(default=False)
     color = models.CharField(max_length=255, choices=COLORS, default="")
+    # this would create a parent and a children field in the Note model
     parent = models.ForeignKey(
         "self",
-        on_delete=models.SET_NULL,
+        on_delete=models.CASCADE,
         null=True,
         blank=True,
         related_name="children",

@@ -42,16 +42,9 @@ const useNotes = (authToken, isLoggedIn) => {
     await updateNode(id, null, null, updatedMarked)
   }
 
-  const updateParent = (parentId, childId, notes, setNotes) => {
-    const parentIndex = notes.findIndex((note) => note.id === parentId)
-    const childIndex = notes.findIndex((note) => note.id === childId)
-    const newNotes = [...notes]
-    newNotes[parentIndex].children.push(newNotes[childIndex])
-    newNotes.splice(childIndex, 1)
-    setNotes(newNotes)
-  }
 
   const createNode = async (title, content, parentId = null) => {
+    console.log('createNode', title, content, parentId)
     const authToken = localStorage.getItem('authToken');
     const userId = parseInt(localStorage.getItem('userId'), 10);
 
@@ -71,46 +64,48 @@ const useNotes = (authToken, isLoggedIn) => {
 
     if (response.ok) {
       const newNode = await response.json();
+
       if (parentId) {
-        setNotes(prevNotes => {
-          const newNotes = [...prevNotes];
-          const parentIndex = newNotes.findIndex(note => note.id === parentId);
-          const updatedParent = {
-            ...newNotes[parentIndex],
-            children: [...newNotes[parentIndex].children, newNode.id],
-          };
-          newNotes[parentIndex] = updatedParent;
-          newNotes.push(newNode);
-          return newNotes;
+        // Fetch the updated parent node from the server
+        const parentResponse = await fetch(`http://localhost:8000/api/notes/${parentId}/`, {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Token ${authToken}`,
+          },
+
         });
-        console.log('New child', notes);
+
+        if (parentResponse.ok) {
+          const updatedParent = await parentResponse.json();
+          setNotes(prevNotes => {
+            const newNotes = [...prevNotes];
+            const parentIndex = newNotes.findIndex(note => note.id === parentId);
+
+            // Use the server's version of the parent node, which should include the new child
+            newNotes[parentIndex] = updatedParent;
+            newNotes.push(newNode);
+            return newNotes;
+          });
+
+        } else {
+          const errorData = await parentResponse.json();
+          console.error('Error fetching updated parent node:', errorData);
+        }
       } else {
         setNotes(prevNotes => [...prevNotes, newNode]);
-        console.log('No parent:', notes);
       }
     } else {
       const errorData = await response.json();
-      console.error('Error creating node:', errorData);
     }
   };
-
-
 
   const updateNode = async (id, title, content, marked) => {
     const authToken = localStorage.getItem('authToken')
     const userId = parseInt(localStorage.getItem('userId'), 10)
     const updateObj = {}
 
-    if (title == null && content == null) {
-      const originalNode = notes.find((note) => note.id === id)
-      updateObj.titleUpdate = notes.find((note) => note.id === id).title
-      updateObj.contentUpdate = notes.find((note) => note.id === id).content
-      console.log('both null')
-    } else {
-      updateObj.titleUpdate = title
-      updateObj.contentUpdate = content
-      console.log('not null')
-    }
+    updateObj.titleUpdate = title
+    updateObj.contentUpdate = content
 
     const response = await fetch(`http://localhost:8000/api/notes/${id}/`, {
       method: 'PUT',
@@ -154,40 +149,36 @@ const useNotes = (authToken, isLoggedIn) => {
       const errorData = await response.json()
       console.error('Failed to update node:', errorData)
     }
+
   }
 
   const deleteNode = async (id) => {
-    const authToken = localStorage.getItem('authToken')
-    const userId = parseInt(localStorage.getItem('userId'), 10)
+    const authToken = localStorage.getItem('authToken');
+    const userId = parseInt(localStorage.getItem('userId'), 10);
 
-    const deleteNodeRecursive = async (nodeId) => {
-      const node = notes.find((note) => note.id === nodeId)
+    console.log('Deleting node:', id);
 
-      if (node && node.children) {
-        for (const childId of node.children) {
-          await deleteNodeRecursive(childId)
-        }
+    const response = await fetch(
+      `http://localhost:8000/api/notes/${id}/`,
+      {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Token ${authToken}`,
+        },
+        body: JSON.stringify({ user: userId }),
       }
+    );
 
-      const response = await fetch(
-        `http://localhost:8000/api/notes/${nodeId}/`,
-        {
-          method: 'DELETE',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Token ${authToken}`,
-          },
-          body: JSON.stringify({ user: userId }),
-        }
-      )
-
-      if (!response.ok) {
-        console.error('Failed to delete node')
-      }
+    if (!response.ok) {
+      console.error('Failed to delete node');
     }
-    await deleteNodeRecursive(id)
-    setNotes(prevNotes => prevNotes.filter((note) => note.id !== id))
-  }
+    else {
+      setNotes(notes.filter((note) => note.id !== id));
+    }
+  };
+
+
 
 
   return {
@@ -196,7 +187,6 @@ const useNotes = (authToken, isLoggedIn) => {
     editedNodesHistory,
     toggleChildrenVisibility,
     toggleMarked,
-    updateParent,
     createNode,
     updateNode,
     deleteNode,

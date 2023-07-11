@@ -15,6 +15,9 @@ export const NoteProvider = ({ children, authToken, isLoggedIn }) => {
         renderChildren,
     } = useNotes(authToken, isLoggedIn)
 
+
+
+
     return (
         <NoteContext.Provider
             value={{

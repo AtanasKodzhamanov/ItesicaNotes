@@ -14,3 +14,4 @@ test('renders learn react link', () => {
 // Test that if a notebook is deleted the currentNotebookID is set to null and tree and text area are cleared
 // Test that if a small plus is clicked a new note is created
 // Test that if a note is created its parent is set to the currentNotebookID
+// Test that text and title change on hover of a note

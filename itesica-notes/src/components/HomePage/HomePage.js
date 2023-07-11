@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './HomePage.css'
 import { NoteContext } from '../../NoteContext'
 import { useContext } from 'react'
@@ -42,7 +42,6 @@ const HomePage = () => {
 
   const deleteNodeHandler = (note) => {
     const confirmation = window.confirm(`WARNING: This will delete all nested children nodes as well. Are you sure you want to delete this note: ${noteTitle}`);
-
     if (confirmation) {
       deleteNode(note.id);
     }
@@ -53,9 +52,7 @@ const HomePage = () => {
   }
 
   const updateNotebookID = () => {
-    console.log(currentNotebookID)
     setCurrentNotebookID(null)
-    console.log(currentNotebookID)
   }
 
   return (
