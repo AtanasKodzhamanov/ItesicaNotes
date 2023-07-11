@@ -13,48 +13,48 @@ const HomePage = () => {
     toggleMarked
   } = useContext(NoteContext)
 
-  const [noteId, setNoteId] = useState(null)
-  const [noteText, setNoteText] = useState("")
-  const [noteTitle, setNoteTitle] = useState("")
-  const [parentNode, setParentNode] = useState(null)
-  const [originalNoteText, setOriginalNoteText] = useState("")
-  const [originalNoteTitle, setOriginalNoteTitle] = useState("")
-
   // used to pass content between note text area and note tree
   const [newChildNodeForm, setNewChildNodeForm] = useState(false)
   const [childText, setChildText] = useState("")
   const [childTitle, setChildTitle] = useState("")
-
+  const [parentNode, setParentNode] = useState(null)
   const [currentNotebookID, setCurrentNotebookID] = useState(null)
 
+  const [selectedNote, setSelectedNote] = useState({})
+
+  // when a user hovers on a note inside the note tree, the note is selected and passed up to HomePage.js which then passes it down to NoteTextArea.js
   const passNoteInfoHandler = (note) => {
-    setNoteId(note.id)
-    setNoteText(note.content)
-    setNoteTitle(note.title)
-    setOriginalNoteText(note.content)
-    setOriginalNoteTitle(note.title)
+    setSelectedNote(note)
   }
+
 
   const createChildNode = (parentId) => {
     setParentNode(parentId)
     setNewChildNodeForm(true)
   }
 
+  // when a user clicks on the delete button, or drags and drops a notebook to the bin, the node and its children are deleted. This function is passed down to NoteBooksBar.js and TreeScreen.js
   const deleteNodeHandler = (note) => {
-    const confirmation = window.confirm(`WARNING: This will delete all nested children nodes as well. Are you sure you want to delete this note: ${noteTitle}`);
+    const confirmation = window.confirm(`WARNING: This will delete all nested children nodes as well. Are you sure you want to delete this note: ${note.title}`);
     if (confirmation) {
       deleteNode(note.id);
     }
   };
 
+  // used to open a notebook when a user clicks on it, which allows TreeScreen.js to filter and render the correct notes
   const openNoteBookHandler = (title) => {
     setCurrentNotebookID(title)
   }
 
+  // when there is no notebook open, or none exist, a default screen is rendered
+  // if a notebook is open and a new note at a root level is created, it uses the currentNotebookID to set the note's parent id
   const updateNotebookID = () => {
     setCurrentNotebookID(null)
   }
 
+  // NotebooksBar holds the list of notebooks
+  // TreeScreen renders the notes inside the selected notebook
+  // NoteTextArea is used to for quick editing and creating of notes
   return (
     <>
       <div className="notebooks">
@@ -76,22 +76,14 @@ const HomePage = () => {
         </div>
         <div className="note-text-area">
           <NoteTextArea
-            noteTitle={noteTitle}
-            noteText={noteText}
-            setNoteTitle={setNoteTitle}
-            setNoteText={setNoteText}
+            parentNode={parentNode}
+            selectedNote={selectedNote}
             childText={childText}
             childTitle={childTitle}
             setChildTitle={setChildTitle}
             setChildText={setChildText}
-            originalNoteText={originalNoteText}
-            originalNoteTitle={originalNoteTitle}
-            setOriginalNoteText={setOriginalNoteText}
-            setOriginalNoteTitle={setOriginalNoteTitle}
             setNewChildNodeForm={setNewChildNodeForm}
             newChildNodeForm={newChildNodeForm}
-            noteId={noteId}
-            parentNode={parentNode}
           />
         </div>
       </div>

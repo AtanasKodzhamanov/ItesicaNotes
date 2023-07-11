@@ -2,15 +2,31 @@ import { useState, useEffect } from 'react'
 import { useContext } from 'react'
 import { NoteContext } from '../../../NoteContext'
 
-const NoteTextArea = ({ childText, setNoteTitle, newChildNodeForm, childTitle, setChildTitle, setChildText, setNoteText, noteTitle, noteText, originalNoteText, originalNoteTitle, setOriginalNoteText, setOriginalNoteTitle, noteId, parentNode, setNewChildNodeForm }) => {
+const NoteTextArea = ({ parentNode, selectedNote, childText, newChildNodeForm, childTitle, setChildTitle, setChildText, setNewChildNodeForm }) => {
 
     const [borderEffectTitle, setBorderEffectTitle] = useState(false);
     const [borderEffectText, setBorderEffectText] = useState(false);
+
+    const [noteId, setNoteId] = useState(null)
+    const [noteText, setNoteText] = useState("")
+    const [noteTitle, setNoteTitle] = useState("")
+    const [originalNoteText, setOriginalNoteText] = useState("")
+    const [originalNoteTitle, setOriginalNoteTitle] = useState("")
+
+    useEffect(() => {
+        setNoteId(selectedNote.id)
+        setNoteText(selectedNote.content)
+        setNoteTitle(selectedNote.title)
+        setOriginalNoteText(selectedNote.content)
+        setOriginalNoteTitle(selectedNote.title)
+    }, [selectedNote])
 
     const {
         createNode,
         updateNode,
     } = useContext(NoteContext)
+
+
 
     // when a user types in a note text area and then clicks outside of the text area, the note is automatically updated
     const handleBlur = () => {
@@ -29,7 +45,7 @@ const NoteTextArea = ({ childText, setNoteTitle, newChildNodeForm, childTitle, s
                 setTimeout(() => setBorderEffectTitle(false), 750);
             }
 
-            if (noteTitle !== originalNoteText || noteText !== originalNoteText) {
+            if (noteTitle !== originalNoteTitle || noteText !== originalNoteText) {
                 updateNode(noteId, noteTitle, noteText);
             }
         }
