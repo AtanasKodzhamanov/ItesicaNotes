@@ -1,9 +1,20 @@
 import { useState, useEffect } from 'react'
 
-const useNotes = (authToken, isLoggedIn) => {
-  const [notes, setNotes] = useState([])
+interface Note {
+  id: number;
+  title: string;
+  content: string;
+  parentId: number | null;
+  marked: boolean;
+  createdAt: string | Date; 
+  updatedAt: string | Date;
+}
+
+
+const useNotes = (authToken: string, isLoggedIn: boolean) => {
+  const [notes, setNotes] = useState<Note[]>([]);
   const [visibleNotes, setVisibleNotes] = useState([])
-  const [editedNodesHistory, setEditedNodesHistory] = useState([])
+  const [editedNodesHistory, setEditedNodesHistory] = useState<Note[]>([]);
 
   useEffect(() => {
     const editedNodesHistoryString = localStorage.getItem('editedNodesHistory')
@@ -28,7 +39,7 @@ const useNotes = (authToken, isLoggedIn) => {
   // notes is an array of objects, each object has a children and parent properties which hold ids
 
 
-  const toggleChildrenVisibility = (id) => {
+  const toggleChildrenVisibility = (id: number) => {
     if (visibleNotes.includes(id)) {
       setVisibleNotes(visibleNotes.filter((noteId) => noteId !== id))
     } else {
@@ -36,14 +47,14 @@ const useNotes = (authToken, isLoggedIn) => {
     }
   }
 
-  const toggleMarked = async (id, marked) => {
+  const toggleMarked = async (id: number, marked: number | boolean) => {
     console.log('toggleMarked', id, marked)
     const updatedMarked = !marked
     await updateNode(id, null, null, updatedMarked)
   }
 
 
-  const createNode = async (title, content, parentId = null) => {
+  const createNode = async (title: string, content: string, parentId = null) => {
     console.log('createNode', title, content, parentId)
     const authToken = localStorage.getItem('authToken');
     const userId = parseInt(localStorage.getItem('userId'), 10);
@@ -96,13 +107,17 @@ const useNotes = (authToken, isLoggedIn) => {
       }
     } else {
       const errorData = await response.json();
+      console.error('Error creating node:', errorData);
     }
   };
 
-  const updateNode = async (id, title, content, marked) => {
+  const updateNode = async (id: number, title: string, content: string, marked: boolean | number ) => {
     const authToken = localStorage.getItem('authToken')
     const userId = parseInt(localStorage.getItem('userId'), 10)
-    const updateObj = {}
+    const updateObj: { titleUpdate: string; contentUpdate: string; marked?: boolean | number } = {
+      titleUpdate: title,
+      contentUpdate: content,
+    };
 
     updateObj.titleUpdate = title
     updateObj.contentUpdate = content
@@ -152,7 +167,7 @@ const useNotes = (authToken, isLoggedIn) => {
 
   }
 
-  const deleteNode = async (id) => {
+  const deleteNode = async (id: number) => {
     const authToken = localStorage.getItem('authToken');
     const userId = parseInt(localStorage.getItem('userId'), 10);
 
@@ -178,10 +193,8 @@ const useNotes = (authToken, isLoggedIn) => {
     }
   };
 
-  const getHistory = async (id) => {
+  const getHistory = async (id: number) => {
     const authToken = localStorage.getItem('authToken');
-    const userId = parseInt(localStorage.getItem('userId'), 10);
-
     const response = await fetch(`http://localhost:8000/api/notehistories/${id}/`, {
       headers: {
         'Content-Type': 'application/json',

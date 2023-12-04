@@ -1,3 +1,4 @@
+import React from 'react';
 import useAuth from './hooks/useAuth'
 import './App.css'
 import Header from './components/UI/Header'

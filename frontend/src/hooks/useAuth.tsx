@@ -3,11 +3,19 @@ import { useState, useEffect } from 'react'
 // useAuth hook deals with logging in and logging out
 // it uses local storage to store the authentication token, username and user id
 
-const useAuth = () => {
+interface UseAuthReturn {
+  isLoggedIn: boolean;
+  authToken: string | null;
+  username: string | null;
+  userId: string | null;
+  loginUser: (username: string, password: string) => Promise<void>;
+  logoutUser: () => void;
+}
+
+const useAuth = (): UseAuthReturn => {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [authToken, setAuthToken] = useState(null)
   const [username, setUsername] = useState(null)
-  const [error, setError] = useState(null)
   const [userId, setUserId] = useState(null)
 
   // Check if there is an authentication token in local storage, also check for id and username
@@ -29,7 +37,7 @@ const useAuth = () => {
     }
   }, [])
 
-  const loginUser = async (username, password) => {
+  const loginUser = async (username: string, password: string) => {
     try {
       const response = await fetch('http://localhost:8000/api-token-auth/', {
         method: 'POST',
@@ -50,14 +58,13 @@ const useAuth = () => {
 
         setAuthToken(authToken)
         setIsLoggedIn(true)
-        setError(null)
         setUserId(userId)
       } else {
         const errorData = await response.json()
-        setError(errorData)
+        console.log(errorData)
       }
     } catch (error) {
-      setError({ non_field_errors: ['An error occurred while logging in.'] })
+      console.log({ non_field_errors: ['An error occurred while logging in.'] })
     }
   }
 
