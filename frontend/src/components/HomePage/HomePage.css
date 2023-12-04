@@ -1,0 +1,140 @@
+.notebook-opened{
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+
+}
+
+.note-tree-section{
+    flex:2;
+    overflow-y: auto;
+    height: 100%;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+    margin-bottom:100px;
+    padding:20px;
+    padding-right:40px;
+    box-sizing: border-box;
+    margin-top:20px;
+    
+}
+
+.note-tree-section::-webkit-scrollbar{
+    display: none;
+}
+
+.note-text-area{
+    flex:1;
+    margin:20px;
+    height: 90%;
+}
+
+@keyframes pulse {
+    0% {
+      box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+    }
+    50% {
+      box-shadow: none;
+    }
+    100% {
+      box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2)
+    }
+  }
+
+.edit-border{
+    animation: pulse 0.75s;
+}
+
+.note-text, .note-text-input{
+    
+    overflow-y: auto;
+
+    height: 100%;
+    width: 100%;
+    outline-color: red;
+    font-size: 20px;
+    font-family: 'Roboto', sans-serif;
+    padding:30px;
+    background-color: white;
+    font-weight: 400;
+    font-size:24px;
+    border: none;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2); 
+
+}
+
+.note-title-input{
+    overflow-y: auto;
+    outline-color: red;
+    padding-left:30px;
+    padding-right:30px;
+    padding-top:20px;
+    padding-bottom:0px;
+    
+    font-size: 20px;
+    font-family: 'Roboto', sans-serif;
+    background-color: white;
+    font-weight: 400;
+    font-size:24px;
+    border: none;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2); 
+
+}
+
+.utility-buttons{
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    z-index: 2;
+    
+}
+.save-button, .cancle-button{
+    margin: 20px;
+    z-index: 2;
+    font-size: 20px;
+    padding:25px;
+    border-radius: 25%;
+}
+
+.notebooks{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+.new-notebook-button{
+    display: flex;
+    height: 100px;
+    width: 100px;
+    box-sizing: border-box;
+    margin-top:20px;
+    justify-content: center;
+    align-items: center;
+}
+
+.open-notebook-button{
+    display: flex;
+    flex-direction: row;
+    height: 100px;
+    padding: 20px;
+    box-sizing: border-box;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+    margin-top:20px;
+    border-radius: 5%;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+}
+
+.notebook{
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+}
+
+.new-notebook-button:hover .circle-plus{
+    color: grey;
+}
+
+.notebooks-only{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+}

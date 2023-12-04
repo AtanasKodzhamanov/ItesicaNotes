@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "react-dom": "^18.2.0",
-    "uuid": "^9.0.0"
-  }
-}
