@@ -3,7 +3,7 @@ import './RenderNotes.css';
 import NoteButton from './NoteButton/NoteButton';
 import { useAutoAnimate } from '@formkit/auto-animate/react';
 import { useContext } from 'react';
-import { NoteContext } from '../../../../NoteContext';
+import { NoteContext } from '../../../../context/NoteContext';
 
 const RenderNotes = ({ passNoteInfoHandler, createChildNode, deleteNodeHandler, currentNotebookID }) => {
     const [selectedNodes, setSelectedNodes] = useState([]);

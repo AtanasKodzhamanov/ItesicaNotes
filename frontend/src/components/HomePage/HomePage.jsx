@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import './HomePage.css'
-import { NoteContext } from '../../NoteContext'
+import { NoteContext } from '../../context/NoteContext'
 import { useContext } from 'react'
 import NoteBooksBar from './NotebooksBar/NoteBooksBar'
 import TreeScreen from './TreeScreen/TreeScreen'

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useContext } from 'react'
-import { NoteContext } from '../../../NoteContext'
+import { NoteContext } from '../../../context/NoteContext'
 
 const NoteTextArea = ({ parentNode, selectedNote, newChildNodeForm, setNewChildNodeForm }) => {
 

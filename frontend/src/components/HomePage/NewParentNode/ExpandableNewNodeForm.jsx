@@ -2,7 +2,7 @@ import NewNodeForm from './NewNodeForm'
 import React, { useState } from 'react'
 import './ExpandableNewNodeForm.css'
 import { useContext } from 'react'
-import { NoteContext } from '../../../NoteContext'
+import { NoteContext } from '../../../context/NoteContext'
 
 const ExpandableNewNodeForm = ({ currentNotebookID }) => {
 

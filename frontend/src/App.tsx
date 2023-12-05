@@ -4,7 +4,7 @@ import './App.css'
 import Header from './components/UI/Header'
 import WelcomePage from './components/WelcomePage'
 import AppRoutes from './components/AppRoutes'
-import { NoteProvider } from './NoteContext'
+import { NoteProvider } from './context/NoteContext'
 
 
 const App = () => {

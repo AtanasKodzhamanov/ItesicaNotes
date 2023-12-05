@@ -3,7 +3,7 @@ import { useDrag, useDrop, DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import './RenderNotebooks.css';
 import { useContext } from 'react';
-import { NoteContext } from '../../../../NoteContext';
+import { NoteContext } from '../../../../context/NoteContext';
 
 // Drag and Drop functionality 
 // 1. First we need to define the draggable component. Here this is Note.
