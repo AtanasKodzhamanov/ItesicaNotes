@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useContext } from 'react'
 import { NoteContext } from '../../../context/NoteContext'
+import styles from './NoteTextArea.module.css'
 
 const NoteTextArea = ({ parentNode, selectedNote, newChildNodeForm, setNewChildNodeForm }) => {
 
@@ -72,20 +73,20 @@ const NoteTextArea = ({ parentNode, selectedNote, newChildNodeForm, setNewChildN
             {
                 newChildNodeForm ?
                     <>
-                        <div className='note-text-area'>
+                        <div className={styles.newNoteContainer}>
                             <textarea
-                                className="note-title-input"
+                                className={styles.noteTitleInput}
                                 placeholder="Enter title..."
                                 value={childTitle}
                                 onChange={e => setChildTitle(e.target.value)}
                             />
                             <textarea
-                                className="note-text-input"
+                                className={styles.noteTextInput}
                                 placeholder="Enter note..."
                                 value={childText}
                                 onChange={e => setChildText(e.target.value)}
                             />
-                            <div className="utility-buttons">
+                            <div className={styles.utilityButtons}>
                                 <button className="save-button" onClick={saveChildNodeHandler}>Save</button>
                                 <button className="cancle-button" onClick={cancleChildNodeHandler}>X</button>
                             </div>
@@ -93,17 +94,17 @@ const NoteTextArea = ({ parentNode, selectedNote, newChildNodeForm, setNewChildN
                     </>
                     :
                     <>
-                        <div className={`note-text-area`}>
+                        <div className={styles.newNoteContainer}>
 
                             <textarea
-                                className={`note-title-input ${borderEffectTitle ? 'edit-border' : ''}`}
+                                className={`${styles.noteTitleInput} ${borderEffectTitle ? 'edit-border' : ''}`}
                                 placeholder="Enter title..."
                                 value={noteTitle}
                                 onChange={e => setNoteTitle(e.target.value)}
                                 onBlur={handleBlur}
                             />
                             <textarea
-                                className={`note-text-input ${borderEffectText ? 'edit-border' : ''}`}
+                                className={`${styles.noteTextInput} ${borderEffectText ? 'edit-border' : ''}`}
                                 placeholder="Enter note..."
                                 value={noteText}
                                 onChange={e => setNoteText(e.target.value)}

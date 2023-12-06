@@ -1,0 +1,77 @@
+.notebookOpened {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    overflow: hidden; 
+    justify-content: flex-start;
+}
+
+.noteTreeSection{
+    flex:1;
+    height: 95%;
+    padding:20px;
+    padding-right:40px;
+    box-sizing: border-box;
+    margin-top:20px;
+    border:2px solid black;
+    overflow-y: scroll;
+    padding-bottom:0px;
+}
+
+.noteTreeSection::-webkit-scrollbar{
+    display: none;
+}
+
+.noteTextArea{
+    flex:1;
+    margin-top:20px;
+    margin-left:1rem;
+}
+
+@keyframes pulse {
+    0% {
+      box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+    }
+    50% {
+      box-shadow: none;
+    }
+    100% {
+      box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2)
+    }
+  }
+
+.edit-border{
+    animation: pulse 0.75s;
+}
+
+.new-notebook-button{
+    display: flex;
+    height: 100px;
+    width: 100px;
+    box-sizing: border-box;
+    margin-top:20px;
+    justify-content: center;
+    align-items: center;
+}
+
+.open-notebook-button{
+    display: flex;
+    flex-direction: row;
+    height: 100px;
+    padding: 20px;
+    box-sizing: border-box;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+    margin-top:20px;
+    border-radius: 5%;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+}
+
+.notebook{
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+}
+
+.new-notebook-button:hover .circle-plus{
+    color: grey;
+}

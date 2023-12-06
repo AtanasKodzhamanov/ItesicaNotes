@@ -1,0 +1,51 @@
+.newNoteContainer{
+    height: 100%;
+    margin:0;
+    padding:0;
+}
+
+
+.noteText, .noteTextInput{
+    overflow-y: auto;
+    height: 85%;
+    width: 100%;
+    outline-color: red;
+    font-size: 20px;
+    font-family: 'Roboto', sans-serif;
+    padding:30px;
+    background-color: white;
+    font-weight: 400;
+    font-size:24px;
+    padding-bottom:0px;
+    margin-bottom:0px;
+}
+
+.noteTitleInput{
+    overflow-y: auto;
+    outline-color: red;
+    padding-left:30px;
+    padding-right:30px;
+    padding-top:20px;
+    padding-bottom:0px;
+    
+    font-size: 20px;
+    font-family: 'Roboto', sans-serif;
+    background-color: white;
+    font-weight: 400;
+    font-size:24px;
+}
+
+.utilityButtons{
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    z-index: 2;
+    
+}
+.saveButton, .cancleButton{
+    margin: 20px;
+    z-index: 2;
+    font-size: 20px;
+    padding:25px;
+    border-radius: 25%;
+}

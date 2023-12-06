@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import LoginForm from './Auth/LoginForm'
 import RegisterForm from './Auth/RegisterForm'
-import './WelcomePage.css'
+import styles from './WelcomePage.module.css'
+
 
 const WelcomePage = ({ loginUser }) => {
   const [showLoginForm, setShowLoginForm] = useState(false)
@@ -19,7 +20,7 @@ const WelcomePage = ({ loginUser }) => {
 
   return (
     <>
-      <div className="welcome-page-info">
+      <div className={styles.welcomePageInfo}>
         {showLoginForm || showRegisterForm ? null : (
           <div>
             <p>
@@ -41,7 +42,7 @@ const WelcomePage = ({ loginUser }) => {
         {showRegisterForm && <RegisterForm />}
       </div>
 
-      <div className="buttons">
+      <div className={styles.buttons}>
         {showLoginForm ? (
           <button onClick={handleRegisterClick}>Register</button>
         ) : null}
@@ -49,7 +50,7 @@ const WelcomePage = ({ loginUser }) => {
           <button onClick={handleLoginClick}>Login</button>
         ) : null}
         {!showLoginForm && !showRegisterForm ? (
-          <div className="buttons">
+          <div className={styles.buttons}>
             <button onClick={handleLoginClick}>Login</button>
             <button onClick={handleRegisterClick}>Register</button>
           </div>

@@ -20,7 +20,11 @@ const TreeScreen = ({ passNoteInfoHandler, createChildNode, deleteNodeHandler, c
                         deleteNodeHandler={deleteNodeHandler}
                     />
                 </>
-                : "Open or create a notebook to get started!"}
+                : <div>
+                    <h2>OPEN A NOTEBOOK </h2>
+                    <h2>OR CREATE ONE USING THE PLUS SYMBOL IN THE RIGHT CORNER</h2>
+                </div>
+                }
         </>
     )
 

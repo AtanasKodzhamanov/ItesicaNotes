@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react'
-import './HomePage.css'
 import { NoteContext } from '../../context/NoteContext'
 import { useContext } from 'react'
 import NoteBooksBar from './NotebooksBar/NoteBooksBar'
 import TreeScreen from './TreeScreen/TreeScreen'
 import NoteTextArea from './NoteTextArea/NoteTextArea'
+import styles from './HomePage.module.css'
 
 const HomePage = () => {
 
@@ -54,7 +54,7 @@ const HomePage = () => {
   // NoteTextArea is used to for quick editing and creating of notes
   return (
     <>
-      <div className="notebooks">
+      <div className={styles.notebooks}>
         <NoteBooksBar
           openNoteBookHandler={openNoteBookHandler}
           updateNotebookID={updateNotebookID}
@@ -62,8 +62,8 @@ const HomePage = () => {
           currentNotebookID={currentNotebookID}
         />
       </div>
-      <div className="notebook-opened">
-        <div className="note-tree-section">
+      <div className={styles.notebookOpened}>
+        <div className={styles.noteTreeSection}>
           <TreeScreen
             currentNotebookID={currentNotebookID}
             passNoteInfoHandler={passNoteInfoHandler}
@@ -71,7 +71,7 @@ const HomePage = () => {
             deleteNodeHandler={deleteNodeHandler}
           />
         </div>
-        <div className="note-text-area">
+        <div className={styles.noteTextArea}>
           <NoteTextArea
             parentNode={parentNode}
             selectedNote={selectedNote}

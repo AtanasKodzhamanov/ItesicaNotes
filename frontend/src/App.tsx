@@ -16,25 +16,34 @@ const App = () => {
     logoutUser,
   } = useAuth()
 
+
   return (
     <div>
-      <Header
-        onLogout={logoutUser}
-        username={username}
-        isLoggedIn={isLoggedIn}
-      />
 
       {!isLoggedIn && (
-        <WelcomePage loginUser={loginUser} />
+        <>
+          <Header
+            onLogout={logoutUser}
+            username={username}
+            isLoggedIn={isLoggedIn}
+          />
+          <WelcomePage loginUser={loginUser} />
+        </>
+        
       )}
 
       {isLoggedIn && (
         <>
-          <NoteProvider authToken={authToken} isLoggedIn={isLoggedIn}>
-            <div className="main-body">
-              <AppRoutes />
-            </div>
-          </NoteProvider>
+            <NoteProvider authToken={authToken} isLoggedIn={isLoggedIn}>
+              <div className="main-body">
+                  <Header
+                  onLogout={logoutUser}
+                  username={username}
+                  isLoggedIn={isLoggedIn}
+                />
+                <AppRoutes/>
+              </div>
+            </NoteProvider>
         </>
       )}
     </div>

@@ -1,9 +1,9 @@
 import React from 'react';
 import { useDrag, useDrop, DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-import './RenderNotebooks.css';
 import { useContext } from 'react';
 import { NoteContext } from '../../../../context/NoteContext';
+import styles from './RenderNotebooks.module.css';
 
 // Drag and Drop functionality 
 // 1. First we need to define the draggable component. Here this is Note.
@@ -38,7 +38,7 @@ const Note = ({ note, onNoteDropped, openNoteBookHandler }) => {
 
     return (
         <button
-            className="open-notebook-button"
+            className={styles.openNotebookButton}
             style={{ opacity: isDragging ? 0.5 : 1 }}
             ref={dragRef}
             onClick={() => openNoteBookHandler(note.id)}
@@ -62,9 +62,9 @@ const Bin = () => {
     return (
         <div
             ref={dropRef}
-            className={`bin ${isOver ? 'hovered' : ''}`}
+            className={`${styles.bin} ${isOver ? 'hovered' : ''}`}
         >
-            <p>Drop To Delete</p>
+            <h1>Delete</h1>
         </div>
     );
 };
@@ -89,7 +89,8 @@ const RenderNotebooks = ({ openNoteBookHandler, deleteNodeHandler, updateNoteboo
 
     return (
         <DndProvider backend={HTML5Backend}>
-            <>
+            <>  <Bin />
+                <div className={styles.notebooksWithoutBin}>
                 {notes
                     .filter((note) => note.parent === null)
                     .map((note) => (
@@ -100,7 +101,8 @@ const RenderNotebooks = ({ openNoteBookHandler, deleteNodeHandler, updateNoteboo
                             openNoteBookHandler={openNoteBookHandler}
                         />
                     ))}
-                <Bin />
+                </div>
+                
             </>
         </DndProvider>
     );

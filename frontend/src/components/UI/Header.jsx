@@ -1,31 +1,32 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import './Header.css'
+import styles from './Header.module.css'
 
 const Header = ({ onLogout, isLoggedIn }) => {
 
   return (
-    <header className="header">
+    <header className={styles.header}>
       {!isLoggedIn && (
         <>
-          <div className="header-title">
-            <h1 className="capitalize"> Itesica notes</h1>
+          <div className={styles.headerTitle}>
+            <h1 className={styles.capitalize}> Itesica notes</h1>
           </div>
         </>
       )}
 
       {isLoggedIn && (
         <>
-          <div className="header-title">
+          <div className={styles.headerTitle}>
           </div>
-          <div className="header-links">
-            <Link to="/">Notes</Link>
-            <Link to="/last-edited">Last edited</Link>
-            <Link to="/workspace">Workspace</Link>
+          <div className={styles.headerLinks}>
+            <Link to="/">NOTES</Link>
+            <Link to="/last-edited">LAST EDITED</Link>
+            <Link to="/workspace">WORKSPACE</Link>
+            <Link to="/full-tree">FULL TREE</Link>
           </div>
           <div>
-            <button className="logout-button" onClick={onLogout}>
-              Logout
+            <button className={styles.logoutButton} onClick={onLogout}>
+              LOGOUT
             </button>
           </div>
         </>
