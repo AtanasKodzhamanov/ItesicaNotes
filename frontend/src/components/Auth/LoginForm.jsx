@@ -29,8 +29,6 @@ const LoginForm = ({ onLogin }) => {
           onChange={(e) => setPassword(e.target.value)}
         />
         <button type="submit">LOGIN</button>
-        <p>Don't have an account?</p>
-        <a> Sign up now </a>
       </form>
     </div>
   )

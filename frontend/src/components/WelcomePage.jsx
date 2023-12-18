@@ -26,10 +26,10 @@ const WelcomePage = ({ loginUser }) => {
 
       <div className={styles.buttons}>
         {showLoginForm ? (
-          <button onClick={handleRegisterClick}>Register</button>
+          <div className={styles.regOrLog} onClick={handleRegisterClick}>Don't have an account? <b>Register</b></div>
         ) : null}
         {showRegisterForm ? (
-          <button onClick={handleLoginClick}>Login</button>
+          <div className={styles.regOrLog} onClick={handleLoginClick}>Already have an account? <b>Login</b></div>
         ) : null}
         {!showLoginForm && !showRegisterForm ? (
           <div className={styles.buttons}>

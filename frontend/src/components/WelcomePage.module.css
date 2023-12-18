@@ -18,3 +18,13 @@
   font-weight: 500;
   cursor: pointer;
 }
+
+.regOrLog{
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.regOrLog:hover{
+  color: #7e8890;
+  cursor: pointer;
+}
