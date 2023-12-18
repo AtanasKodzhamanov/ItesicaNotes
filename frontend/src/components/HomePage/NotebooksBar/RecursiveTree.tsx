@@ -31,12 +31,10 @@ const RecursiveTree: React.FC<RecursiveTreeProps> = ({ currentNotebookID }) => {
     if (childrenIDs.length > 0) {
         fullTreeNotes = notes.filter(note => childrenIDs.includes(note.id));
         fullTreeRender = fullTreeNotes.map(note => 
-        <>
-        <div key={note.id} className={styles.contentContainer}>
-            <h1>{note.title}</h1>
-            <p> {note.content}</p>
-        </div>
-        </>
+            <div key={note.id} className={styles.contentContainer}>
+                <h1>{note.title}</h1>
+                <p> {note.content}</p>
+            </div>
         );
     }
     console.log(childrenIDs);

@@ -16,16 +16,13 @@ const NoteBooksBar = ({ location, openNoteBookHandler, deleteNodeHandler, update
 
 
     const downloadPDF = () => {
-        const input = document.getElementById('tree-content');
-        html2canvas(input)
-            .then((canvas) => {
-                const imgData = canvas.toDataURL('image/png');
-                const pdf = new jsPDF('p', 'mm', 'a4');
-
-                pdf.addImage(imgData, 'PNG', 0, 0);
-                pdf.save("download.pdf");
-            });
-    }
+        html2canvas(document.getElementById('tree-content')).then(canvas => {
+            const imgHeight = canvas.height * 210 / canvas.width; // Calculate the height of the image in the A4 aspect ratio
+            const pdf = new jsPDF('p', 'mm', [210, imgHeight]);   // Create a PDF with a custom height
+            pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, 210, imgHeight);
+            pdf.save('download.pdf');
+        });
+    };
 
     return (
         location !== "full-tree" ? (
