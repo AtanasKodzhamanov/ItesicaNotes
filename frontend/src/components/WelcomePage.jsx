@@ -20,7 +20,8 @@ const WelcomePage = ({ loginUser }) => {
 
   return (
     <>
-
+        <h1 className={styles.welcomeTitle}> ITESICA NOTES</h1>
+        <h2 className={styles.welcomeSubTitle}>Instant and Easy Access to Your Thoughts</h2>
         {showLoginForm && <LoginForm onLogin={loginUser} />}
         {showRegisterForm && <RegisterForm />}
 

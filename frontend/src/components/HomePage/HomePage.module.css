@@ -13,9 +13,9 @@
     padding-right:40px;
     box-sizing: border-box;
     margin-top:20px;
-    border:2px solid black;
     overflow-y: scroll;
     padding-bottom:0px;
+    background-color: white;
 }
 
 .noteTreeSection::-webkit-scrollbar{

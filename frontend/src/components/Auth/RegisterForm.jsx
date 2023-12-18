@@ -32,7 +32,8 @@ const RegisterForm = () => {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-        <button type="submit" disabled={loading}>
+        <button className={styles.buttonOrder} type="submit" disabled={loading}>
+          <span class="material-symbols-outlined">person</span>
           REGISTER
         </button>
       </form>

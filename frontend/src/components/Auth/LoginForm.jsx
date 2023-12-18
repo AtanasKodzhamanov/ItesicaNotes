@@ -28,7 +28,10 @@ const LoginForm = ({ onLogin }) => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button type="submit">LOGIN</button>
+        <button className={styles.buttonOrder} type="submit">
+          <span class="material-symbols-outlined">login</span>
+          LOGIN
+        </button>
       </form>
     </div>
   )

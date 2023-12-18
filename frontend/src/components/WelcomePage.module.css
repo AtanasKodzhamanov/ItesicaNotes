@@ -28,3 +28,17 @@
   color: #7e8890;
   cursor: pointer;
 }
+
+.welcomeTitle{
+  text-align: center;
+  font-size: 3rem;
+  font-weight: 500;
+  margin-bottom: 2px;
+  letter-spacing: 4px;
+}
+.welcomeSubTitle{
+  text-align: center;
+  font-size: 20px;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
