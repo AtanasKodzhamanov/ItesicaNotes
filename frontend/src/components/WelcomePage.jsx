@@ -20,10 +20,9 @@ const WelcomePage = ({ loginUser }) => {
 
   return (
     <>
-      <div className={styles.welcomePageInfo}>
+
         {showLoginForm && <LoginForm onLogin={loginUser} />}
         {showRegisterForm && <RegisterForm />}
-      </div>
 
       <div className={styles.buttons}>
         {showLoginForm ? (

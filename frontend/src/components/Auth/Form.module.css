@@ -1,7 +1,14 @@
 .form{
     min-width: 500px;
     padding: 10px;
+    margin-top:40px;
+    border: 1px solid #ccc; 
+    border-radius: 5px;  
+    background-color: #7e8890;
+    color: white;
+    font-weight: 500;
 }
+
 
 .form button {
     background-color: #c1c1c1;
@@ -10,7 +17,7 @@
     border-radius: 5px;
     padding: 10px;
     font-size: 15px;
-    font-weight: 500;
+    font-weight: 600;
     cursor: pointer;
 }
 
