@@ -24,8 +24,6 @@ Itesica stands for a poor translation of a Navajo word for infinity/depth.
 - npm install
 - npm start
 
-Access the app at `http://localhost:3000`.
-
 ## Usage
 - **Register account**: Click 'Register' to create a username and password.
 - **Creating a Notebook**: Click '+' to begin.
