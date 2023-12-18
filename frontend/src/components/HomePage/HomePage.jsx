@@ -54,14 +54,7 @@ const HomePage = () => {
   // NoteTextArea is used to for quick editing and creating of notes
   return (
     <>
-      <div className={styles.notebooks}>
-        <NoteBooksBar
-          openNoteBookHandler={openNoteBookHandler}
-          updateNotebookID={updateNotebookID}
-          deleteNodeHandler={deleteNodeHandler}
-          currentNotebookID={currentNotebookID}
-        />
-      </div>
+
       <div className={styles.notebookOpened}>
         <div className={styles.noteTreeSection}>
           <TreeScreen
@@ -80,6 +73,12 @@ const HomePage = () => {
           />
         </div>
       </div>
+        <NoteBooksBar
+          openNoteBookHandler={openNoteBookHandler}
+          updateNotebookID={updateNotebookID}
+          deleteNodeHandler={deleteNodeHandler}
+          currentNotebookID={currentNotebookID}
+        />
     </>
   )
 }

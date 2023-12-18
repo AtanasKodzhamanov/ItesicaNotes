@@ -44,7 +44,6 @@ const RecursiveTree: React.FC<RecursiveTreeProps> = ({ currentNotebookID }) => {
     return (
         <>
             {childrenIDs.length > 0 && childrenIDs.map(childID => 
-            <>
                 <div key={childID} className={styles.contentContainer}>
                     {notes.filter(note => note.id === childID).map(note =>
                         <div key={note.id}>
@@ -54,7 +53,7 @@ const RecursiveTree: React.FC<RecursiveTreeProps> = ({ currentNotebookID }) => {
                     )}    
                     <RecursiveTree currentNotebookID={childID} />
                 </div>
-            </>)}
+            )}
         </>
     );
 }

@@ -29,7 +29,7 @@ const LoginForm = ({ onLogin }) => {
           onChange={(e) => setPassword(e.target.value)}
         />
         <button className={styles.buttonOrder} type="submit">
-          <span class="material-symbols-outlined">login</span>
+          <span className="material-symbols-outlined">login</span>
           LOGIN
         </button>
       </form>

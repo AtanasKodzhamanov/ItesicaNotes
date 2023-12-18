@@ -26,7 +26,7 @@ const FullTreePage = () => {
       };
 
     return (
-        <div className={styles.fullTreePage}>
+        <div>
             <NoteBooksBar
                 location = "full-tree"
                 openNoteBookHandler={openNoteBookHandler}

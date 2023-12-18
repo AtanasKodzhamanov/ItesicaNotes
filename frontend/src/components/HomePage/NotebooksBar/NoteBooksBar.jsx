@@ -12,9 +12,7 @@ const NoteBooksBar = ({ location, openNoteBookHandler, deleteNodeHandler, update
 
     const [animationParent] = useAutoAnimate()
     console.log(currentNotebookID)
-    const {
-        notes,
-    } = useContext(NoteContext)
+    const {notes} = useContext(NoteContext)
 
 
     const downloadPDF = () => {
@@ -33,12 +31,8 @@ const NoteBooksBar = ({ location, openNoteBookHandler, deleteNodeHandler, update
         location !== "full-tree" ? (
         <>  
             <div className={styles.notebooks}>
-                <div
-                    className={styles.newNotebookButton}
-                >
-                    <ExpandableNewNodeForm
-                        currentNotebookID={null} />
-                </div>
+                <ExpandableNewNodeForm
+                    currentNotebookID={null} />
                 <div className={styles.notebooksOnly} ref={animationParent}>
                     <RenderNotebooks
                         openNoteBookHandler={openNoteBookHandler}
@@ -51,18 +45,24 @@ const NoteBooksBar = ({ location, openNoteBookHandler, deleteNodeHandler, update
         )
         : 
         <>
-                <div className={styles.notebooksOnly} ref={animationParent}>
-                    <RenderNotebooks
-                        openNoteBookHandler={openNoteBookHandler}
-                        deleteNodeHandler={deleteNodeHandler}
-                        updateNotebookID={updateNotebookID}
-                    />
-                </div>
-                <button onClick={downloadPDF}>Download as PDF</button>
+            <div className={styles.notebooksOnly} ref={animationParent}>
+                <RenderNotebooks
+                    openNoteBookHandler={openNoteBookHandler}
+                    deleteNodeHandler={deleteNodeHandler}
+                    updateNotebookID={updateNotebookID}
+                />
+            </div>
+            <button className={styles.buttonRow} onClick={downloadPDF}>
+                <p>DOWNLOAD PDF</p>
+                <span className="material-symbols-outlined">
+                download
+                </span>
+            </button>
+            <h1>{notes.filter(note => note.id == currentNotebookID).title}</h1>
 
-                <div className={styles.pagePrint} id="tree-content">
-                    <RecursiveTree currentNotebookID={currentNotebookID} />
-                </div>
+            <div className={styles.pagePrint} id="tree-content">
+                <RecursiveTree currentNotebookID={currentNotebookID} />
+            </div>
         </>
         )
 }

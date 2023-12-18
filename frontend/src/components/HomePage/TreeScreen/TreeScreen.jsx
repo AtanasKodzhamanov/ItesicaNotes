@@ -22,6 +22,7 @@ const TreeScreen = ({ passNoteInfoHandler, createChildNode, deleteNodeHandler, c
                     />
                 </>
                 : <div className={styles.instructionsPanel}>
+                    <h2>USER INSTRUCTIONS</h2>
                     <div className={styles.instructionsRow}>
                         <div>
                             <h3>Open a notebook</h3>
@@ -35,7 +36,7 @@ const TreeScreen = ({ passNoteInfoHandler, createChildNode, deleteNodeHandler, c
                     <div className={styles.instructionsRow}>
                         <div>
                             <h3>Delete a notebook</h3>
-                            <p>drag and drop notebooke to the bin area</p>
+                            <p>drag and drop notebook to the bin area</p>
                         </div>
                         <div>
                             <h3>Download notes</h3>

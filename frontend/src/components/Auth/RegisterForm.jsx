@@ -33,7 +33,7 @@ const RegisterForm = () => {
           required
         />
         <button className={styles.buttonOrder} type="submit" disabled={loading}>
-          <span class="material-symbols-outlined">person</span>
+          <span className="material-symbols-outlined">person</span>
           REGISTER
         </button>
       </form>

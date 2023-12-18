@@ -26,7 +26,7 @@ const Header = ({ onLogout, isLoggedIn }) => {
           </div>
           <div>
             <button className={styles.logoutButton} onClick={onLogout}>
-              <span class="material-symbols-outlined">logout</span>
+              <span className="material-symbols-outlined">logout</span>
             </button>
           </div>
         </>

@@ -29,7 +29,7 @@ const ExpandableNewNodeForm = ({ currentNotebookID }) => {
   return (
     <>
       <div className="circle-plus" onClick={handleClick}>
-        <h1>+</h1>
+        <span class="material-symbols-outlined">add</span>
       </div>
       {isExpanded && (
         <div className="modal" onKeyDown={e => e.key === 'Escape' && closeModal()}>

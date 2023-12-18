@@ -64,7 +64,7 @@ const Bin = () => {
             ref={dropRef}
             className={`${styles.bin} ${isOver ? 'hovered' : ''}`}
         >
-            <span class="material-symbols-outlined">
+            <span className="material-symbols-outlined">
                 delete
             </span>
         </div>
