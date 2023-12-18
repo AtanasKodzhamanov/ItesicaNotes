@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import styles from './Form.module.css'
 
 const LoginForm = ({ onLogin }) => {
   const [username, setUsername] = useState('')
@@ -10,24 +11,24 @@ const LoginForm = ({ onLogin }) => {
   }
 
   return (
-    <div>
+    <div className={styles.form}>
       <form onSubmit={handleSubmit}>
-        <h2>Login</h2>
-        <label htmlFor="username">Username:</label>
+        <h2>LOGIN</h2>
+        <label htmlFor="username">USERNAME:</label>
         <input
           type="text"
           id="username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
-        <label htmlFor="password">Password:</label>
+        <label htmlFor="password">PASSWORD:</label>
         <input
           type="password"
           id="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button type="submit">Login</button>
+        <button type="submit">LOGIN</button>
       </form>
     </div>
   )

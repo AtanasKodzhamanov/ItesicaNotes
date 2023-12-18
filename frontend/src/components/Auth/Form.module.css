@@ -1,0 +1,19 @@
+.form{
+    min-width: 500px;
+    padding: 10px;
+}
+
+.form button {
+    background-color: #c1c1c1;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.form button:hover {
+    background-color: #9eabb4;
+}

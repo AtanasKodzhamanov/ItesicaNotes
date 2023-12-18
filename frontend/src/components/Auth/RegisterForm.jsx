@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import useRegister from '../../hooks/useRegister'
+import styles from './Form.module.css'
 
 const RegisterForm = () => {
   const [username, setUsername] = useState('')
@@ -12,10 +13,10 @@ const RegisterForm = () => {
   }
 
   return (
-    <div>
+    <div className={styles.form}>
       <form onSubmit={handleSubmit}>
-        <h2>Register</h2>
-        <label htmlFor="username">Username:</label>
+        <h2>CREATE NEW ACCOUNT</h2>
+        <label htmlFor="username">USERNAME:</label>
         <input
           type="text"
           id="username"
@@ -23,7 +24,7 @@ const RegisterForm = () => {
           onChange={(e) => setUsername(e.target.value)}
           required
         />
-        <label htmlFor="password">Password:</label>
+        <label htmlFor="password">PASSWORD:</label>
         <input
           type="password"
           id="password"
@@ -32,7 +33,7 @@ const RegisterForm = () => {
           required
         />
         <button type="submit" disabled={loading}>
-          Register
+          REGISTER
         </button>
       </form>
       {error && <p>Error: {JSON.stringify(error)}</p>}

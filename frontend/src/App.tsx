@@ -18,15 +18,10 @@ const App = () => {
 
 
   return (
-    <div>
+    <div className={"page-body"}>
 
       {!isLoggedIn && (
         <>
-          <Header
-            onLogout={logoutUser}
-            username={username}
-            isLoggedIn={isLoggedIn}
-          />
           <WelcomePage loginUser={loginUser} />
         </>
         

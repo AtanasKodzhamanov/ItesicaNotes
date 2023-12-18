@@ -11,13 +11,21 @@
   text-align: center;
 }
 
+.page-body{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--secondary-color);
+  height: 100vh;
+}
+
 .main-body {
   display: flex;
   flex-direction: column;
   height: 95vh;
-  padding: 15px;
-  padding-top:0px;
-  padding-bottom:0px;
+  padding: 0;
+  width:95%;
 }
 
 button {

@@ -5,7 +5,7 @@ import styles from './WelcomePage.module.css'
 
 
 const WelcomePage = ({ loginUser }) => {
-  const [showLoginForm, setShowLoginForm] = useState(false)
+  const [showLoginForm, setShowLoginForm] = useState(true)
   const [showRegisterForm, setShowRegisterForm] = useState(false)
 
   const handleLoginClick = () => {
@@ -21,23 +21,6 @@ const WelcomePage = ({ loginUser }) => {
   return (
     <>
       <div className={styles.welcomePageInfo}>
-        {showLoginForm || showRegisterForm ? null : (
-          <div>
-            <p>
-              {' '}
-              This note app was born out of my personal need to centralise and
-              simplify the management of my notes, ideas, links, and other
-              content.
-            </p>
-
-            <p>
-              {' '}
-              The app offers a user-friendly tree structure for organising and
-              managing notes, allowing you to add, edit, delete, and create
-              sub-notes to suit your needs.
-            </p>
-          </div>
-        )}
         {showLoginForm && <LoginForm onLogin={loginUser} />}
         {showRegisterForm && <RegisterForm />}
       </div>
