@@ -34,9 +34,8 @@
     gap: 20px;
     justify-content: center;
     align-items: center;
-    flex-wrap: nowrap;
-    overflow-x: auto;
     font-weight: bold;
+    margin:10px;
 }
 
 .fullNotesTitle{

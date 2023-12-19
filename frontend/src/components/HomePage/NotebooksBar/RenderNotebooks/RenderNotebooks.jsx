@@ -71,7 +71,7 @@ const Bin = () => {
     );
 };
 
-const RenderNotebooks = ({ openNoteBookHandler, deleteNodeHandler, updateNotebookID }) => {
+const RenderNotebooks = ({ location,openNoteBookHandler, deleteNodeHandler, updateNotebookID }) => {
 
     const {
         notes,
@@ -91,7 +91,8 @@ const RenderNotebooks = ({ openNoteBookHandler, deleteNodeHandler, updateNoteboo
 
     return (
         <DndProvider backend={HTML5Backend}>
-            <>  <Bin />
+            <>  
+                {location === "full-tree" ? null : <Bin />}
                 <div className={styles.notebooksWithoutBin}>
                 {notes
                     .filter((note) => note.parent === null)

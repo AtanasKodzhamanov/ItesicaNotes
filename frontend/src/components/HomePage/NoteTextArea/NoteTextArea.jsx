@@ -87,8 +87,8 @@ const NoteTextArea = ({ parentNode, selectedNote, newChildNodeForm, setNewChildN
                                 onChange={e => setChildText(e.target.value)}
                             />
                             <div className={styles.utilityButtons}>
-                                <button className="save-button" onClick={saveChildNodeHandler}>Save</button>
-                                <button className="cancle-button" onClick={cancleChildNodeHandler}>X</button>
+                                <button className={styles.saveButton} onClick={saveChildNodeHandler}>Save</button>
+                                <button className={styles.cancleButton} onClick={cancleChildNodeHandler}>X</button>
                             </div>
                         </div>
                     </>

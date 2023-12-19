@@ -44,6 +44,7 @@ const NoteBooksBar = ({ location, openNoteBookHandler, deleteNodeHandler, update
             {/* renders the notebooks in the full tree view */}
             <div className={styles.notebooksOnly} ref={animationParent}>
                 <RenderNotebooks
+                    location = {location}
                     openNoteBookHandler={openNoteBookHandler}
                     deleteNodeHandler={deleteNodeHandler}
                     updateNotebookID={updateNotebookID}

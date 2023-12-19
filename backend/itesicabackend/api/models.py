@@ -39,7 +39,7 @@ class Note(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)
     edit_date = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    content = models.TextField(max_length=2500)
+    content = models.TextField(max_length=5000)
     marked = models.BooleanField(default=False)
     color = models.CharField(max_length=255, choices=COLORS, default="")
 
@@ -58,9 +58,9 @@ class Note(models.Model):
             if orig.content != self.content:  # save only if the content has been modified
                 NoteHistory.objects.create(note=self, old_content=orig.content)
 
-                # Check if there are more than 5 edits and delete the oldest one
+                # Check if there are more than 10 edits and delete the oldest one
                 edit_history = self.edit_history.all()
-                if edit_history.count() > 5:
+                if edit_history.count() > 10:
                     edit_history.last().delete()
 
         super(Note, self).save(*args, **kwargs)

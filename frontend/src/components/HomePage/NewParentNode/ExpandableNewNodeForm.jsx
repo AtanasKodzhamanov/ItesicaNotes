@@ -1,8 +1,8 @@
 import NewNodeForm from './NewNodeForm'
 import React, { useState } from 'react'
-import './ExpandableNewNodeForm.css'
 import { useContext } from 'react'
 import { NoteContext } from '../../../context/NoteContext'
+import styles from './ExpandableNewNodeForm.module.css'
 
 const ExpandableNewNodeForm = ({ currentNotebookID }) => {
 
@@ -28,13 +28,13 @@ const ExpandableNewNodeForm = ({ currentNotebookID }) => {
 
   return (
     <>
-      <div className="circle-plus" onClick={handleClick}>
-        <span class="material-symbols-outlined">add</span>
+      <div className={styles.circlePlus} onClick={handleClick}>
+        <span className="material-symbols-outlined">add</span>
       </div>
       {isExpanded && (
-        <div className="modal" onKeyDown={e => e.key === 'Escape' && closeModal()}>
-          <div className="modal-content">
-            <span className="close" onClick={closeModal}>
+        <div className={styles.modal} onKeyDown={e => e.key === 'Escape' && closeModal()}>
+          <div className={styles.modalContent}>
+            <span className={styles.close} onClick={closeModal}>
               &times;
             </span>
             <NewNodeForm createNode={handleFormCreate} currentNotebookID={currentNotebookID} />
