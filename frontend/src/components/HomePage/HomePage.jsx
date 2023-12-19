@@ -66,6 +66,7 @@ const HomePage = () => {
         </div>
         <div className={styles.noteTextArea}>
           <NoteTextArea
+            currentNotebookID={currentNotebookID}
             parentNode={parentNode}
             selectedNote={selectedNote}
             setNewChildNodeForm={setNewChildNodeForm}

@@ -37,7 +37,7 @@ const RegisterForm = () => {
           REGISTER
         </button>
       </form>
-      {error && <p>Error: {JSON.stringify(error)}</p>}
+      {error && <p>Error: {error.error}</p>}
       {success && <p>Registration successful! You can now log in.</p>}
     </div>
   )

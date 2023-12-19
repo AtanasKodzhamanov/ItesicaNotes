@@ -1,23 +1,24 @@
 
 .noteContainer {
     background-color: #f4f4f4;
+    text-transform: uppercase;
     padding: 10px;
-    border: 2px solid var(--secondary-color);
-    box-shadow: inset 1px 1px 1px #999;
+    border: 1px solid var(--secondary-color);
     box-sizing: border-box;
     flex-grow:1;
     margin:2px;
+    box-shadow: 0 0 1px #ccc;
   }
 
 .noteContainer:hover{
     background-color: #dedede;
-    transition: all 0.3s ease;
+    transition: all 0.1s ease;
     box-shadow: none; 
 }
 
 .noteContainer.active{
     background-color: #dedede;
-    transition: all 0.3s ease;
+    transition: all 0.1s ease;
     box-shadow: none; 
 }
 

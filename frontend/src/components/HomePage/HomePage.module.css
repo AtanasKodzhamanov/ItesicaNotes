@@ -28,21 +28,6 @@
     margin-left:1rem;
 }
 
-@keyframes pulse {
-    0% {
-      box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
-    }
-    50% {
-      box-shadow: none;
-    }
-    100% {
-      box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2)
-    }
-  }
-
-.edit-border{
-    animation: pulse 0.75s;
-}
 
 .new-notebook-button{
     display: flex;

@@ -33,6 +33,7 @@ const LoginForm = ({ onLogin }) => {
           LOGIN
         </button>
       </form>
+      
     </div>
   )
 }

@@ -49,3 +49,19 @@
     padding:25px;
     border-radius: 25%;
 }
+
+@keyframes pulse {
+    0% {
+      box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+    }
+    50% {
+      box-shadow: none;
+    }
+    100% {
+      box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2)
+    }
+  }
+
+.editBorder{
+    animation: pulse 0.75s;
+}

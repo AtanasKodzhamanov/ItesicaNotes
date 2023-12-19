@@ -16,7 +16,7 @@
 .instructionsRow > *{
     flex:1;
     padding:1rem;
-    border:1px solid black;
     background-color: var(--secondary-color);
     color:black;
+    box-shadow: 0 0 10px #ccc;
 }

@@ -1,14 +1,19 @@
 import React from 'react'
+import { useContext } from 'react'
+import { NoteContext } from '../context/NoteContext'
+import styles from './LastEditedPage.module.css'
 
-const LastEdited = ({ editedNodes }) => {
+const LastEdited = () => {
+  const {notes} = useContext(NoteContext)
+  let editedNodes = notes.filter((note) => note.edit_date !== null)
+  editedNodes = editedNodes.slice(-10).reverse()
+
   return (
     <div>
-      <h2>Last 5 edited notes:</h2>
+      <h2>EDIT LOG</h2>
       <ul>
         {console.log(editedNodes)}
         {editedNodes
-          .slice(-5)
-          .reverse()
           .map((node) => {
             // Convert the edit_date string to a Date object
             const editDate = new Date(node.edit_date)
@@ -18,17 +23,10 @@ const LastEdited = ({ editedNodes }) => {
             // Combine the date and time strings
             const formattedDateTime = `${formattedDate} ${formattedTime}`
             return (
-              <li key={node.edit_date} className="edit-cards">
+              <li key={node.edit_date} className={styles.editCard}>
                 <div className="node">
-                  <h3>New</h3>
                   <div className="node">
                     <h3>{node.title}</h3>
-                    <p>{node.content}</p>
-                  </div>
-                  <h3>Old</h3>
-                  <div className="node">
-                    <h3>{node.oldTitle}</h3>
-                    <p>{node.oldContent}</p>
                   </div>
                   <div className="edit-time">
                     <p>Edited on:</p>

@@ -11,6 +11,7 @@
     margin:0px;
     width: 80px;
     max-height: 10vh;
+    box-shadow: 0 0 10px #ccc;
 
 }
 
@@ -19,4 +20,6 @@
     flex-wrap: nowrap;
     overflow-x: auto;
     gap:5px;
+    box-shadow: 0 0 10px #ccc;
+
 }

@@ -17,13 +17,13 @@ const NoteButton = ({ note, passNoteInfoHandler, selectedNodes, showChildrenOnCl
             <h3 className={styles.childrenCount}>
                 {note.children.length}
             </h3>
-            <h2
+            <h4
                 className={`${styles.noteContainer} ${selectedNodes.some(node => node.id === note.id) || note.children.length === 0 ? styles.active : ''}`}
                 onMouseEnter={() => passNoteInfoHandler(note)}
                 onClick={() => handleClick(note)}
             >
                 {note.title}
-            </h2>
+            </h4>
             <div className={styles.buttonGroup}>
                 <button onClick={() => createChildNode(note)} className={`${styles.noteButton} ${styles.new}`} > <p>+</p></button>
                 <button onClick={() => deleteNodeHandler(note)} className={`${styles.noteButton} ${styles.delete}`}><p>x</p></button>

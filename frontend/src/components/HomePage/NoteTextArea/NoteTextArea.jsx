@@ -3,7 +3,7 @@ import { useContext } from 'react'
 import { NoteContext } from '../../../context/NoteContext'
 import styles from './NoteTextArea.module.css'
 
-const NoteTextArea = ({ parentNode, selectedNote, newChildNodeForm, setNewChildNodeForm }) => {
+const NoteTextArea = ({ currentNotebookID, parentNode, selectedNote, newChildNodeForm, setNewChildNodeForm }) => {
 
     const [borderEffectTitle, setBorderEffectTitle] = useState(false);
     const [borderEffectText, setBorderEffectText] = useState(false);
@@ -27,7 +27,6 @@ const NoteTextArea = ({ parentNode, selectedNote, newChildNodeForm, setNewChildN
         setNoteTitle(selectedNote.title)
         setOriginalNoteText(selectedNote.content)
         setOriginalNoteTitle(selectedNote.title)
-
     }, [selectedNote])
 
     // when a user types in a note text area and then clicks outside of the text area, the note is automatically updated
@@ -94,23 +93,24 @@ const NoteTextArea = ({ parentNode, selectedNote, newChildNodeForm, setNewChildN
                     </>
                     :
                     <>
+                        {currentNotebookID !== null ?
                         <div className={styles.newNoteContainer}>
-
                             <textarea
-                                className={`${styles.noteTitleInput} ${borderEffectTitle ? 'edit-border' : ''}`}
+                                className={`${styles.noteTitleInput} ${borderEffectTitle ? 'editBorder' : ''}`}
                                 placeholder="Enter title..."
                                 value={noteTitle}
                                 onChange={e => setNoteTitle(e.target.value)}
                                 onBlur={handleBlur}
                             />
                             <textarea
-                                className={`${styles.noteTextInput} ${borderEffectText ? 'edit-border' : ''}`}
+                                className={`${styles.noteTextInput} ${borderEffectText ? 'editBorder' : ''}`}
                                 placeholder="Enter note..."
                                 value={noteText}
                                 onChange={e => setNoteText(e.target.value)}
                                 onBlur={handleBlur}
                             />
                         </div>
+                        : <h2 style={{ textAlign: 'center' }} >NO ACTIVE NOTEBOOK</h2>}
                     </>
             }
         </>
