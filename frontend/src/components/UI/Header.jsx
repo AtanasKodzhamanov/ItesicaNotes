@@ -21,7 +21,6 @@ const Header = ({ onLogout, isLoggedIn }) => {
           <div className={styles.headerLinks}>
             <Link to="/">NOTES</Link>
             <Link to="/last-edited">LAST EDITED</Link>
-            <Link to="/workspace">WORKSPACE</Link>
             <Link to="/full-tree">FULL TREE</Link>
           </div>
           <div>
