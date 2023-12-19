@@ -38,3 +38,8 @@
     overflow-x: auto;
     font-weight: bold;
 }
+
+.fullNotesTitle{
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}

@@ -14,9 +14,6 @@ interface Note {
 }
 
 const RecursiveTree: React.FC<RecursiveTreeProps> = ({ currentNotebookID }) => {
-    console.log(currentNotebookID);
-    console.log("RecursiveTree")
-    
     const { notes } = useContext(NoteContext) as { notes: Note[] }; // Cast the context to the correct type
 
     // filter the notes to only show the notes that have the currentNotebookID as their parent_id
@@ -24,7 +21,6 @@ const RecursiveTree: React.FC<RecursiveTreeProps> = ({ currentNotebookID }) => {
     // build up an array of the children of the currentNotebookID
     // if the array is empty, return null
     // if the array is not empty map over the array and return the children's content
-    console.log(notes);
     const childrenIDs = notes.filter(note => note.parent === currentNotebookID).map(note => note.id);
     let fullTreeNotes = [];
     let fullTreeRender = null;
@@ -37,8 +33,7 @@ const RecursiveTree: React.FC<RecursiveTreeProps> = ({ currentNotebookID }) => {
             </div>
         );
     }
-    console.log(childrenIDs);
-    console.log(fullTreeRender);
+
     return (
         <>
             {childrenIDs.length > 0 && childrenIDs.map(childID => 

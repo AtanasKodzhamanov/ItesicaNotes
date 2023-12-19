@@ -11,10 +11,14 @@
   text-align: center;
 }
 
+body{
+  background-color: var(--secondary-color);
+}
+
 .page-body{
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   background-color: var(--secondary-color);
   height: 100vh;
@@ -23,7 +27,7 @@
 .main-body {
   display: flex;
   flex-direction: column;
-  height: 95vh;
+  min-height: 95vh;
   padding: 0;
   width:95%;
 }

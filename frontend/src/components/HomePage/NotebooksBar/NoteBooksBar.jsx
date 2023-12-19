@@ -26,7 +26,7 @@ const NoteBooksBar = ({ location, openNoteBookHandler, deleteNodeHandler, update
 
     return (
         location !== "full-tree" ? (
-        <>  
+            // the + button
             <div className={styles.notebooks}>
                 <ExpandableNewNodeForm
                     currentNotebookID={null} />
@@ -38,10 +38,10 @@ const NoteBooksBar = ({ location, openNoteBookHandler, deleteNodeHandler, update
                     />
                 </div>
             </div>
-        </>
         )
-        : 
-        <>
+        :
+        <> 
+            {/* renders the notebooks in the full tree view */}
             <div className={styles.notebooksOnly} ref={animationParent}>
                 <RenderNotebooks
                     openNoteBookHandler={openNoteBookHandler}
@@ -49,13 +49,21 @@ const NoteBooksBar = ({ location, openNoteBookHandler, deleteNodeHandler, update
                     updateNotebookID={updateNotebookID}
                 />
             </div>
+
+            {/* get notebook Title */}        
+            {currentNotebookID ? 
+            <h1 className={styles.fullNotesTitle}>{notes.find(note => note.id === currentNotebookID)?.title} - Full Notebook</h1>
+            : null}
+
+            {/* download button for the pdf */}        
             <button className={styles.buttonRow} onClick={downloadPDF}>
                 <p>DOWNLOAD PDF</p>
                 <span className="material-symbols-outlined">
                 download
                 </span>
             </button>
-            <h1>{notes.filter(note => note.id == currentNotebookID).title}</h1>
+
+            <br></br>
 
             <div className={styles.pagePrint} id="tree-content">
                 <RecursiveTree currentNotebookID={currentNotebookID} />
