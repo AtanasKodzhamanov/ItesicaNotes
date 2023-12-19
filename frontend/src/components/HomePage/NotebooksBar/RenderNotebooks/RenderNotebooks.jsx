@@ -43,7 +43,7 @@ const Note = ({ note, onNoteDropped, openNoteBookHandler }) => {
             ref={dragRef}
             onClick={() => openNoteBookHandler(note.id)}
         >
-            <h1>{note.title}</h1>
+            <h2>{note.title.toUpperCase()}</h2>
         </button>
     );
 };
